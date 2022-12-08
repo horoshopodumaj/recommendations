@@ -1,5 +1,3 @@
-@import "~materialize-css/dist/css/materialize.min.css";
-
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
@@ -10,4 +8,24 @@ body {
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+:root {
+    --logo: #fff;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--logo);
+}
+
+.appbar__logo {
+    margin-right: 20px;
+}
+.chapter {
+    font-weight: 400;
+    color: var(--logo);
+    text-decoration: none;
 }
