@@ -33,3 +33,9 @@ code {
 fieldset {
     border: none !important;
 }
+
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
