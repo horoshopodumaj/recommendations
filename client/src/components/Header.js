@@ -15,11 +15,13 @@ import {
     List,
     ListItem,
     ListItemButton,
+    Select,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -68,6 +70,11 @@ const Header = () => {
     const isAuth = true;
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [isSearchOpen, setSearchOpen] = useState(false);
+    const [lang, setLang] = useState("EN");
+
+    const handleChange = (event) => {
+        setLang(event.target.value);
+    };
     const [state, setState] = useState({
         left: false,
     });
@@ -178,6 +185,13 @@ const Header = () => {
                             </Link>
                         </Button>
                     ))}
+                    <IconButton sx={{ mb: "3px", mx: "5px" }}>
+                        <LightModeIcon />
+                    </IconButton>
+                    <Select value={lang} label="lang" onChange={handleChange} displayEmpty>
+                        <MenuItem value={"RU"}>RU</MenuItem>
+                        <MenuItem value={"EN"}>EN</MenuItem>
+                    </Select>
                 </Box>
 
                 {isAuth ? (
