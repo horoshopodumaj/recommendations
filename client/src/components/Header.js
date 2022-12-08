@@ -198,11 +198,11 @@ const Header = () => {
                         gap: "20px",
                     }}>
                     {pages.map((page) => (
-                        <Button key={page} sx={{ my: 2, display: "block" }}>
-                            <Link to={`/${page}`} className="chapter">
+                        <Link to={`/${page}`} className="chapter">
+                            <Button key={page} sx={{ my: 2, display: "block", color: "white" }}>
                                 {page}
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     ))}
                     <IconButton sx={{ mb: "3px", mx: "5px" }}>
                         <LightModeIcon />
@@ -235,14 +235,18 @@ const Header = () => {
                             }}
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}>
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center">My account</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-                                    Logout
-                                </Link>
-                            </MenuItem>
+                            <Link
+                                onClick={handleCloseUserMenu}
+                                to="/profile"
+                                style={{ textDecoration: "none", color: "black" }}>
+                                <MenuItem>My account</MenuItem>
+                            </Link>
+                            <Link
+                                onClick={handleCloseUserMenu}
+                                to="/"
+                                style={{ textDecoration: "none", color: "black" }}>
+                                <MenuItem>Logout</MenuItem>
+                            </Link>
                         </Menu>
                     </Box>
                 ) : (
