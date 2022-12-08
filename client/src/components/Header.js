@@ -110,13 +110,32 @@ const Header = () => {
                 </IconButton>
                 <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
                     <Box
-                        sx={{ width: 250, display: { xs: "flex", md: "none" } }}
+                        sx={{
+                            width: 250,
+                            display: { xs: "flex", md: "none" },
+                            flexDirection: "column",
+                        }}
                         role="presentation"
                         onClick={toggleDrawer("left", false)}
                         onKeyDown={toggleDrawer("left", false)}>
+                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                            <IconButton sx={{ mb: "3px", mx: "10px" }}>
+                                <LightModeIcon />
+                            </IconButton>
+                            <Select
+                                value={lang}
+                                label="lang"
+                                onChange={handleChange}
+                                displayEmpty
+                                sx={{ mr: "10px" }}>
+                                <MenuItem value={"RU"}>RU</MenuItem>
+                                <MenuItem value={"EN"}>EN</MenuItem>
+                            </Select>
+                        </Box>
+
                         <List>
                             {pages.map((page) => (
-                                <ListItem>
+                                <ListItem key={page}>
                                     <ListItemButton>
                                         <Link
                                             to={`/${page}`}
@@ -179,7 +198,7 @@ const Header = () => {
                         gap: "20px",
                     }}>
                     {pages.map((page) => (
-                        <Button sx={{ my: 2, display: "block" }}>
+                        <Button key={page} sx={{ my: 2, display: "block" }}>
                             <Link to={`/${page}`} className="chapter">
                                 {page}
                             </Link>
