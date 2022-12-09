@@ -4,7 +4,7 @@ import React from "react";
 export default function UserPage() {
     return (
         <Container>
-            <div>Мои Обзоры</div>
+            <div>My Reviews</div>
         </Container>
     );
 }

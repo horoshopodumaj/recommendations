@@ -4,11 +4,11 @@ import React from "react";
 export default function MainPage() {
     return (
         <Container>
-            <div>Облако тегов</div>
+            <div>Tag Cloud</div>
             <Divider />
-            <div>Новые Обзоры</div>
+            <div>New Reviews</div>
             <Divider />
-            <div>Популярные Обзоры</div>
+            <div>Popular Reviews</div>
         </Container>
     );
 }

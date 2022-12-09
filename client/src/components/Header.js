@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
     AppBar,
@@ -22,6 +22,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import GlobalContext from "../contexts/GlobalContext";
+import { LOCALES } from "../i18n/locales";
+import { FormattedMessage } from "react-intl";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -70,10 +73,11 @@ const Header = () => {
     const isAuth = true;
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [isSearchOpen, setSearchOpen] = useState(false);
-    const [lang, setLang] = useState("EN");
+    const { currentLocale, setCurrentLocale } = useContext(GlobalContext);
 
     const handleChange = (event) => {
-        setLang(event.target.value);
+        setCurrentLocale(event.target.value);
+        localStorage.setItem("language", event.target.value);
     };
     const [state, setState] = useState({
         left: false,
@@ -123,13 +127,13 @@ const Header = () => {
                                 <LightModeIcon />
                             </IconButton>
                             <Select
-                                value={lang}
+                                value={currentLocale}
                                 label="lang"
                                 onChange={handleChange}
                                 displayEmpty
                                 sx={{ mr: "10px" }}>
-                                <MenuItem value={"RU"}>RU</MenuItem>
-                                <MenuItem value={"EN"}>EN</MenuItem>
+                                <MenuItem value={LOCALES.RU}>RU</MenuItem>
+                                <MenuItem value={LOCALES.EN}>EN</MenuItem>
                             </Select>
                         </Box>
 
@@ -143,7 +147,7 @@ const Header = () => {
                                                 textDecoration: "none",
                                                 textTransform: "uppercase",
                                             }}>
-                                            {page}
+                                            <FormattedMessage id={`${page}`} />
                                         </Link>
                                     </ListItemButton>
                                 </ListItem>
@@ -198,18 +202,18 @@ const Header = () => {
                         gap: "20px",
                     }}>
                     {pages.map((page) => (
-                        <Link to={`/${page}`} className="chapter">
-                            <Button key={page} sx={{ my: 2, display: "block", color: "white" }}>
-                                {page}
+                        <Link key={page} to={`/${page}`} className="chapter">
+                            <Button sx={{ my: 2, display: "block", color: "white" }}>
+                                {<FormattedMessage id={`${page}`} />}
                             </Button>
                         </Link>
                     ))}
                     <IconButton sx={{ mb: "3px", mx: "5px" }}>
                         <LightModeIcon />
                     </IconButton>
-                    <Select value={lang} label="lang" onChange={handleChange} displayEmpty>
-                        <MenuItem value={"RU"}>RU</MenuItem>
-                        <MenuItem value={"EN"}>EN</MenuItem>
+                    <Select value={currentLocale} label="lang" onChange={handleChange} displayEmpty>
+                        <MenuItem value={LOCALES.RU}>RU</MenuItem>
+                        <MenuItem value={LOCALES.EN}>EN</MenuItem>
                     </Select>
                 </Box>
 
@@ -239,13 +243,17 @@ const Header = () => {
                                 onClick={handleCloseUserMenu}
                                 to="/profile"
                                 style={{ textDecoration: "none", color: "black" }}>
-                                <MenuItem>My account</MenuItem>
+                                <MenuItem>
+                                    <FormattedMessage id="my_account" />
+                                </MenuItem>
                             </Link>
                             <Link
                                 onClick={handleCloseUserMenu}
                                 to="/"
                                 style={{ textDecoration: "none", color: "black" }}>
-                                <MenuItem>Logout</MenuItem>
+                                <MenuItem>
+                                    <FormattedMessage id="Logout" />
+                                </MenuItem>
                             </Link>
                         </Menu>
                     </Box>
