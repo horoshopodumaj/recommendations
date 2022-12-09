@@ -3,7 +3,7 @@ import { IntlProvider } from "react-intl";
 import Books from "./components/Books";
 import Films from "./components/Films";
 import Games from "./components/Games";
-import Header from "./components/Header";
+import Header from "./components/header";
 import Login from "./components/Login";
 import MainPage from "./components/MainPage";
 import UserPage from "./components/UserPage";
