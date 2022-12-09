@@ -8,6 +8,8 @@ export const messages = {
         my_account: "My account",
         login: "login",
         Logout: "Logout",
+        loginPage: "Log in to your account",
+        signInWith: "Sign in with",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -16,5 +18,7 @@ export const messages = {
         my_account: "Моя страница",
         login: "войти",
         Logout: "Выйти",
+        loginPage: "Войдите в свою учетную запись",
+        signInWith: "Войдите в систему с помощью",
     },
 };
