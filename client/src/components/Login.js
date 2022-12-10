@@ -31,7 +31,7 @@ const Login = () => {
                         height: "100%",
                         p: "20px",
                     }}>
-                    <Typography variant="h6" sx={{ pb: "20px" }}>
+                    <Typography variant="h6" sx={{ pb: "20px", textAlign: "center" }}>
                         <FormattedMessage id="loginPage" />
                     </Typography>
                     <Button
