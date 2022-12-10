@@ -49,3 +49,52 @@ const Comment = sequelize.define("comment", {
     description: { type: DataTypes.STRING, allowNull: false },
     date: { type: DataTypes.DATEONLY, allowNull: false },
 });
+
+const TagReview = sequelize.define("tag_review", {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+});
+
+User.hasMany(Review);
+Review.belongsTo(User);
+
+User.hasMany(Rating);
+Rating.belongsTo(User);
+
+User.hasMany(Like);
+Like.belongsTo(User);
+
+User.hasMany(Comment);
+Comment.belongsTo(User);
+
+User.hasMany(Star);
+Star.belongsTo(User);
+
+Review.hasMany(Comment);
+Comment.belongsTo(Review);
+
+Review.hasMany(Star);
+Star.belongsTo(Review);
+
+Review.hasMany(Like);
+Like.belongsTo(Review);
+
+Review.hasOne(Rating);
+Rating.belongsTo(Review);
+
+Group.hasMany(Review);
+Review.belongsTo(Group);
+
+Tag.belongsToMany(Review, { through: TagReview });
+Review.belongsToMany(Tag, { through: TagReview });
+
+module.exports = {
+    User,
+    Review,
+    Group,
+    Tag,
+    Rating,
+    Comment,
+    Star,
+    Like,
+    TagReview,
+};
