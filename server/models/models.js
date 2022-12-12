@@ -13,7 +13,7 @@ const Review = sequelize.define("review", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING, allowNull: false },
     workName: { type: DataTypes.STRING, allowNull: false },
-    tags: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
+    // tags: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
     description: { type: DataTypes.STRING, allowNull: false },
     image: { type: DataTypes.STRING },
     rating: { type: DataTypes.INTEGER, defaultValue: 0, allowNull: false },
@@ -39,10 +39,10 @@ const Star = sequelize.define("star", {
     value: { type: DataTypes.INTEGER, defaultValue: 0 },
 });
 
-const Rating = sequelize.define("rating", {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    rate: { type: DataTypes.INTEGER, allowNull: false },
-});
+// const Rating = sequelize.define("rating", {
+//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+//     rate: { type: DataTypes.INTEGER, allowNull: false },
+// });
 
 const Comment = sequelize.define("comment", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -57,8 +57,8 @@ const TagReview = sequelize.define("tag_review", {
 User.hasMany(Review);
 Review.belongsTo(User);
 
-User.hasMany(Rating);
-Rating.belongsTo(User);
+// User.hasMany(Rating);
+// Rating.belongsTo(User);
 
 User.hasMany(Like);
 Like.belongsTo(User);
@@ -78,8 +78,8 @@ Star.belongsTo(Review);
 Review.hasMany(Like);
 Like.belongsTo(Review);
 
-Review.hasOne(Rating);
-Rating.belongsTo(Review);
+// Review.hasOne(Rating);
+// Rating.belongsTo(Review);
 
 Group.hasMany(Review);
 Review.belongsTo(Group);
@@ -92,7 +92,6 @@ module.exports = {
     Review,
     Group,
     Tag,
-    Rating,
     Comment,
     Star,
     Like,
