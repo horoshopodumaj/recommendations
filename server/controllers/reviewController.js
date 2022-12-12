@@ -6,7 +6,7 @@ const ApiError = require("../error/ApiError");
 class ReviewController {
     async create(req, res, next) {
         try {
-            const { title, workName, description, groupId, rating } = req.body;
+            let { title, workName, description, groupId, rating } = req.body;
             const { image } = req.files;
             let fileName = uuid.v4() + ".jpg";
             image.mv(path.resolve(__dirname, "..", "static", fileName));
@@ -26,10 +26,24 @@ class ReviewController {
     }
 
     async getAll(req, res) {
-        res.json("jii");
+        let { groupId, limit, page } = req.query;
+        page = page || 1;
+        limit = limit || 9;
+        let offset = page * limit - limit;
+        let reviews;
+        if (groupId) {
+            reviews = await Review.findAndCountAll({ where: { groupId }, limit, offset });
+        } else {
+            reviews = await Review.findAndCountAll({ limit, offset });
+        }
+        return res.json(reviews);
     }
 
-    async getOne(req, res) {}
+    async getOne(req, res) {
+        const { id } = req.params;
+        const review = await Review.findOne({ where: { id } });
+        return res.json(review);
+    }
 }
 
 module.exports = new ReviewController();
