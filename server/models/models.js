@@ -14,7 +14,7 @@ const Review = sequelize.define("review", {
     title: { type: DataTypes.STRING, allowNull: false },
     workName: { type: DataTypes.STRING, allowNull: false },
     // tags: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
-    description: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.TEXT, allowNull: false },
     image: { type: DataTypes.STRING },
     rating: { type: DataTypes.INTEGER, defaultValue: 0, allowNull: false },
 });
