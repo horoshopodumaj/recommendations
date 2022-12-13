@@ -3,9 +3,10 @@ const { DataTypes } = require("sequelize");
 
 const User = sequelize.define("user", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    emailQ: { type: DataTypes.STRING, unique: true },
-    passwordQ: { type: DataTypes.STRING },
-    nameQ: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING, unique: true, allowNull: true },
+    password: { type: DataTypes.STRING, allowNull: true },
+    name: { type: DataTypes.STRING, allowNull: true },
+    googleId: { type: DataTypes.STRING, allowNull: true },
     role: { type: DataTypes.STRING, defaultValue: "USER" },
 });
 

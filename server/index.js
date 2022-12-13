@@ -7,6 +7,10 @@ const fileUpload = require("express-fileupload");
 const router = require("./routes/index");
 const errorHandler = require("./middleware/ErrorMiddleware");
 const path = require("path");
+const passport = require("passport");
+const session = require("express-session");
+
+require("./auth/passportGoogle");
 
 PORT = process.env.PORT || 8000;
 
@@ -15,9 +19,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "static")));
 app.use(fileUpload({}));
+app.use(session({ secret: process.env.SECRET_KEY }));
 app.use("/api", router);
 
-app.use(errorHandler);
+app.use(passport.initialize());
+app.use(passport.session());
+
+//app.use(errorHandler);
 
 const start = async () => {
     try {
