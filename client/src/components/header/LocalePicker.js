@@ -12,6 +12,7 @@ export default function LocalePicker() {
     };
     return (
         <Select
+            className="select-fieldset"
             value={currentLocale}
             label="lang"
             onChange={handleChange}

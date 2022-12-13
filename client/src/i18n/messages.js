@@ -10,6 +10,10 @@ export const messages = {
         Logout: "Logout",
         loginPage: "Log in to your account",
         signInWith: "Sign in with",
+        signInButton: "Log in",
+        or: "OR",
+        noAccount: "No account?",
+        register: "Sign up",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -20,5 +24,9 @@ export const messages = {
         Logout: "Выйти",
         loginPage: "Войдите в свою учетную запись",
         signInWith: "Войдите в систему с помощью",
+        signInButton: "Войдите",
+        or: "ИЛИ",
+        noAccount: "Нет аккаунта?",
+        register: "Зарегистрируйтесь",
     },
 };
