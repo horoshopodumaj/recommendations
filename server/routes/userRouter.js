@@ -6,7 +6,7 @@ const userController = require("../controllers/userController");
 const successLoginUrl = `${process.env.CLIENT_URL}/books`;
 const errorLoginUrl = ` ${process.env.CLIENT_URL}/login`;
 
-router.post("/registration", userController.registration);
+//router.post("/registration", userController.registration);
 router.post("/login", userController.login);
 router.get("/login/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 router.get(

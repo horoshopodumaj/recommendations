@@ -12,9 +12,11 @@ passport.use(
         },
         async (req, accessToken, refreshToken, profile, cb) => {
             const defaultUser = {
-                name: `${profile.name.givenName} ${profile.name.famileName}`,
+                name: `${profile.name.givenName} ${profile.name.familyName}`,
                 email: profile.email,
                 googleId: profile.id,
+                // isActivated: true,
+                // provider: "google",s
             };
 
             const user = await User.findOrCreate({

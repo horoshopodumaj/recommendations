@@ -58,7 +58,7 @@ const Login = () => {
                     <Typography variant="h6" sx={{ pb: "20px", textAlign: "center" }}>
                         <FormattedMessage id="loginPage" />
                     </Typography>
-                    <form>
+                    {/* <form>
                         <TextField
                             sx={{ mb: 2, width: "100%" }}
                             id="outlined-basic"
@@ -95,7 +95,7 @@ const Login = () => {
                         <Typography variant="button" display="block" component="span">
                             <FormattedMessage id="or" />
                         </Typography>
-                    </Divider>
+                    </Divider> */}
                     <Button
                         fullWidth
                         endIcon={<GoogleIcon />}
@@ -124,7 +124,7 @@ const Login = () => {
                         variant="outlined">
                         <FormattedMessage id="signInWith" /> GitHub
                     </Button>
-                    <Typography
+                    {/* <Typography
                         sx={{ mt: 2, textAlign: "center" }}
                         variant="button"
                         display="block"
@@ -133,7 +133,7 @@ const Login = () => {
                         <Link>
                             <FormattedMessage id="register" />
                         </Link>
-                    </Typography>
+                    </Typography> */}
                 </Paper>
             </Box>
         </Container>
