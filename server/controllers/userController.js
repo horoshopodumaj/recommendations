@@ -1,5 +1,6 @@
 const ApiError = require("../error/ApiError");
 const passport = require("passport");
+const errorLoginUrl = ` ${process.env.CLIENT_URL}/login`;
 
 class UserController {
     async googleCallback(req, res) {
@@ -7,12 +8,15 @@ class UserController {
         res.send("Thank you for signing in!");
     }
 
+    async logout(req, res) {
+        req.logout();
+        res.redirect(errorLoginUrl);
+    }
+
     async check(req, res, next) {
-        const { id } = req.query;
-        if (!id) {
-            return next(ApiError.badRequest("Id not set"));
-        }
-        res.json(id);
+        res.status(200).json({
+            message: "Welcome!",
+        });
     }
 }
 
