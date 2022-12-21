@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import style from "./Header.module.scss";
 import { AppBar, Toolbar, Typography, Box, Button, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -8,13 +9,27 @@ import UserAuth from "./UserAuth";
 import DrawerMenu from "./DrawerMenu";
 import Chapters from "./Chapters";
 
-const Header = () => {
+const Header = ({ backgroundColor, position, boxShadow }) => {
     const isAuth = true;
+    const [scrolled, setScrolled] = useState(false);
 
     //const [isSearchOpen, setSearchOpen] = useState(false);
     const [state, setState] = useState({
         left: false,
     });
+
+    useEffect(() => {
+        const onScroll = () => {
+            if (window.scrollY > 68.5) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+        window.addEventListener("scroll", onScroll);
+
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -24,7 +39,15 @@ const Header = () => {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar
+            className={scrolled ? style.scrolled : ""}
+            position={position}
+            sx={{
+                backgroundColor: backgroundColor,
+                zIndex: 50,
+                boxShadow: boxShadow,
+                transition: "all 0.3s",
+            }}>
             <Toolbar sx={{ justifyContent: "space-between" }}>
                 <IconButton
                     sx={{ display: { xs: "flex", md: "none" }, pl: 0 }}
