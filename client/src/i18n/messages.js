@@ -14,6 +14,8 @@ export const messages = {
         or: "OR",
         noAccount: "No account?",
         register: "Sign up",
+        title: "Every Review is an Experience!",
+        paragraph: "Check the ratings, read reviews and buy",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -28,5 +30,7 @@ export const messages = {
         or: "ИЛИ",
         noAccount: "Нет аккаунта?",
         register: "Зарегистрируйтесь",
+        title: "Каждый отзыв - это опыт!",
+        paragraph: "Проверяйте рейтинги, читайте отзывы и покупайте",
     },
 };

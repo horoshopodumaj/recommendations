@@ -1,7 +1,8 @@
-import { Container, Divider } from "@mui/material";
 import React from "react";
-import Header from "../header/Header";
 import style from "./MainPage.module.scss";
+import { Container, Divider, Typography } from "@mui/material";
+import Header from "../header/Header";
+import { FormattedMessage } from "react-intl";
 
 export default function MainPage() {
     return (
@@ -10,11 +11,29 @@ export default function MainPage() {
             <section className={style.banner}>
                 <div className={style.wrapper}>
                     <Container>
-                        <div>Tag Cloud</div>
-                        <Divider />
-                        <div>New Reviews</div>
-                        <Divider />
-                        <div>Popular Reviews</div>
+                        <Typography
+                            component="h3"
+                            sx={{
+                                fontSize: {
+                                    xs: "1.625rem",
+                                    sm: "2.7rem",
+                                    md: "3.25rem",
+                                },
+                                textAlign: "center",
+                            }}>
+                            <FormattedMessage id="title" />
+                        </Typography>
+                        <Typography
+                            component="p"
+                            sx={{
+                                fontSize: {
+                                    xs: "1rem",
+                                    md: "1.25rem",
+                                },
+                                textAlign: "center",
+                            }}>
+                            <FormattedMessage id="paragraph" />
+                        </Typography>
                     </Container>
                 </div>
             </section>

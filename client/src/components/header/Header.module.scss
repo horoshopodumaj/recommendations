@@ -1,6 +1,7 @@
 .scrolled {
-    background-color: white;
-    color: black;
+    background-color: white !important;
+    color: black !important;
+    border-bottom: 1px solid #ededed;
     & a {
         color: black;
     }
