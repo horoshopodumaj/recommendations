@@ -6,9 +6,9 @@ import Header from "../header/Header";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Card from "../card/Card";
+import { grey } from "@mui/material/colors";
 
 const tags = [
     "film",
@@ -129,18 +129,19 @@ export default function MainPage() {
                                     },
                                     fontWeight: 500,
                                     textTransform: "uppercase",
-                                    mt: { md: "55px", sm: "35px", xs: "15px" },
+                                    mt: { md: "49px", sm: "35px", xs: "15px" },
+                                    mb: { xs: "10px" },
                                 }}>
                                 <FormattedMessage id="tags" />
                             </Typography>
                             <Box sx={{ overflow: "hidden" }}>
                                 {tags.map((tag) => (
-                                    <Link style={{ textOverflow: "clip" }}>
-                                        <Button sx={{ minWidth: "fit-content" }} variant="text">
-                                            <Typography sx={{ fontSize: "0.9rem" }} noWrap>
-                                                {tag}
-                                            </Typography>
-                                        </Button>
+                                    <Link
+                                        className={style.tagslink}
+                                        style={{ maxWidth: "80px", backgroundColor: grey[100] }}>
+                                        <Typography sx={{ fontSize: "0.9rem" }} noWrap>
+                                            {tag}
+                                        </Typography>
                                     </Link>
                                 ))}
                             </Box>
