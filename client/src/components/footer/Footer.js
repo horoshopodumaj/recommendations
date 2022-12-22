@@ -178,7 +178,7 @@ export default function Footer() {
                     </Link>
                     <Divider orientation="vertical" flexItem />
                     <ListItem sx={{ width: "fit-content" }}>
-                        <CopyrightIcon />
+                        <CopyrightIcon sx={{ pr: "5px" }} />
                         <ListItemText primary={`2022`} />
                     </ListItem>
                 </List>
