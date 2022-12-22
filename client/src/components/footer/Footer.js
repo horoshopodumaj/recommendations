@@ -24,25 +24,26 @@ export default function Footer() {
         <footer className={style.footer}>
             <Container>
                 <Grid
+                    className={style.gridContainer}
                     container
                     sx={{ display: { xs: "none", sm: "flex" } }}
-                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid item xs={3}>
+                    columnSpacing={{ sm: 2, md: 3 }}>
+                    <Grid item md={3} sm={6}>
                         <List>
                             <ListItem
                                 sx={{
                                     fontSize: {
                                         xs: "1rem",
-                                        md: "1.125rem",
+                                        md: "1.3rem",
                                     },
                                     fontWeight: 500,
+                                    pb: "1rem",
                                 }}>
                                 <FormattedMessage id="quickLinks" />
                             </ListItem>
                             <Link to="/login">
                                 <ListItem>
-                                    <ListItemText
-                                        primary={<FormattedMessage id="aboutUs" />}></ListItemText>
+                                    <ListItemText primary={<FormattedMessage id="aboutUs" />} />
                                 </ListItem>
                             </Link>
                             <Link to="/profile">
@@ -55,15 +56,16 @@ export default function Footer() {
                             </Link>
                         </List>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item md={3} sm={6}>
                         <List>
                             <ListItem
                                 sx={{
                                     fontSize: {
                                         xs: "1rem",
-                                        md: "1.125rem",
+                                        md: "1.3rem",
                                     },
                                     fontWeight: 500,
+                                    pb: "1rem",
                                 }}>
                                 <FormattedMessage id="categories" />
                             </ListItem>
@@ -87,15 +89,16 @@ export default function Footer() {
                             </Link>
                         </List>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item md={3} sm={6}>
                         <List>
                             <ListItem
                                 sx={{
                                     fontSize: {
                                         xs: "1rem",
-                                        md: "1.125rem",
+                                        md: "1.3rem",
                                     },
                                     fontWeight: 500,
+                                    pb: "1rem",
                                 }}>
                                 <FormattedMessage id="contacts" />
                             </ListItem>
@@ -121,15 +124,16 @@ export default function Footer() {
                             </Link>
                         </List>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item md={3} sm={6}>
                         <List>
                             <ListItem
                                 sx={{
                                     fontSize: {
                                         xs: "1rem",
-                                        md: "1.125rem",
+                                        md: "1.3rem",
                                     },
                                     fontWeight: 500,
+                                    pb: "1rem",
                                 }}>
                                 <FormattedMessage id="followUs" />
                             </ListItem>
@@ -175,7 +179,7 @@ export default function Footer() {
                     <Divider orientation="vertical" flexItem />
                     <ListItem sx={{ width: "fit-content" }}>
                         <CopyrightIcon />
-                        <ListItemText primary={`2022 LOGO `} />
+                        <ListItemText primary={`2022`} />
                     </ListItem>
                 </List>
             </Container>
