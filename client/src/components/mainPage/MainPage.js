@@ -104,6 +104,14 @@ export default function MainPage() {
                                     <Card />
                                 </Grid>
                             </Grid>
+                            <Link to="/reviews" style={{ float: "right", marginTop: "10px" }}>
+                                <div className={style.link}>
+                                    <Typography sx={{ fontSize: "0.9rem" }} pr={"5px"}>
+                                        <FormattedMessage id="viewAll" />
+                                    </Typography>
+                                    <KeyboardArrowRightIcon />
+                                </div>
+                            </Link>
                         </Grid>
                         <Grid
                             item
@@ -136,7 +144,7 @@ export default function MainPage() {
                                     </Link>
                                 ))}
                             </Box>
-                            <Link to="/tags" style={{ float: "right" }}>
+                            <Link to="/tags" style={{ float: "right", marginTop: "10px" }}>
                                 <div className={style.link}>
                                     <Typography sx={{ fontSize: "0.9rem" }} pr={"5px"}>
                                         <FormattedMessage id="viewAll" />
