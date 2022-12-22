@@ -30,7 +30,7 @@ export default function DrawerMenu({ state, setState, toggleDrawer }) {
                         <ListItem key={page}>
                             <ListItemButton>
                                 <Link
-                                    to={`/${page}`}
+                                    to={`/${page.toLowerCase()}`}
                                     style={{
                                         textDecoration: "none",
                                         textTransform: "uppercase",

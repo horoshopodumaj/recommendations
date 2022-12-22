@@ -32,6 +32,8 @@ export const messages = {
         privacy: "Privacy",
         tags: "Tags",
         viewAll: "View All",
+        reviewed: "reviewed",
+        readReview: "Read review",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -64,5 +66,7 @@ export const messages = {
         privacy: "Политика конфиденциальности",
         tags: "Тэги",
         viewAll: "Показать все",
+        reviewed: "оценил(a)",
+        readReview: "Читать отзыв",
     },
 };

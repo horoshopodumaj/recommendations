@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import Card from "../card/Card";
 
 const tags = [
     "film",
@@ -57,8 +58,8 @@ export default function MainPage() {
             <section>
                 <Container></Container>
             </section>
-            <section style={{ height: "1000px" }}>
-                <Container sx={{ py: "60px" }}>
+            <section>
+                <Container sx={{ py: { xs: "30px", sm: "60px" } }}>
                     <Grid container columnSpacing={{ sm: 2, md: 3, sx: 1 }}>
                         <Grid item xs={12} md={9} sm={8} sx={{ order: { xs: 2, md: 1, sm: 1 } }}>
                             <Typography
@@ -69,6 +70,7 @@ export default function MainPage() {
                                         md: "2rem",
                                     },
                                     fontWeight: 500,
+                                    textAlign: { xs: "center", sm: "left" },
                                 }}>
                                 <FormattedMessage id="latestReviews" />
                             </Typography>
@@ -79,11 +81,36 @@ export default function MainPage() {
                                         xs: "1rem",
                                         md: "1.125rem",
                                     },
+                                    mb: "1rem",
+                                    textAlign: { xs: "center", sm: "left" },
                                 }}>
                                 <FormattedMessage id="latestReviewsDesc" />
                             </Typography>
+                            <Grid
+                                container
+                                rowSpacing={{ sm: 2, md: 3, sx: 1 }}
+                                columnSpacing={{ sm: 2, md: 3, sx: 1 }}
+                                sx={{ gap: { xs: ".8rem", md: "0" } }}>
+                                <Grid item xs={12} md={6}>
+                                    <Card />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Card />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Card />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Card />
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} md={3} sm={4} sx={{ order: { xs: 1, md: 2, sm: 2 } }}>
+                        <Grid
+                            item
+                            xs={12}
+                            md={3}
+                            sm={4}
+                            sx={{ order: { xs: 1, md: 2, sm: 2 }, mb: { sm: "0", xs: "20px" } }}>
                             <Typography
                                 textAlign={"center"}
                                 component="h2"
@@ -94,6 +121,7 @@ export default function MainPage() {
                                     },
                                     fontWeight: 500,
                                     textTransform: "uppercase",
+                                    mt: { md: "55px", sm: "35px", xs: "15px" },
                                 }}>
                                 <FormattedMessage id="tags" />
                             </Typography>

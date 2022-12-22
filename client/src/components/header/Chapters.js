@@ -17,7 +17,7 @@ export default function Chapters() {
                 gap: "20px",
             }}>
             {pages.map((page) => (
-                <Link key={page} to={`/${page}`} className="chapter">
+                <Link key={page} to={`/${page.toLowerCase()}`} className="chapter">
                     <Button sx={{ my: 2, display: "block", color: "white" }}>
                         {<FormattedMessage id={`${page}`} />}
                     </Button>
