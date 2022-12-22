@@ -16,6 +16,13 @@ export const messages = {
         register: "Sign up",
         title: "Every Review is an Experience!",
         paragraph: "Check the ratings, read reviews and buy",
+        latestReviews: "Latest Reviews",
+        latestReviewsDesc: "Check out the reviews added recently",
+        LetHelpYou: "Let's Help You",
+        LetHelpYouParagraph: `This is a review platform open to everyone. Share your experiences
+        to help others make better choices. Our mission is to bring people
+        and together to create experiences for everyone.`,
+        joinNow: "Join Now",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -32,5 +39,12 @@ export const messages = {
         register: "Зарегистрируйтесь",
         title: "Каждый отзыв - это опыт!",
         paragraph: "Проверяйте рейтинги, читайте отзывы и покупайте",
+        latestReviews: "Последние Обзоры",
+        latestReviewsDesc: "Посмотрите обзоры добавленные недавно",
+        LetHelpYou: "Мы поможем вам",
+        LetHelpYouParagraph: `Это обзорная платформа, открытая для всех. Поделитесь своим опытом
+        чтобы помочь другим сделать лучший выбор. Наша миссия состоит в том, чтобы привлечь людей
+        и вместе создавать впечатления для всех.`,
+        joinNow: "Присоединяйтесь",
     },
 };

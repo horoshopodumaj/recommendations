@@ -23,3 +23,24 @@
     z-index: 50;
     position: fixed;
 }
+
+.about {
+    background: url("../../assets/img/bg_call_section.jpg") center center/cover no-repeat fixed;
+}
+.wrapperAbout {
+    padding: 75px 0 50px;
+    background-color: rgba(0, 0, 0, 0.6);
+    @media screen and (max-width: 599px) {
+        background: #051d4d;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+.button {
+    @media screen and (max-width: 400px) {
+        width: 100%;
+    }
+}
