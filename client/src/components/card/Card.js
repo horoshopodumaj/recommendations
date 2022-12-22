@@ -58,8 +58,8 @@ export default function CardReview() {
                 <Typography mb="5px">
                     User Name <FormattedMessage id="reviewed" /> Work Name
                 </Typography>
-                <Typography mb="10px" sx={{ fontWeight: 500, fontSize: "1.25rem" }}>
-                    "Title Review"
+                <Typography noWrap mb="10px" sx={{ fontWeight: 500, fontSize: "1.25rem" }}>
+                    Title Review
                 </Typography>
                 <Typography mb="15px">
                     Description Review Lorem, ipsum dolor sit amet consectetur adipisicing elit....
