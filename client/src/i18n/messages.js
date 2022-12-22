@@ -23,6 +23,11 @@ export const messages = {
         to help others make better choices. Our mission is to bring people
         and together to create experiences for everyone.`,
         joinNow: "Join Now",
+        aboutUs: "About us",
+        quickLinks: "Quick Links",
+        categories: "Categories",
+        contacts: "Contacts",
+        followUs: "Follow Us",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -46,5 +51,10 @@ export const messages = {
         чтобы помочь другим сделать лучший выбор. Наша миссия состоит в том, чтобы привлечь людей
         и вместе создавать впечатления для всех.`,
         joinNow: "Присоединяйтесь",
+        aboutUs: "О нас",
+        quickLinks: "Быстрые ссылки",
+        categories: "Категории",
+        contacts: "Контакты",
+        followUs: "Присоединяйтесь",
     },
 };

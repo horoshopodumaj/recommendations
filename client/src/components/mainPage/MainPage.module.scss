@@ -38,9 +38,27 @@
 a {
     text-decoration: none;
 }
-
+:focus,
+:active {
+    outline: none;
+}
+a:focus,
+a:active {
+    outline: none;
+}
+a,
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
 .button {
     @media screen and (max-width: 400px) {
         width: 100%;
     }
+}
+
+.socialNetwork {
+    display: flex;
 }
