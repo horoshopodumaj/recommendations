@@ -1,5 +1,8 @@
 .socialNetwork {
     display: flex;
+    & div {
+        min-width: fit-content;
+    }
 }
 
 .footer {

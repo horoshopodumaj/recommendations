@@ -26,9 +26,9 @@ export default function Footer() {
                 <Grid
                     className={style.gridContainer}
                     container
-                    sx={{ display: { xs: "none", sm: "flex" } }}
-                    columnSpacing={{ sm: 2, md: 3 }}>
-                    <Grid item md={3} sm={6}>
+                    sx={{ display: { xs: "flex", sm: "flex" } }}
+                    columnSpacing={{ sm: 2, md: 3, sx: 1 }}>
+                    <Grid item xs={12} md={3} sm={6}>
                         <List>
                             <ListItem
                                 sx={{
@@ -56,7 +56,7 @@ export default function Footer() {
                             </Link>
                         </List>
                     </Grid>
-                    <Grid item md={3} sm={6}>
+                    <Grid item xs={12} md={3} sm={6}>
                         <List>
                             <ListItem
                                 sx={{
@@ -89,7 +89,7 @@ export default function Footer() {
                             </Link>
                         </List>
                     </Grid>
-                    <Grid item md={3} sm={6}>
+                    <Grid item xs={12} md={3} sm={6}>
                         <List>
                             <ListItem
                                 sx={{
@@ -124,7 +124,7 @@ export default function Footer() {
                             </Link>
                         </List>
                     </Grid>
-                    <Grid item md={3} sm={6}>
+                    <Grid item xs={12} md={3} sm={6}>
                         <List>
                             <ListItem
                                 sx={{
