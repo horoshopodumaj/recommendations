@@ -14,6 +14,22 @@ code {
     --logo: #fff;
 }
 
+:focus,
+:active {
+    outline: none;
+}
+a:focus,
+a:active {
+    outline: none;
+}
+a,
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+
 .logo {
     text-decoration: none;
     font-size: 2rem;

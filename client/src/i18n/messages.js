@@ -28,6 +28,8 @@ export const messages = {
         categories: "Categories",
         contacts: "Contacts",
         followUs: "Follow Us",
+        terms: "Terms and conditions",
+        privacy: "Privacy",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -56,5 +58,7 @@ export const messages = {
         categories: "Категории",
         contacts: "Контакты",
         followUs: "Присоединяйтесь",
+        terms: "Условия и положения",
+        privacy: "Политика конфиденциальности",
     },
 };
