@@ -1,5 +1,6 @@
 import {
     Avatar,
+    Badge,
     Box,
     Button,
     Card,
@@ -31,6 +32,8 @@ function stringToColor(string) {
     return color;
 }
 
+const likes = 54;
+
 function stringAvatar(name) {
     return {
         sx: {
@@ -49,7 +52,18 @@ export default function CardReview({ boxShadow }) {
                 },
             }}>
             <CardHeader
-                avatar={<Avatar {...stringAvatar("Jed Dodds")}></Avatar>}
+                avatar={
+                    <Badge
+                        overlap="circular"
+                        badgeContent={likes}
+                        color="secondary"
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "right",
+                        }}>
+                        <Avatar {...stringAvatar("Jed Dodds")}></Avatar>
+                    </Badge>
+                }
                 title={
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Rating name="read-only" value={3} /> <Box ml={2}>{`3.7 / 5.0`}</Box>{" "}
