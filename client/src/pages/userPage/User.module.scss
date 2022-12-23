@@ -1,6 +1,12 @@
 .user_summary {
     margin-top: 68.5px;
     background-color: #051d4d;
+    @media screen and (max-width: 899px) and (min-width: 600px) {
+        margin-top: 64px;
+    }
+    @media screen and (max-width: 599px) {
+        margin-top: 56px;
+    }
 }
 
 .wrapper {

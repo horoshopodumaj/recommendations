@@ -10,12 +10,13 @@ import {
     Grid,
     List,
     ListItem,
-    Tooltip,
     Typography,
 } from "@mui/material";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import { styled } from "@mui/material/styles";
 import { FormattedMessage } from "react-intl";
 
 function stringToColor(string) {
@@ -44,8 +45,14 @@ function stringAvatar(name) {
         children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
     };
 }
-const userName = "Jed Dodds";
+const userName = "VeryLongNameJed VeryLongSurnameDodds";
 const userInfo = { ...stringAvatar(userName) };
+
+const CustomWidthTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+))({
+    [`& .${tooltipClasses.tooltip}`]: {},
+});
 
 export default function UserPage() {
     return (
@@ -55,14 +62,20 @@ export default function UserPage() {
                 <div className={style.wrapper}>
                     <Container>
                         <Grid container>
-                            <Grid item xs={12} md={6}>
-                                <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Grid item xs={12} md={6} sm={12}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: { xs: "column", md: "row" },
+                                        alignItems: "center",
+                                    }}>
                                     <Avatar
                                         sx={{
                                             width: "120px",
                                             height: "120px",
                                             backgroundColor: userInfo.sx.bgcolor,
-                                            mr: "20px",
+                                            mr: { xs: "0", md: "20px" },
+                                            mb: { xs: "20px", md: "0" },
                                         }}>
                                         {userInfo.children}
                                     </Avatar>
@@ -70,7 +83,7 @@ export default function UserPage() {
                                         component="h3"
                                         sx={{
                                             fontSize: {
-                                                xs: "1.75rem",
+                                                xs: "1.5rem",
                                                 sm: "2rem",
                                             },
                                             textAlign: "center",
@@ -80,21 +93,35 @@ export default function UserPage() {
                                     </Typography>
                                 </Box>
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                                <List sx={{ display: "flex", float: "right" }}>
-                                    <ListItem sx={{ flexDirection: "column" }}>
+                            <Grid item xs={12} md={6} sm={12}>
+                                <List
+                                    sx={{ display: "flex", float: { xs: "center", md: "right" } }}>
+                                    <ListItem
+                                        sx={{ flexDirection: "column", alignItems: "center" }}>
                                         <strong className={style.strong}>12</strong>
-                                        <Box sx={{ display: "flex", justifyContent: "center" }}>
-                                            <StarIcon sx={{ color: "white", mr: "5px" }} />
-                                            <Typography sx={{ color: "white", mt: "3px" }}>
-                                                Review
-                                            </Typography>
-                                        </Box>
+                                        <CustomWidthTooltip
+                                            sx={{
+                                                maxWidth: { xs: "200px", md: "500px" },
+                                                textAlign: "center",
+                                            }}
+                                            title={<FormattedMessage id="countReviews" />}
+                                            placement="top">
+                                            <Box sx={{ display: "flex", justifyContent: "center" }}>
+                                                <StarIcon sx={{ color: "white", mr: "5px" }} />
+                                                <Typography sx={{ color: "white", mt: "3px" }}>
+                                                    <FormattedMessage id="review" />
+                                                </Typography>
+                                            </Box>
+                                        </CustomWidthTooltip>
                                     </ListItem>
-                                    <ListItem sx={{ flexDirection: "column" }}>
+                                    <ListItem
+                                        sx={{ flexDirection: "column", alignItems: "center" }}>
                                         <strong className={style.strong}>54</strong>
-                                        <Tooltip
-                                            sx={{ maxWidth: "20px" }}
+                                        <CustomWidthTooltip
+                                            sx={{
+                                                maxWidth: { xs: "200px", md: "500px" },
+                                                textAlign: "center",
+                                            }}
                                             title={<FormattedMessage id="likes" />}
                                             placement="top">
                                             <Box
@@ -105,10 +132,10 @@ export default function UserPage() {
                                                 }}>
                                                 <ThumbUpIcon sx={{ color: "white", mr: "5px" }} />
                                                 <Typography sx={{ color: "white", mt: "3px" }}>
-                                                    Useful
+                                                    <FormattedMessage id="like" />
                                                 </Typography>
                                             </Box>
-                                        </Tooltip>
+                                        </CustomWidthTooltip>
                                     </ListItem>
                                 </List>
                             </Grid>
