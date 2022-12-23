@@ -9,9 +9,9 @@ import UserAuth from "./UserAuth";
 import DrawerMenu from "./DrawerMenu";
 import Chapters from "./Chapters";
 
-const Header = ({ backgroundColor, position, boxShadow }) => {
+const Header = ({ backgroundColor, position, boxShadow, isScrolled }) => {
     const isAuth = true;
-    const [scrolled, setScrolled] = useState(false);
+    const [scrolled, setScrolled] = useState(isScrolled);
 
     //const [isSearchOpen, setSearchOpen] = useState(false);
     const [state, setState] = useState({
@@ -43,10 +43,11 @@ const Header = ({ backgroundColor, position, boxShadow }) => {
             className={scrolled ? style.scrolled : ""}
             position={position}
             sx={{
-                backgroundColor: backgroundColor,
+                backgroundColor: backgroundColor || "white",
                 zIndex: 50,
                 boxShadow: boxShadow,
                 transition: "all 0.3s",
+                color: "black",
             }}>
             <Toolbar sx={{ justifyContent: "space-between" }}>
                 <IconButton

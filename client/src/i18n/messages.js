@@ -36,6 +36,7 @@ export const messages = {
         readReview: "Read review",
         highestReviews: "The Highest Ratings of Reviews",
         highestReviewsDesc: "Check out the reviews that have the highest ratings",
+        likes: "Numder of people who found your review useful",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -72,5 +73,6 @@ export const messages = {
         readReview: "Читать отзыв",
         highestReviews: "Отзывы с самыми большими оценками",
         highestReviewsDesc: "Ознакомьтесь с отзывами у которых самые высокие оценки",
+        likes: "Количество людей, которые сочли ваш отзыв полезным",
     },
 };

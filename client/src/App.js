@@ -6,7 +6,7 @@ import Games from "./components/Games";
 import Header from "./components/header";
 import Login from "./pages/loginPage";
 import MainPage from "./pages/mainPage";
-import UserPage from "./components/UserPage";
+import UserPage from "./pages/userPage";
 import { LOCALES } from "../src/i18n/locales";
 import { messages } from "../src/i18n/messages";
 import { useState } from "react";

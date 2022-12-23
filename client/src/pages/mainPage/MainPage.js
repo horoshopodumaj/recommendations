@@ -25,7 +25,12 @@ const tags = [
 export default function MainPage() {
     return (
         <>
-            <Header position={"fixed"} backgroundColor={"transparent"} boxShadow={"none"} />
+            <Header
+                position={"fixed"}
+                backgroundColor={"transparent"}
+                boxShadow={"none"}
+                isScrolled={false}
+            />
             <section className={style.banner}>
                 <div className={style.wrapper}>
                     <Container>
