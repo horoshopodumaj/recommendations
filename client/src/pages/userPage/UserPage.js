@@ -18,6 +18,8 @@ import StarIcon from "@mui/icons-material/Star";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { styled } from "@mui/material/styles";
 import { FormattedMessage } from "react-intl";
+import { grey } from "@mui/material/colors";
+import Footer from "../../components/footer";
 
 function stringToColor(string) {
     let hash = 0;
@@ -143,6 +145,28 @@ export default function UserPage() {
                     </Container>
                 </div>
             </section>
+            <section
+                className={style.reviews}
+                style={{
+                    height: " 1000px",
+                    backgroundColor: grey[200],
+                    paddingTop: "60px",
+                    paddingBottom: "35px",
+                }}>
+                <Container>
+                    <Card>
+                        <Grid container>
+                            <Grid item xs={12} md={3} sm={12}>
+                                User
+                            </Grid>
+                            <Grid item xs={12} md={9} sm={12}>
+                                Review
+                            </Grid>
+                        </Grid>
+                    </Card>
+                </Container>
+            </section>
+            <Footer />
         </>
     );
 }
