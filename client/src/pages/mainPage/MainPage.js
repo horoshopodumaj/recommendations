@@ -160,7 +160,7 @@ export default function MainPage() {
                 </Container>
             </section>
             <section>
-                <div style={{ backgroundColor: grey[300] }}>
+                <div style={{ backgroundColor: grey[200] }}>
                     <Container sx={{ py: { xs: "30px", sm: "60px" } }}>
                         <Typography
                             component="h2"
