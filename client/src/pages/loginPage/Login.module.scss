@@ -1,0 +1,51 @@
+.container {
+    margin-top: 0;
+    background: url("../../assets/img/access_bg.jpg") center center/cover no-repeat fixed;
+    width: 100%;
+    position: relative;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.wpapper {
+    width: 430px;
+    @media screen and (max-width: 767px) {
+        width: 100%;
+        padding: 30px;
+    }
+}
+
+.logoContainer {
+    border-bottom: 1px solid #ededed;
+    margin: -45px -60px 0;
+    padding: 20px 60px 30px;
+    text-align: center;
+    @media screen and (max-width: 767px) {
+        margin: -30px -48px 20px;
+        padding: 15px 60px 20px;
+    }
+}
+
+.logo {
+    text-decoration: none;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #1976d2;
+}
+
+.copyContainer {
+    color: #999;
+    text-align: center;
+    position: absolute;
+    height: 30px;
+    left: 0;
+    bottom: 30px;
+    width: 100%;
+    font-weight: 500;
+}
+
+.copy {
+    display: flex;
+    justify-content: center;
+}

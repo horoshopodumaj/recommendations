@@ -45,7 +45,7 @@ export const messages = {
         login: "войти",
         Logout: "Выйти",
         loginPage: "Войдите в свою учетную запись",
-        signInWith: "Войдите в систему с помощью",
+        signInWith: "Войдите с",
         signInButton: "Войдите",
         or: "ИЛИ",
         noAccount: "Нет аккаунта?",
