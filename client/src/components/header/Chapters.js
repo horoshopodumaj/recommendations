@@ -4,6 +4,7 @@ import { Box, Button, IconButton } from "@mui/material";
 import LocalePicker from "./LocalePicker";
 import { FormattedMessage } from "react-intl";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import style from "./Header.module.scss";
 
 const pages = ["films", "books", "games"];
 
@@ -17,7 +18,7 @@ export default function Chapters() {
                 gap: "20px",
             }}>
             {pages.map((page) => (
-                <Link key={page} to={`/${page.toLowerCase()}`} className="chapter">
+                <Link key={page} to={`/${page.toLowerCase()}`} className={style.chapter}>
                     <Button sx={{ my: 2, display: "block", color: "white" }}>
                         {<FormattedMessage id={`${page}`} />}
                     </Button>

@@ -6,6 +6,7 @@ export default function Games() {
         <div>
             <Header />
             <div>Games</div>
+            <section style={{ height: "1000px" }}></section>
         </div>
     );
 }

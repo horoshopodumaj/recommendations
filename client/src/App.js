@@ -4,7 +4,7 @@ import Books from "./components/Books";
 import Films from "./components/Films";
 import Games from "./components/Games";
 import Header from "./components/header";
-import Login from "./components/Login";
+import Login from "./pages/loginPage";
 import MainPage from "./pages/mainPage";
 import UserPage from "./components/UserPage";
 import { LOCALES } from "../src/i18n/locales";

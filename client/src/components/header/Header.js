@@ -74,7 +74,7 @@ const Header = ({ backgroundColor, position, boxShadow }) => {
                         color: "inherit",
                         textDecoration: "none",
                     }}>
-                    <Link to="/" className="logo appbar__logo">
+                    <Link to="/" className={style.logo + " " + style.appbar__logo}>
                         LOGO
                     </Link>
                 </Typography>
@@ -85,7 +85,7 @@ const Header = ({ backgroundColor, position, boxShadow }) => {
                     <SearchIcon />
                 </IconButton>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                    <Link to="/" className="logo appbar__logo">
+                    <Link to="/" className={style.logo + " " + style.appbar__logo}>
                         LOGO
                     </Link>
                     <Search />
@@ -96,7 +96,7 @@ const Header = ({ backgroundColor, position, boxShadow }) => {
                 ) : (
                     <Box sx={{ display: "flex" }}>
                         <Button sx={{ my: 2, display: "block" }}>
-                            <Link to="/" className="chapter">
+                            <Link to="/" className={style.chapter}>
                                 login
                             </Link>
                         </Button>
