@@ -10,6 +10,29 @@ import CopyrightIcon from "@mui/icons-material/Copyright";
 import { FormattedMessage } from "react-intl";
 import LocalePicker from "../../components/header/LocalePicker";
 
+const buttonsOptions = [
+    {
+        socialMedia: "Google",
+        bg: "#dc4e41",
+        icon: <GoogleIcon sx={{ marginTop: "-3.6px", color: "white" }} />,
+    },
+    {
+        socialMedia: "Facebook",
+        bg: "#385898",
+        icon: <FacebookIcon sx={{ marginTop: "-3.6px", color: "white" }} />,
+    },
+    {
+        socialMedia: "Twitter",
+        bg: "#1D9BF0",
+        icon: <TwitterIcon sx={{ marginTop: "-3.6px", color: "white" }} />,
+    },
+    {
+        socialMedia: "GitHub",
+        bg: "#24292f",
+        icon: <GitHubIcon sx={{ marginTop: "-3.6px", color: "white" }} />,
+    },
+];
+
 const Login = () => {
     return (
         <section className={style.container}>
@@ -34,60 +57,28 @@ const Login = () => {
                 <div style={{ float: "right" }}>
                     <LocalePicker />
                 </div>
-
                 <form style={{ marginTop: "60px" }}>
-                    <Button
-                        fullWidth
-                        endIcon={<GoogleIcon sx={{ marginTop: "-3.6px", color: "white" }} />}
-                        sx={{
-                            mb: "10px",
-                            justifyContent: "center",
-                            color: "white",
-                            backgroundColor: "red",
-                            borderColor: "red",
-                        }}
-                        variant="outlined">
-                        <FormattedMessage id="signInWith" /> Google
-                    </Button>
-                    <Button
-                        fullWidth
-                        endIcon={<FacebookIcon sx={{ marginTop: "-3.6px", color: "white" }} />}
-                        sx={{
-                            mb: "10px",
-                            justifyContent: "center",
-                            color: "white",
-                            backgroundColor: "#385898",
-                            borderColor: "#385898",
-                        }}
-                        variant="outlined">
-                        <FormattedMessage id="signInWith" /> Facebook
-                    </Button>
-                    <Button
-                        fullWidth
-                        endIcon={<TwitterIcon sx={{ marginTop: "-3.6px", color: "white" }} />}
-                        sx={{
-                            mb: "10px",
-                            justifyContent: "center",
-                            color: "white",
-                            backgroundColor: "#1D9BF0",
-                            borderColor: "#1D9BF0",
-                        }}
-                        variant="outlined">
-                        <FormattedMessage id="signInWith" /> Twitter
-                    </Button>
-                    <Button
-                        fullWidth
-                        endIcon={<GitHubIcon sx={{ marginTop: "-3.6px", color: "white" }} />}
-                        sx={{
-                            mb: "10px",
-                            justifyContent: "center",
-                            color: "white",
-                            backgroundColor: "black",
-                            borderColor: "#black",
-                        }}
-                        variant="outlined">
-                        <FormattedMessage id="signInWith" /> GitHub
-                    </Button>
+                    {buttonsOptions.map((item) => (
+                        <Button
+                            fullWidth
+                            endIcon={item.icon}
+                            sx={{
+                                mb: "10px",
+                                justifyContent: "center",
+                                color: "white",
+                                backgroundColor: item.bg,
+                                borderColor: item.bg,
+                                "&.MuiButtonBase-root:hover": {
+                                    color: "white",
+                                    backgroundColor: item.bg,
+                                    borderColor: item.bg,
+                                    filter: "brightness(125%)",
+                                },
+                            }}
+                            variant="outlined">
+                            <FormattedMessage id="signInWith" /> {item.socialMedia}
+                        </Button>
+                    ))}
                 </form>
                 <div className={style.copyContainer}>
                     <div className={style.copy}>
