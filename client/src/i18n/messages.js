@@ -17,7 +17,7 @@ export const messages = {
         title: "Every Review is an Experience!",
         paragraph: "Check the ratings, read reviews and buy",
         latestReviews: "Latest Reviews",
-        latestReviewsDesc: "Check out the reviews added recently",
+        latestReviewsDesc: "Check out the recently added reviews",
         LetHelpYou: "Let's Help You",
         LetHelpYouParagraph: `This is a review platform open to everyone. Share your experiences
         to help others make better choices. Our mission is to bring people
@@ -34,6 +34,8 @@ export const messages = {
         viewAll: "View All",
         reviewed: "reviewed",
         readReview: "Read review",
+        highestReviews: "The Highest Ratings of Reviews",
+        highestReviewsDesc: "Check out the reviews that have the highest ratings",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -68,5 +70,7 @@ export const messages = {
         viewAll: "Показать все",
         reviewed: "оценил(a)",
         readReview: "Читать отзыв",
+        highestReviews: "Отзывы с самыми большими оценками",
+        highestReviewsDesc: "Ознакомьтесь с отзывами у которых самые высокие оценки",
     },
 };

@@ -1,14 +1,14 @@
 import React from "react";
 import style from "./MainPage.module.scss";
-
-import { Box, Button, Container, Grid, IconButton, Typography } from "@mui/material";
-import Header from "../header/Header";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import Header from "../../components/header";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import Footer from "../footer/Footer";
+import Footer from "../../components/footer/Footer";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import Card from "../card/Card";
 import { grey } from "@mui/material/colors";
+import Card from "../../components/card";
+import Carousel from "../../components/carousel";
 
 const tags = [
     "film",
@@ -54,9 +54,6 @@ export default function MainPage() {
                         </Typography>
                     </Container>
                 </div>
-            </section>
-            <section>
-                <Container></Container>
             </section>
             <section>
                 <Container sx={{ py: { xs: "30px", sm: "60px" } }}>
@@ -156,6 +153,37 @@ export default function MainPage() {
                         </Grid>
                     </Grid>
                 </Container>
+            </section>
+            <section>
+                <div style={{ backgroundColor: grey[300] }}>
+                    <Container sx={{ py: { xs: "30px", sm: "60px" } }}>
+                        <Typography
+                            component="h2"
+                            sx={{
+                                fontSize: {
+                                    xs: "1.5rem",
+                                    md: "2rem",
+                                },
+                                fontWeight: 500,
+                                textAlign: { xs: "center", sm: "left" },
+                            }}>
+                            <FormattedMessage id="highestReviews" />
+                        </Typography>
+                        <Typography
+                            component="p"
+                            sx={{
+                                fontSize: {
+                                    xs: "1rem",
+                                    md: "1.125rem",
+                                },
+                                mb: "1rem",
+                                textAlign: { xs: "center", sm: "left" },
+                            }}>
+                            <FormattedMessage id="latestReviewsDesc" />
+                        </Typography>
+                        <Carousel />
+                    </Container>
+                </div>
             </section>
             <section className={style.about}>
                 <div className={style.wrapperAbout}>

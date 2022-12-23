@@ -5,7 +5,7 @@ import Films from "./components/Films";
 import Games from "./components/Games";
 import Header from "./components/header";
 import Login from "./components/Login";
-import MainPage from "./components/mainPage/MainPage";
+import MainPage from "./pages/mainPage";
 import UserPage from "./components/UserPage";
 import { LOCALES } from "../src/i18n/locales";
 import { messages } from "../src/i18n/messages";
