@@ -1,11 +1,18 @@
 .scrolled {
     background-color: white !important;
-    color: black !important;
+    color: black;
     border-bottom: 1px solid #ededed;
     & a {
         color: black;
     }
     & button {
+        color: black;
+    }
+    .logo {
+        color: black !important;
+    }
+
+    & svg {
         color: black;
     }
 }
@@ -14,7 +21,7 @@
     text-decoration: none;
     font-size: 2rem;
     font-weight: 500;
-    color: var(--logo);
+    color: black;
 }
 
 .appbar__logo {
@@ -23,6 +30,6 @@
 
 .chapter {
     font-weight: 400;
-    color: var(--logo);
+    color: black;
     text-decoration: none;
 }

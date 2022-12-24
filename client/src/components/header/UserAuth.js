@@ -4,7 +4,7 @@ import { Box, Tooltip, IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { FormattedMessage } from "react-intl";
 
-export default function UserAuth() {
+export default function UserAuth({ color }) {
     const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenUserMenu = (event) => {
@@ -17,7 +17,9 @@ export default function UserAuth() {
     return (
         <Box sx={{ mb: "4px", ml: "5px" }}>
             <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton
+                    onClick={handleOpenUserMenu}
+                    sx={{ p: 0, color: color ? "white" : "black" }}>
                     <AccountCircle />
                 </IconButton>
             </Tooltip>

@@ -8,7 +8,7 @@ import style from "./Header.module.scss";
 
 const pages = ["films", "books", "games"];
 
-export default function Chapters() {
+export default function Chapters({ color }) {
     return (
         <Box
             sx={{
@@ -19,12 +19,12 @@ export default function Chapters() {
             }}>
             {pages.map((page) => (
                 <Link key={page} to={`/${page.toLowerCase()}`} className={style.chapter}>
-                    <Button sx={{ my: 2, display: "block", color: "white" }}>
+                    <Button sx={{ my: 2, display: "block", color: color ? "white" : "black" }}>
                         {<FormattedMessage id={`${page}`} />}
                     </Button>
                 </Link>
             ))}
-            <IconButton sx={{ mb: "3px", mx: "5px" }}>
+            <IconButton sx={{ mb: "3px", mx: "5px", color: color ? "white" : "black" }}>
                 <LightModeIcon />
             </IconButton>
             <LocalePicker />

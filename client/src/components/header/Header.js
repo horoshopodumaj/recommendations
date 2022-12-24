@@ -9,9 +9,9 @@ import UserAuth from "./UserAuth";
 import DrawerMenu from "./DrawerMenu";
 import Chapters from "./Chapters";
 
-const Header = ({ backgroundColor, position, boxShadow, isScrolled }) => {
+const Header = ({ backgroundColor, color }) => {
     const isAuth = true;
-    const [scrolled, setScrolled] = useState(isScrolled);
+    const [scrolled, setScrolled] = useState(false);
 
     //const [isSearchOpen, setSearchOpen] = useState(false);
     const [state, setState] = useState({
@@ -41,13 +41,12 @@ const Header = ({ backgroundColor, position, boxShadow, isScrolled }) => {
     return (
         <AppBar
             className={scrolled ? style.scrolled : ""}
-            position={position}
+            position={"fixed"}
             sx={{
                 backgroundColor: backgroundColor || "white",
                 zIndex: 50,
-                boxShadow: boxShadow,
+                boxShadow: "none",
                 transition: "all 0.3s",
-                color: "black",
             }}>
             <Toolbar sx={{ justifyContent: "space-between" }}>
                 <IconButton
@@ -75,7 +74,10 @@ const Header = ({ backgroundColor, position, boxShadow, isScrolled }) => {
                         color: "inherit",
                         textDecoration: "none",
                     }}>
-                    <Link to="/" className={style.logo + " " + style.appbar__logo}>
+                    <Link
+                        to="/"
+                        style={{ color: color ? "white" : "black" }}
+                        className={style.logo + " " + style.appbar__logo}>
                         LOGO
                     </Link>
                 </Typography>
@@ -86,14 +88,17 @@ const Header = ({ backgroundColor, position, boxShadow, isScrolled }) => {
                     <SearchIcon />
                 </IconButton>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                    <Link to="/" className={style.logo + " " + style.appbar__logo}>
+                    <Link
+                        style={{ color: color ? "white" : "black" }}
+                        to="/"
+                        className={style.logo + " " + style.appbar__logo}>
                         LOGO
                     </Link>
-                    <Search />
+                    <Search color={color} />
                 </Box>
-                <Chapters />
+                <Chapters color={color} />
                 {isAuth ? (
-                    <UserAuth />
+                    <UserAuth color={color} />
                 ) : (
                     <Box sx={{ display: "flex" }}>
                         <Button sx={{ my: 2, display: "block" }}>
