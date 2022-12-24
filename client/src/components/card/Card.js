@@ -66,7 +66,8 @@ export default function CardReview({ boxShadow }) {
                 }
                 title={
                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Rating name="read-only" value={3} /> <Box ml={2}>{`3.7 / 5.0`}</Box>{" "}
+                        <Rating readOnly name="read-only" value={3} />{" "}
+                        <Box ml={2}>{`3.7 / 5.0`}</Box>{" "}
                     </Box>
                 }
                 subheader={`Films`}

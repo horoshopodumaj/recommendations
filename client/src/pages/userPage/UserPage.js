@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./User.module.scss";
 import Header from "../../components/header";
 import {
     Avatar,
     Box,
     Card,
+    CardActions,
+    CardContent,
     CardHeader,
     Container,
     Grid,
+    IconButton,
     List,
     ListItem,
+    Rating,
     Typography,
 } from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
@@ -20,6 +24,7 @@ import { styled } from "@mui/material/styles";
 import { FormattedMessage } from "react-intl";
 import { grey } from "@mui/material/colors";
 import Footer from "../../components/footer";
+import CardReviewFull from "../../components/cardReview";
 
 function stringToColor(string) {
     let hash = 0;
@@ -75,6 +80,7 @@ export default function UserPage() {
                                         sx={{
                                             width: "120px",
                                             height: "120px",
+                                            fontSize: "2rem",
                                             backgroundColor: userInfo.sx.bgcolor,
                                             mr: { xs: "0", md: "20px" },
                                             mb: { xs: "20px", md: "0" },
@@ -111,7 +117,7 @@ export default function UserPage() {
                                             <Box sx={{ display: "flex", justifyContent: "center" }}>
                                                 <StarIcon sx={{ color: "white", mr: "5px" }} />
                                                 <Typography sx={{ color: "white", mt: "3px" }}>
-                                                    <FormattedMessage id="review" />
+                                                    <FormattedMessage id="reviews" />
                                                 </Typography>
                                             </Box>
                                         </CustomWidthTooltip>
@@ -148,22 +154,14 @@ export default function UserPage() {
             <section
                 className={style.reviews}
                 style={{
-                    height: " 1000px",
+                    //height: " 1000px",
                     backgroundColor: grey[200],
                     paddingTop: "60px",
                     paddingBottom: "35px",
                 }}>
                 <Container>
-                    <Card>
-                        <Grid container>
-                            <Grid item xs={12} md={3} sm={12}>
-                                User
-                            </Grid>
-                            <Grid item xs={12} md={9} sm={12}>
-                                Review
-                            </Grid>
-                        </Grid>
-                    </Card>
+                    <CardReviewFull />
+                    <CardReviewFull />
                 </Container>
             </section>
             <Footer />
