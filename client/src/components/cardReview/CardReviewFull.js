@@ -100,7 +100,13 @@ export default function CardReviewFull() {
                         {userInfo.children}
                     </Avatar>
 
-                    <Typography sx={{ mb: "10px", fontWeight: 500 }}>{userName}</Typography>
+                    <Typography
+                        sx={{
+                            mb: "10px",
+                            fontWeight: 500,
+                        }}>
+                        {userName}
+                    </Typography>
                     <Typography>
                         "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ РОБИНЗОНА КРУЗО моряка из Йорка,
                         прожившего двадцать восемь лет в полном одиночестве на необитаемом острове у
@@ -117,7 +123,7 @@ export default function CardReviewFull() {
                             mb: "10px",
                         }}>
                         <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <Typography sx={{ mr: "10px" }}>
+                            <Typography sx={{ mr: "10px", fontStyle: "oblique" }}>
                                 <FormattedMessage id="yourRating" />
                             </Typography>
                             <Rating
@@ -125,7 +131,7 @@ export default function CardReviewFull() {
                                 onChange={(event, newValue) => setRating(newValue)}
                                 value={rating}
                             />
-                            <Typography sx={{ mx: "15px" }}>
+                            <Typography sx={{ mx: "15px", fontStyle: "oblique" }}>
                                 <FormattedMessage id="overallRating" />
                             </Typography>
                             <Rating
@@ -134,21 +140,37 @@ export default function CardReviewFull() {
                                 precision={0.1}
                                 value={totalRating}
                             />
-                            <Box ml={1} sx={{ fontSize: "14px" }}>{`${totalRating} / 5.0`}</Box>
+                            <Box
+                                ml={1}
+                                sx={{
+                                    fontSize: "14px",
+                                    fontWeight: "500",
+                                }}>{`${totalRating} / 5.0`}</Box>
                         </Box>
-                        <Typography>
+                        <Typography sx={{ fontStyle: "italic", opacity: "0.8" }}>
                             <FormattedMessage id="published" />: data publish
                         </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Typography sx={{ mr: "10px" }}>
-                            <FormattedMessage id="authorAssessment" />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            mb: "10px",
+                        }}>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Typography sx={{ mr: "10px", fontStyle: "oblique" }}>
+                                <FormattedMessage id="authorAssessment" />
+                            </Typography>
+                            <Rating name="authorAssessment" readOnly value={7} max={10} />
+                            <Box ml={1} sx={{ fontSize: "14px" }}>{`7.0 / 10.0`}</Box>
+                        </Box>
+
+                        <Typography sx={{ fontStyle: "oblique", opacity: "0.8" }}>
+                            <FormattedMessage id="category" />: <FormattedMessage id="books" />
                         </Typography>
-                        <Rating name="authorAssessment" readOnly value={7} max={10} />
-                        <Box ml={1} sx={{ fontSize: "14px" }}>{`7.0 / 10.0`}</Box>
                     </Box>
 
-                    <CardContent sx={{ pl: "0" }}>
+                    <CardContent sx={{ px: "0" }}>
                         <Typography noWrap mb="10px" sx={{ fontWeight: 500, fontSize: "1.25rem" }}>
                             Title Review
                         </Typography>
@@ -185,7 +207,7 @@ export default function CardReviewFull() {
                         sx={{
                             justifyContent: "space-between",
                             flexDirection: "column",
-                            paddingLeft: "0",
+                            px: "0",
                         }}>
                         <Box sx={{ overflow: "hidden" }}>
                             {tags.map((tag, index) => (
