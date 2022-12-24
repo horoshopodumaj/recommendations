@@ -56,7 +56,7 @@ const Header = ({ backgroundColor, color }) => {
                     aria-controls="menu-appbar"
                     aria-haspopup="true"
                     onClick={toggleDrawer("left", true)}
-                    color="inherit">
+                    color={color ? "white" : "black"}>
                     <MenuIcon />
                 </IconButton>
                 <DrawerMenu state={state} setState={setState} toggleDrawer={toggleDrawer} />

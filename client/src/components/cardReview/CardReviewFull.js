@@ -46,7 +46,7 @@ const userName = "VeryLongNameJed VeryLongSurnameDodds";
 const userInfo = { ...stringAvatar(userName) };
 
 const totalRating = 3.7;
-
+const totalLikes = 10;
 const tags = [
     "book",
     "очень длинный тэг",
@@ -84,21 +84,33 @@ const tags = [
 
 export default function CardReviewFull() {
     const [rating, setRating] = useState(0);
-    const [like, setLike] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
+    const [like, setLike] = useState(totalLikes);
+
+    const likeHandler = () => {
+        setLike(isLiked ? like - 1 : like + 1);
+        setIsLiked(!isLiked);
+    };
     return (
         <Card sx={{ mb: "30px" }}>
             <Grid container sx={{ padding: "25px 25px 0", marginBottom: "30px" }} spacing={3}>
                 <Grid item xs={12} md={3} sm={12}>
-                    <Avatar
+                    <Box
                         sx={{
-                            width: "50px",
-                            height: "50px",
-                            backgroundColor: userInfo.sx.bgcolor,
-                            // mr: { xs: "0", md: "20px" },
-                            mb: { xs: "10px" },
+                            display: "flex",
+                            justifyContent: { xs: "center", sm: "flex-start" },
                         }}>
-                        {userInfo.children}
-                    </Avatar>
+                        <Avatar
+                            sx={{
+                                width: "50px",
+                                height: "50px",
+                                backgroundColor: userInfo.sx.bgcolor,
+                                // mr: { xs: "0", md: "20px" },
+                                mb: { xs: "10px" },
+                            }}>
+                            {userInfo.children}
+                        </Avatar>
+                    </Box>
 
                     <Typography
                         sx={{
@@ -114,6 +126,23 @@ export default function CardReviewFull() {
                         кораблекрушением, во время которого весь экипаж корабля кроме него погиб; с
                         изложением его неожиданного освобождения пиратами, написанные им самим"
                     </Typography>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            flexDirection: { xs: "column", sm: "row" },
+                        }}>
+                        <Typography sx={{ mx: "15px", fontStyle: "oblique" }}>
+                            <FormattedMessage id="overallRating" />
+                        </Typography>
+                        <Rating readOnly name="totalRating" precision={0.1} value={totalRating} />
+                        <Box
+                            ml={1}
+                            sx={{
+                                fontSize: "14px",
+                                fontWeight: "500",
+                            }}>{`${totalRating} / 5.0`}</Box>
+                    </Box>
                 </Grid>
                 <Grid item xs={12} md={9} sm={12}>
                     <Box
@@ -121,31 +150,29 @@ export default function CardReviewFull() {
                             display: "flex",
                             justifyContent: "space-between",
                             mb: "10px",
+                            flexDirection: { xs: "column", sm: "row" },
                         }}>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <Typography sx={{ mr: "10px", fontStyle: "oblique" }}>
-                                <FormattedMessage id="yourRating" />
-                            </Typography>
-                            <Rating
-                                name="yourRating"
-                                onChange={(event, newValue) => setRating(newValue)}
-                                value={rating}
-                            />
-                            <Typography sx={{ mx: "15px", fontStyle: "oblique" }}>
-                                <FormattedMessage id="overallRating" />
-                            </Typography>
-                            <Rating
-                                readOnly
-                                name="totalRating"
-                                precision={0.1}
-                                value={totalRating}
-                            />
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                flexDirection: { xs: "column", sm: "row" },
+                            }}>
                             <Box
-                                ml={1}
                                 sx={{
-                                    fontSize: "14px",
-                                    fontWeight: "500",
-                                }}>{`${totalRating} / 5.0`}</Box>
+                                    display: "flex",
+                                    alignItems: "center",
+                                    flexDirection: { xs: "column", sm: "row" },
+                                }}>
+                                <Typography sx={{ mr: "10px", fontStyle: "oblique" }}>
+                                    <FormattedMessage id="yourRating" />
+                                </Typography>
+                                <Rating
+                                    name="yourRating"
+                                    onChange={(event, newValue) => setRating(newValue)}
+                                    value={rating}
+                                />
+                            </Box>
                         </Box>
                         <Typography sx={{ fontStyle: "italic", opacity: "0.8" }}>
                             <FormattedMessage id="published" />: data publish
@@ -166,7 +193,10 @@ export default function CardReviewFull() {
                         </Box>
 
                         <Typography sx={{ fontStyle: "oblique", opacity: "0.8" }}>
-                            <FormattedMessage id="category" />: <FormattedMessage id="books" />
+                            <FormattedMessage id="category" />:{" "}
+                            <Link to="/books">
+                                <FormattedMessage id="books" />
+                            </Link>
                         </Typography>
                     </Box>
 
@@ -205,7 +235,7 @@ export default function CardReviewFull() {
                     </CardContent>
                     <CardActions
                         sx={{
-                            justifyContent: "space-between",
+                            //justifyContent: "space-between",
                             flexDirection: "column",
                             px: "0",
                         }}>
@@ -221,11 +251,21 @@ export default function CardReviewFull() {
                                 </Link>
                             ))}
                         </Box>
-                        <IconButton
-                            sx={{ padding: 0, color: like && "#3578fa", alignSelf: "flex-end" }}
-                            onClick={() => setLike(!like)}>
-                            <ThumbUpIcon sx={{ fontSize: "24px" }} />
-                        </IconButton>
+                        <Box sx={{ display: "flex", alignSelf: "flex-end", alignItems: "center" }}>
+                            <IconButton
+                                sx={{
+                                    padding: 0,
+                                    color: isLiked && "#3578fa",
+                                    mr: "8px",
+                                }}
+                                onClick={likeHandler}>
+                                <ThumbUpIcon sx={{ fontSize: "24px" }} />
+                            </IconButton>
+                            <Typography
+                                sx={{ color: isLiked && "#3578fa", fontWeight: 500, mt: "7px" }}>
+                                {like}
+                            </Typography>
+                        </Box>
                     </CardActions>
                 </Grid>
             </Grid>
