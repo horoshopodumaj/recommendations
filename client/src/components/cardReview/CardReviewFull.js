@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import style from "./CartReview.module.scss";
 import {
     Avatar,
     Box,
@@ -12,6 +14,7 @@ import {
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { FormattedMessage } from "react-intl";
+import { grey } from "@mui/material/colors";
 
 function stringToColor(string) {
     let hash = 0;
@@ -44,6 +47,41 @@ const userInfo = { ...stringAvatar(userName) };
 
 const totalRating = 3.7;
 
+const tags = [
+    "book",
+    "очень длинный тэг",
+    "Робинзон Крузо",
+    "Robinson Crusoe",
+    "book",
+    "очень длинный тэг",
+    "Робинзон Крузо",
+    "Robinson Crusoe",
+    "book",
+    "очень длинный тэг",
+    "Робинзон Крузо",
+    "Robinson Crusoe",
+    "book",
+    "очень длинный тэг",
+    "Робинзон Крузо",
+    "Robinson Crusoe",
+    "book",
+    "очень длинный тэг",
+    "Робинзон Крузо",
+    "Robinson Crusoe",
+    "book",
+    "очень длинный тэг",
+    "Робинзон Крузо",
+    "Robinson Crusoe",
+    "book",
+    "очень длинный тэг",
+    "Робинзон Крузо",
+    "Robinson Crusoe",
+    "book",
+    "очень длинный тэг",
+    "Робинзон Крузо",
+    "Robinson Crusoe",
+];
+
 export default function CardReviewFull() {
     const [rating, setRating] = useState(0);
     const [like, setLike] = useState(false);
@@ -61,14 +99,14 @@ export default function CardReviewFull() {
                         }}>
                         {userInfo.children}
                     </Avatar>
-                    <Typography sx={{ mb: "10px" }}>{userName}</Typography>
+
+                    <Typography sx={{ mb: "10px", fontWeight: 500 }}>{userName}</Typography>
                     <Typography>
-                        <FormattedMessage id="review" />: "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ
-                        РОБИНЗОНА КРУЗО моряка из Йорка, прожившего двадцать восемь лет в полном
-                        одиночестве на необитаемом острове у берегов Америки близ устьев реки
-                        Ориноко, куда он был выброшен кораблекрушением, во время которого весь
-                        экипаж корабля кроме него погиб; с изложением его неожиданного освобождения
-                        пиратами, написанные им самим"
+                        "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ РОБИНЗОНА КРУЗО моряка из Йорка,
+                        прожившего двадцать восемь лет в полном одиночестве на необитаемом острове у
+                        берегов Америки близ устьев реки Ориноко, куда он был выброшен
+                        кораблекрушением, во время которого весь экипаж корабля кроме него погиб; с
+                        изложением его неожиданного освобождения пиратами, написанные им самим"
                     </Typography>
                 </Grid>
                 <Grid item xs={12} md={9} sm={12}>
@@ -114,7 +152,7 @@ export default function CardReviewFull() {
                         <Typography noWrap mb="10px" sx={{ fontWeight: 500, fontSize: "1.25rem" }}>
                             Title Review
                         </Typography>
-                        <Typography mb="30px" sx={{ textAlign: "justify" }}>
+                        <Typography sx={{ textAlign: "justify" }}>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum
                             blanditiis, error aut libero vel quidem temporibus architecto ipsum
                             quisquam modi natus doloribus et eos sequi alias cupiditate quasi eum.
@@ -143,12 +181,26 @@ export default function CardReviewFull() {
                             possimus distinctio expedita, dolor nihil fugit mollitia et.
                         </Typography>
                     </CardContent>
-                    <CardActions sx={{ float: "right" }}>
-                        <Typography sx={{ mr: "10px", mt: "5px" }}>
-                            <FormattedMessage id="rateReview" />
-                        </Typography>
+                    <CardActions
+                        sx={{
+                            justifyContent: "space-between",
+                            flexDirection: "column",
+                            paddingLeft: "0",
+                        }}>
+                        <Box sx={{ overflow: "hidden" }}>
+                            {tags.map((tag, index) => (
+                                <Link
+                                    key={index}
+                                    className={style.tagslink}
+                                    style={{ maxWidth: "80px", backgroundColor: grey[100] }}>
+                                    <Typography sx={{ fontSize: "0.9rem" }} noWrap>
+                                        {tag}
+                                    </Typography>
+                                </Link>
+                            ))}
+                        </Box>
                         <IconButton
-                            sx={{ padding: 0, color: like && "#3578fa" }}
+                            sx={{ padding: 0, color: like && "#3578fa", alignSelf: "flex-end" }}
                             onClick={() => setLike(!like)}>
                             <ThumbUpIcon sx={{ fontSize: "24px" }} />
                         </IconButton>
