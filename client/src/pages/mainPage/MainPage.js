@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import style from "./MainPage.module.scss";
+import { useScrollbar } from "../../hooks/useScrollbar";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import Header from "../../components/header";
 import { FormattedMessage } from "react-intl";
@@ -20,9 +21,29 @@ const tags = [
     "Бакман",
     "jrgrijigrkjdgijopokklk;ll'l'l'lsmd;;k;kkjjlklkjljkk;k;;k",
     "очень длинный тэг",
+    " travel",
+    "dance",
+    "animal",
+    "1988",
+    "2013",
+    "games",
+    "favorite books",
+    "GTA",
+    "summer",
+    "winter",
+    "весна",
+    "зима",
+    "forest",
+    "games 1973",
+    "1984",
+    "author",
 ];
 
 export default function MainPage() {
+    const tagsBox = useRef(null);
+    const hasScroll = tags.length > 5;
+
+    useScrollbar(tagsBox, hasScroll);
     return (
         <>
             <Header backgroundColor={"transparent"} color={true} />
@@ -131,25 +152,31 @@ export default function MainPage() {
                                 }}>
                                 <FormattedMessage id="tags" />
                             </Typography>
-                            <Box sx={{ overflow: "hidden" }}>
+                            <Box
+                                sx={{
+                                    // overflow: "hidden",
+                                    height: hasScroll ? "300px" : "auto",
+                                    minHeight: "300px",
+                                }}
+                                ref={tagsBox}>
                                 {tags.map((tag) => (
                                     <Link
                                         className={style.tagslink}
-                                        style={{ maxWidth: "80px", backgroundColor: grey[100] }}>
+                                        style={{ maxWidth: "200px", backgroundColor: grey[100] }}>
                                         <Typography sx={{ fontSize: "0.9rem" }} noWrap>
                                             {tag}
                                         </Typography>
                                     </Link>
                                 ))}
                             </Box>
-                            <Link to="/tags" style={{ float: "right", marginTop: "10px" }}>
+                            {/* <Link to="/tags" style={{ float: "right", marginTop: "10px" }}>
                                 <div className={style.link}>
                                     <Typography sx={{ fontSize: "0.9rem" }} pr={"5px"}>
                                         <FormattedMessage id="viewAll" />
                                     </Typography>
                                     <KeyboardArrowRightIcon />
                                 </div>
-                            </Link>
+                            </Link> */}
                         </Grid>
                     </Grid>
                 </Container>
