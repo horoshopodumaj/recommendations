@@ -47,6 +47,8 @@ export const messages = {
         yourRating: "Your rating",
         overallRating: "Overall rating",
         rateReview: "Rate the review",
+        hereAreReviewsOf: "here are reviews of",
+        countAllReviews: "Total number of reviews",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -94,5 +96,7 @@ export const messages = {
         yourRating: "Ваше оценка",
         overallRating: "Общий рейтинг",
         rateReview: "Оцените отзыв",
+        hereAreReviewsOf: "здесь собраны отзывы на",
+        countAllReviews: "Общее количество отзывов",
     },
 };

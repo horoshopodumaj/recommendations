@@ -50,8 +50,8 @@ export default function UserPage() {
     return (
         <>
             <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
-            <section className={style.user_summary}>
-                <div className={style.wrapper}>
+            <section className="user_summary">
+                <div className="wrapper">
                     <Container>
                         <Grid container>
                             <Grid item xs={12} md={6} sm={12}>
@@ -91,7 +91,7 @@ export default function UserPage() {
                                     sx={{ display: "flex", float: { xs: "center", md: "right" } }}>
                                     <ListItem
                                         sx={{ flexDirection: "column", alignItems: "center" }}>
-                                        <strong className={style.strong}>12</strong>
+                                        <strong className="strong">12</strong>
                                         <CustomWidthTooltip
                                             sx={{
                                                 maxWidth: { xs: "200px", md: "500px" },
@@ -109,7 +109,7 @@ export default function UserPage() {
                                     </ListItem>
                                     <ListItem
                                         sx={{ flexDirection: "column", alignItems: "center" }}>
-                                        <strong className={style.strong}>54</strong>
+                                        <strong className="strong">54</strong>
                                         <CustomWidthTooltip
                                             sx={{
                                                 maxWidth: { xs: "200px", md: "500px" },
