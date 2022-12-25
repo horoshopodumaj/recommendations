@@ -1,23 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import style from "./User.module.scss";
 import Header from "../../components/header";
-import {
-    Avatar,
-    Box,
-    Card,
-    CardActions,
-    CardContent,
-    CardHeader,
-    Container,
-    Grid,
-    IconButton,
-    List,
-    ListItem,
-    Rating,
-    Typography,
-} from "@mui/material";
+import { Avatar, Box, Container, Grid, List, ListItem, Typography } from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
-import { Link } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { styled } from "@mui/material/styles";
