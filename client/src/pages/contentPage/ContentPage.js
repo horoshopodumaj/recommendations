@@ -1,14 +1,15 @@
-import React from "react";
 import Header from "../../components/header";
 import style from "./Content.module.scss";
 import { styled } from "@mui/material/styles";
 import { FormattedMessage } from "react-intl";
-import { Box, Container, Grid, List, ListItem, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, List, ListItem, Typography } from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import StarIcon from "@mui/icons-material/Star";
 import CardReviewFull from "../../components/cardReview";
 import { grey } from "@mui/material/colors";
 import Footer from "../../components/footer";
+import WriteReview from "../../components/writeReview/WriteReview";
+import { useState } from "react";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -17,6 +18,9 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 });
 
 const ContentPage = ({ category }) => {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
         <>
             <Header />
@@ -86,11 +90,15 @@ const ContentPage = ({ category }) => {
                                 </List>
                             </Grid>
                         </Grid>
+                        <Button sx={{ float: "right" }} onClick={handleOpen}>
+                            White review
+                        </Button>
                     </Container>
                 </div>
+                <WriteReview onClose={handleClose} open={open} />
             </section>
+
             <section
-                className={style.reviews}
                 style={{
                     backgroundColor: grey[200],
                     paddingTop: "60px",
@@ -101,6 +109,7 @@ const ContentPage = ({ category }) => {
                     <CardReviewFull />
                 </Container>
             </section>
+
             <Footer />
         </>
     );

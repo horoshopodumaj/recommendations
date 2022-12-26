@@ -8,6 +8,7 @@ import { messages } from "../src/i18n/messages";
 import { useState } from "react";
 import GlobalContext from "./contexts/GlobalContext";
 import ContentPage from "./pages/contentPage";
+import WriteReview from "./components/writeReview";
 
 const pages = ["films", "books", "games"];
 
@@ -25,6 +26,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<MainPage />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/writereview" element={<WriteReview />} />
                         <Route path="/profile" element={<UserPage />}>
                             <Route path=":userId" element={<UserPage />} />
                         </Route>

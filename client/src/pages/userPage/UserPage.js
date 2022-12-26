@@ -137,9 +137,7 @@ export default function UserPage() {
                 </div>
             </section>
             <section
-                className={style.reviews}
                 style={{
-                    //height: " 1000px",
                     backgroundColor: grey[200],
                     paddingTop: "60px",
                     paddingBottom: "35px",

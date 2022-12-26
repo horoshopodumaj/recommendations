@@ -93,7 +93,7 @@ export const messages = {
         countReviews: "Отзывы, написанные вами",
         published: "Опубликовано",
         authorAssessment: "Оценка автора ",
-        yourRating: "Ваше оценка",
+        yourRating: "Ваша оценка",
         overallRating: "Общий рейтинг",
         rateReview: "Оцените отзыв",
         hereAreReviewsOf: "здесь собраны отзывы на",
