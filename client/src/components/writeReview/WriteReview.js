@@ -8,15 +8,17 @@ import {
     FormControl,
     FormLabel,
     Modal,
+    Button,
 } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-
+import styles from "./WriteReview.module.scss";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import Header from "../header";
 import { grey } from "@mui/material/colors";
 //import style from "./WriteReview.module.scss";
 import Footer from "../footer";
+import FilePicker from "../dragAndDrop/FilePicker";
 
 const maxLength = 60;
 
@@ -75,8 +77,11 @@ export default function WriteReview({ open, onClose }) {
         setMaxLengthInput(() => maxLength - length);
     };
     return (
-        <Modal open={open} onClose={onClose}>
+        <Modal open={open}>
             <Box sx={style}>
+                <Button onClick={onClose} sx={{ float: "right" }}>
+                    Close
+                </Button>
                 <Typography
                     component="h1"
                     sx={{
@@ -85,8 +90,6 @@ export default function WriteReview({ open, onClose }) {
                             sm: "2rem",
                         },
                         fontWeight: 500,
-                        // textAlign: "center",
-                        // textTransform: "capitalize",
                     }}>
                     Write a review
                 </Typography>
@@ -110,7 +113,13 @@ export default function WriteReview({ open, onClose }) {
                     <Autocomplete
                         placeholder="Placeholder"
                         options={categories}
-                        renderInput={(params) => <TextField {...params} label="Category" />}
+                        renderInput={(params) => (
+                            <TextField
+                                InputLabelProps={{ required: "true" }}
+                                {...params}
+                                label="Category"
+                            />
+                        )}
                     />
                 </Box>
                 <Box>
@@ -154,15 +163,16 @@ export default function WriteReview({ open, onClose }) {
                         id="tags-standard"
                         options={tagList}
                         getOptionLabel={(option) => option}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Multiple values"
-                                placeholder="Favorites"
-                            />
-                        )}
+                        renderInput={(params) => <TextField {...params} placeholder="Favorites" />}
                     />
                 </Box>
+                <Box>
+                    <Typography>Upload photo (optional)</Typography>
+                    <FilePicker />
+                </Box>
+                <Button type="submit" sx={{ float: "right" }}>
+                    Submit
+                </Button>
             </Box>
         </Modal>
     );

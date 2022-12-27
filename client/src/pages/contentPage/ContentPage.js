@@ -91,7 +91,7 @@ const ContentPage = ({ category }) => {
                             </Grid>
                         </Grid>
                         <Button sx={{ float: "right" }} onClick={handleOpen}>
-                            White review
+                            Write review
                         </Button>
                     </Container>
                 </div>
