@@ -90,14 +90,13 @@ const ContentPage = ({ category }) => {
                                 </List>
                             </Grid>
                         </Grid>
-                        <Button sx={{ float: "right" }} onClick={handleOpen}>
-                            Write review
+                        <Button sx={{ float: "right", color: "white" }} onClick={handleOpen}>
+                            <FormattedMessage id="writeReview" />
                         </Button>
                     </Container>
                 </div>
                 <WriteReview onClose={handleClose} open={open} />
             </section>
-
             <section
                 style={{
                     backgroundColor: grey[200],

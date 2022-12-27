@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./User.module.scss";
 import Header from "../../components/header";
-import { Avatar, Box, Container, Grid, List, ListItem, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, Grid, List, ListItem, Typography } from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import StarIcon from "@mui/icons-material/Star";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -10,6 +10,7 @@ import { FormattedMessage } from "react-intl";
 import { grey } from "@mui/material/colors";
 import Footer from "../../components/footer";
 import CardReviewFull from "../../components/cardReview";
+import WriteReview from "../../components/writeReview/WriteReview";
 
 function stringToColor(string) {
     let hash = 0;
@@ -47,6 +48,10 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 });
 
 export default function UserPage() {
+    const isUser = true;
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
         <>
             <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
@@ -133,8 +138,24 @@ export default function UserPage() {
                                 </List>
                             </Grid>
                         </Grid>
+                        {isUser && (
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: { xs: "column", sm: "row" },
+                                    justifyContent: "flex-end",
+                                }}>
+                                <Button sx={{ color: "white" }} onClick={handleOpen}>
+                                    <FormattedMessage id="writeReview" />
+                                </Button>
+                                <Button sx={{ color: "white" }}>
+                                    <FormattedMessage id="edit" />
+                                </Button>
+                            </Box>
+                        )}
                     </Container>
                 </div>
+                <WriteReview onClose={handleClose} open={open} />
             </section>
             <section
                 style={{
