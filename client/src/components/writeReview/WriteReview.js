@@ -9,8 +9,10 @@ import {
     FormLabel,
     Modal,
     Button,
+    IconButton,
 } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+import CloseIcon from "@mui/icons-material/Close";
 import styles from "./WriteReview.module.scss";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
@@ -55,15 +57,18 @@ const tags = [
 ];
 
 const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
     bgcolor: "background.paper",
-    borderRadius: "10px",
+    borderRadius: { xs: "0", sm: "10px" },
     boxShadow: 24,
     p: 4,
-    width: "60%",
+    width: { xs: "auto", sm: "80%", md: "60%" },
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    margin: { xs: "0 auto", sm: "20px auto" },
+    overflowY: "auto",
 };
 
 export default function WriteReview({ open, onClose }) {
@@ -84,9 +89,17 @@ export default function WriteReview({ open, onClose }) {
     return (
         <Modal open={open}>
             <Box sx={style}>
-                <Button onClick={onClose} sx={{ float: "right", paddingRight: "0" }}>
-                    <FormattedMessage id="close" />
-                </Button>
+                <IconButton
+                    onClick={onClose}
+                    sx={{
+                        //float: "right",
+                        //paddingRight: "0",
+                        position: "absolute",
+                        right: "10px",
+                        top: "9px",
+                    }}>
+                    <CloseIcon />
+                </IconButton>
                 <Typography
                     component="h1"
                     sx={{
@@ -95,6 +108,8 @@ export default function WriteReview({ open, onClose }) {
                             sm: "2rem",
                         },
                         fontWeight: 500,
+                        mb: "8px",
+                        textAlign: { xs: "center", sm: "left" },
                     }}>
                     <FormattedMessage id="writeReview" />
                 </Typography>
@@ -103,6 +118,7 @@ export default function WriteReview({ open, onClose }) {
                         display: "flex",
                         alignItems: "center",
                         flexDirection: { xs: "column", sm: "row" },
+                        mb: "8px",
                     }}>
                     <Typography sx={{ mr: "10px" }}>
                         <FormattedMessage id="yourRating" />
@@ -114,33 +130,33 @@ export default function WriteReview({ open, onClose }) {
                         max={10}
                     />
                 </Box>
-                <Box>
+                <Box sx={{ mb: "8px" }}>
                     <label htmlFor="chooseCategory">
-                        <Typography>
+                        <Typography sx={{ mb: "8px" }}>
                             <FormattedMessage id="selectCategory" />
                         </Typography>
                     </label>
                     <Autocomplete
                         id="chooseCategory"
-                        placeholder="Placeholder"
                         options={categories}
                         renderInput={(params) => (
                             <TextField
-                                InputLabelProps={{ required: "true" }}
+                                required
                                 {...params}
                                 label={<FormattedMessage id="category" />}
                             />
                         )}
                     />
                 </Box>
-                <Box>
+                <Box sx={{ mb: "8px" }}>
                     <label htmlFor="nameWork">
-                        <Typography>
+                        <Typography sx={{ mb: "8px" }}>
                             <FormattedMessage id="titleOfThe" />
                         </Typography>
                     </label>
                     <TextField
                         id="nameWork"
+                        required
                         label={<FormattedMessage id="placeholderTitleofThe" />}
                         variant="outlined"
                         fullWidth
@@ -157,14 +173,15 @@ export default function WriteReview({ open, onClose }) {
                         <FormattedMessage id="characters" />
                     </Typography>
                 </Box>
-                <Box>
+                <Box sx={{ mb: "8px" }}>
                     <label htmlFor="title">
-                        <Typography>
+                        <Typography sx={{ mb: "8px" }}>
                             <FormattedMessage id="titleYourReview" />
                         </Typography>
                     </label>
                     <TextField
                         id="title"
+                        required
                         label={<FormattedMessage id="placeholderTitleReview" />}
                         variant="outlined"
                         fullWidth
@@ -181,26 +198,26 @@ export default function WriteReview({ open, onClose }) {
                         <FormattedMessage id="characters" />
                     </Typography>
                 </Box>
-                <Box>
+                <Box sx={{ mb: "8px" }}>
                     <label htmlFor="reviewdesc">
-                        <Typography>
+                        <Typography sx={{ mb: "8px" }}>
                             <FormattedMessage id="textYourReview" />
                         </Typography>
                     </label>
                     <TextField
                         id="reviewdesc"
-                        //placeholder="Write your review to help others learn about this content "
                         label={<FormattedMessage id="helpOthers" />}
                         variant="outlined"
+                        required
                         multiline
                         fullWidth
                         rows={4}
                         inputProps={{ maxLength: 2000 }}
                         sx={{ width: "100%" }}></TextField>
                 </Box>
-                <Box>
+                <Box sx={{ mb: "8px" }}>
                     <label htmlFor="tags">
-                        <Typography>
+                        <Typography sx={{ mb: "8px" }}>
                             <FormattedMessage id="selectTags" />
                         </Typography>
                     </label>
@@ -215,7 +232,7 @@ export default function WriteReview({ open, onClose }) {
                         )}
                     />
                 </Box>
-                <Box>
+                <Box sx={{ mb: "8px" }}>
                     <Typography>
                         <FormattedMessage id="uploadPhoto" />
                     </Typography>

@@ -88,7 +88,7 @@ a:hover {
     position: relative;
     display: inline-block;
     box-sizing: border-box;
-    font-size: 60px;
+    font-size: 80px;
     width: 1em;
     height: 1em;
     border: 1px dashed;
@@ -233,8 +233,10 @@ a:hover {
 
 .FilePicker {
     padding: 4px;
+    padding-left: 0;
 }
 
 .FilePicker-add {
     margin: 4px;
+    margin-left: 0;
 }
