@@ -63,7 +63,6 @@ export const messages = {
         close: "Close",
         submit: "Submit",
         selectCategory: "Select a category",
-        selectTags: "Select tags",
         edit: "Edit",
     },
     [LOCALES.RU]: {
@@ -129,7 +128,6 @@ export const messages = {
         close: "Закрыть",
         submit: "Опубликовать",
         selectCategory: "Выберите категорию ",
-        selectTags: "Выберите тэги",
         edit: "Редактировать",
     },
 };

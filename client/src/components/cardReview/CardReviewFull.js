@@ -7,6 +7,7 @@ import {
     Card,
     CardActions,
     CardContent,
+    CardMedia,
     Grid,
     IconButton,
     Rating,
@@ -87,6 +88,8 @@ export default function CardReviewFull() {
     const [isLiked, setIsLiked] = useState(false);
     const [like, setLike] = useState(totalLikes);
 
+    const title = "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ РОБИНЗОНА КРУЗО";
+
     const likeHandler = () => {
         setLike(isLiked ? like - 1 : like + 1);
         setIsLiked(!isLiked);
@@ -116,33 +119,41 @@ export default function CardReviewFull() {
                         sx={{
                             mb: "10px",
                             fontWeight: 500,
+                            textAlign: { xs: "center", sm: "left" },
                         }}>
                         {userName}
                     </Typography>
-                    <Typography>
-                        "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ РОБИНЗОНА КРУЗО моряка из Йорка,
-                        прожившего двадцать восемь лет в полном одиночестве на необитаемом острове у
-                        берегов Америки близ устьев реки Ориноко, куда он был выброшен
-                        кораблекрушением, во время которого весь экипаж корабля кроме него погиб; с
-                        изложением его неожиданного освобождения пиратами, написанные им самим"
-                    </Typography>
+                    <Typography
+                        sx={{
+                            mb: "10px",
+                            textAlign: { xs: "center", sm: "left" },
+                        }}>{`"${title}"`}</Typography>
                     <Box
                         sx={{
                             display: "flex",
-                            alignItems: "center",
-                            flexDirection: { xs: "column", sm: "row" },
+                            alignItems: { xs: "center", sm: "flex-start" },
+                            flexDirection: { xs: "column", sm: "column" },
+                            mb: "20px",
                         }}>
-                        <Typography sx={{ mx: "15px", fontStyle: "oblique" }}>
+                        <Typography sx={{ fontStyle: "oblique", fontWeight: 500 }}>
                             <FormattedMessage id="overallRating" />
                         </Typography>
-                        <Rating readOnly name="totalRating" precision={0.1} value={totalRating} />
-                        <Box
-                            ml={1}
-                            sx={{
-                                fontSize: "14px",
-                                fontWeight: "500",
-                            }}>{`${totalRating} / 5.0`}</Box>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Rating
+                                readOnly
+                                name="totalRating"
+                                precision={0.1}
+                                value={totalRating}
+                            />
+                            <Box
+                                sx={{
+                                    fontSize: "14px",
+                                    fontWeight: "500",
+                                    ml: "8px",
+                                }}>{`${totalRating} / 5.0`}</Box>
+                        </Box>
                     </Box>
+                    <CardMedia component="img" height="auto" image="./img/1.jpg" alt="picture" />
                 </Grid>
                 <Grid item xs={12} md={9} sm={12}>
                     <Box
