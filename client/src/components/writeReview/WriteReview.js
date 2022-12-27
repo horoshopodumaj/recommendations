@@ -70,17 +70,22 @@ export default function WriteReview({ open, onClose }) {
     const [rating, setRating] = useState(0);
     const [tag, setTag] = useState([]);
     const [tagList, setTagList] = useState(tags);
-    const [maxLengthInput, setMaxLengthInput] = useState(maxLength);
+    const [maxLengthName, setMaxLengthName] = useState(maxLength);
+    const [maxLengthTitleReview, setMaxLengthTitleReview] = useState(maxLength);
 
-    const inputChange = (event) => {
+    const inputChangeName = (event) => {
         const length = event.target.value.length;
-        setMaxLengthInput(() => maxLength - length);
+        setMaxLengthName(() => maxLength - length);
+    };
+    const inputChangeTitleReview = (event) => {
+        const length = event.target.value.length;
+        setMaxLengthTitleReview(() => maxLength - length);
     };
     return (
         <Modal open={open}>
             <Box sx={style}>
-                <Button onClick={onClose} sx={{ float: "right" }}>
-                    Close
+                <Button onClick={onClose} sx={{ float: "right", paddingRight: "0" }}>
+                    <FormattedMessage id="close" />
                 </Button>
                 <Typography
                     component="h1"
@@ -91,7 +96,7 @@ export default function WriteReview({ open, onClose }) {
                         },
                         fontWeight: 500,
                     }}>
-                    Write a review
+                    <FormattedMessage id="writeReview" />
                 </Typography>
                 <Box
                     sx={{
@@ -117,38 +122,65 @@ export default function WriteReview({ open, onClose }) {
                             <TextField
                                 InputLabelProps={{ required: "true" }}
                                 {...params}
-                                label="Category"
+                                label={<FormattedMessage id="category" />}
                             />
                         )}
                     />
                 </Box>
                 <Box>
-                    <Typography>Title of the book!!!</Typography>
+                    <Typography>
+                        <FormattedMessage id="titleOfThe" />
+                    </Typography>
                     <TextField
                         id="nameWork"
-                        placeholder="Enter the name of the review object you want to write about"
+                        label={<FormattedMessage id="placeholderTitleofThe" />}
                         variant="outlined"
                         fullWidth
-                        helperText={`Maximum length: ${maxLengthInput} characters`}
                         inputProps={{ maxLength: 60 }}
-                        onChange={(event) => inputChange(event)}></TextField>
+                        onChange={(event) => inputChangeName(event)}></TextField>
+                    <Typography
+                        sx={{
+                            fontSize: "0.75rem",
+                            lineHeight: "1.66",
+                            letterSpacing: "0.03333em",
+                            color: "rgba(0, 0, 0, 0.6)",
+                        }}>
+                        <FormattedMessage id="maxLength" /> {maxLengthName}{" "}
+                        <FormattedMessage id="characters" />
+                    </Typography>
                 </Box>
                 <Box>
-                    <Typography>Title of your review</Typography>
+                    <Typography>
+                        <FormattedMessage id="titleYourReview" />
+                    </Typography>
                     <TextField
                         id="title"
-                        placeholder="If you could say it in one sentence, what would you say?"
+                        label={<FormattedMessage id="placeholderTitleReview" />}
                         variant="outlined"
                         fullWidth
-                        helperText={`Maximum length: ${maxLengthInput} characters`}
                         inputProps={{ maxLength: 60 }}
-                        onChange={(event) => inputChange(event)}></TextField>
+                        onChange={(event) => inputChangeTitleReview(event)}></TextField>
+                    <Typography
+                        sx={{
+                            fontSize: "0.75rem",
+                            lineHeight: "1.66",
+                            letterSpacing: "0.03333em",
+                            color: "rgba(0, 0, 0, 0.6)",
+                        }}>
+                        <FormattedMessage id="maxLength" /> {maxLengthTitleReview}{" "}
+                        <FormattedMessage id="characters" />
+                    </Typography>
                 </Box>
                 <Box>
-                    <Typography>Your review</Typography>
+                    <label htmlFor="reviewdesc">
+                        <Typography>
+                            <FormattedMessage id="textYourReview" />
+                        </Typography>
+                    </label>
                     <TextField
                         id="reviewdesc"
-                        placeholder="Write your review to help others learn about this content "
+                        //placeholder="Write your review to help others learn about this content "
+                        label={<FormattedMessage id="helpOthers" />}
                         variant="outlined"
                         multiline
                         fullWidth
@@ -163,15 +195,19 @@ export default function WriteReview({ open, onClose }) {
                         id="tags-standard"
                         options={tagList}
                         getOptionLabel={(option) => option}
-                        renderInput={(params) => <TextField {...params} placeholder="Favorites" />}
+                        renderInput={(params) => (
+                            <TextField {...params} label={<FormattedMessage id="selectTags" />} />
+                        )}
                     />
                 </Box>
                 <Box>
-                    <Typography>Upload photo (optional)</Typography>
+                    <Typography>
+                        <FormattedMessage id="uploadPhoto" />
+                    </Typography>
                     <FilePicker />
                 </Box>
                 <Button type="submit" sx={{ float: "right" }}>
-                    Submit
+                    <FormattedMessage id="submit" />
                 </Button>
             </Box>
         </Modal>
