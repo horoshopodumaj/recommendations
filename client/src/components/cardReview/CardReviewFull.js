@@ -160,7 +160,6 @@ export default function CardReviewFull() {
                         sx={{
                             display: "flex",
                             justifyContent: "space-between",
-                            mb: "10px",
                             flexDirection: { xs: "column", sm: "row" },
                         }}>
                         <Box
@@ -168,24 +167,25 @@ export default function CardReviewFull() {
                                 display: "flex",
                                 alignItems: "center",
                                 flexDirection: { xs: "column", sm: "row" },
+                                order: { xs: 2, sm: 1 },
+                                mb: "10px",
                             }}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    flexDirection: { xs: "column", sm: "row" },
-                                }}>
-                                <Typography sx={{ mr: "10px", fontStyle: "oblique" }}>
-                                    <FormattedMessage id="yourRating" />
-                                </Typography>
-                                <Rating
-                                    name="yourRating"
-                                    onChange={(event, newValue) => setRating(newValue)}
-                                    value={rating}
-                                />
-                            </Box>
+                            <Typography sx={{ mr: "10px", fontStyle: "oblique" }}>
+                                <FormattedMessage id="yourRating" />
+                            </Typography>
+                            <Rating
+                                name="yourRating"
+                                onChange={(event, newValue) => setRating(newValue)}
+                                value={rating}
+                            />
                         </Box>
-                        <Typography sx={{ fontStyle: "italic", opacity: "0.8" }}>
+                        <Typography
+                            sx={{
+                                fontStyle: "italic",
+                                opacity: "0.8",
+                                order: { xs: 1, sm: 2 },
+                                mb: "10px",
+                            }}>
                             <FormattedMessage id="published" />: data publish
                         </Typography>
                     </Box>
@@ -194,25 +194,40 @@ export default function CardReviewFull() {
                             display: "flex",
                             justifyContent: "space-between",
                             mb: "10px",
+                            flexDirection: { xs: "column", sm: "row" },
                         }}>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                flexDirection: { xs: "column", sm: "row" },
+                                mb: "10px",
+                            }}>
                             <Typography sx={{ mr: "10px", fontStyle: "oblique" }}>
                                 <FormattedMessage id="authorAssessment" />
                             </Typography>
                             <Rating name="authorAssessment" readOnly value={7} max={10} />
-                            <Box ml={1} sx={{ fontSize: "14px" }}>{`7.0 / 10.0`}</Box>
+                            {/* <Box ml={1} sx={{ fontSize: "14px" }}>{`7.0 / 10.0`}</Box> */}
                         </Box>
 
-                        <Typography sx={{ fontStyle: "oblique", opacity: "0.8" }}>
-                            <FormattedMessage id="category" />:{" "}
-                            <Link to="/books">
+                        <Typography
+                            sx={{ fontStyle: "oblique", opacity: "0.8", textAlign: "right" }}>
+                            {/* <FormattedMessage id="category" />:{" "} */}
+                            <Link to="/books" style={{ textTransform: "capitalize" }}>
                                 <FormattedMessage id="books" />
                             </Link>
                         </Typography>
                     </Box>
 
                     <CardContent sx={{ px: "0" }}>
-                        <Typography noWrap mb="10px" sx={{ fontWeight: 500, fontSize: "1.25rem" }}>
+                        <Typography
+                            noWrap
+                            mb="10px"
+                            sx={{
+                                fontWeight: 500,
+                                fontSize: "1.25rem",
+                                textAlign: { xs: "center", sm: "left" },
+                            }}>
                             Title Review
                         </Typography>
                         <Typography sx={{ textAlign: "justify" }}>
