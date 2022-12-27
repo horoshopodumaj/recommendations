@@ -115,7 +115,13 @@ export default function WriteReview({ open, onClose }) {
                     />
                 </Box>
                 <Box>
+                    <label htmlFor="chooseCategory">
+                        <Typography>
+                            <FormattedMessage id="selectCategory" />
+                        </Typography>
+                    </label>
                     <Autocomplete
+                        id="chooseCategory"
                         placeholder="Placeholder"
                         options={categories}
                         renderInput={(params) => (
@@ -128,9 +134,11 @@ export default function WriteReview({ open, onClose }) {
                     />
                 </Box>
                 <Box>
-                    <Typography>
-                        <FormattedMessage id="titleOfThe" />
-                    </Typography>
+                    <label htmlFor="nameWork">
+                        <Typography>
+                            <FormattedMessage id="titleOfThe" />
+                        </Typography>
+                    </label>
                     <TextField
                         id="nameWork"
                         label={<FormattedMessage id="placeholderTitleofThe" />}
@@ -150,9 +158,11 @@ export default function WriteReview({ open, onClose }) {
                     </Typography>
                 </Box>
                 <Box>
-                    <Typography>
-                        <FormattedMessage id="titleYourReview" />
-                    </Typography>
+                    <label htmlFor="title">
+                        <Typography>
+                            <FormattedMessage id="titleYourReview" />
+                        </Typography>
+                    </label>
                     <TextField
                         id="title"
                         label={<FormattedMessage id="placeholderTitleReview" />}
@@ -189,10 +199,15 @@ export default function WriteReview({ open, onClose }) {
                         sx={{ width: "100%" }}></TextField>
                 </Box>
                 <Box>
+                    <label htmlFor="tags">
+                        <Typography>
+                            <FormattedMessage id="selectTags" />
+                        </Typography>
+                    </label>
                     <Autocomplete
                         multiple
                         limitTags={2}
-                        id="tags-standard"
+                        id="tags"
                         options={tagList}
                         getOptionLabel={(option) => option}
                         renderInput={(params) => (

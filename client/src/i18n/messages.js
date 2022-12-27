@@ -62,6 +62,8 @@ export const messages = {
         uploadPhoto: "Upload photo (optional)",
         close: "Close",
         submit: "Submit",
+        selectCategory: "Select a category",
+        selectTags: "Select tags",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -125,5 +127,7 @@ export const messages = {
         uploadPhoto: "Загрузите фото (по желанию)",
         close: "Закрыть",
         submit: "Опубликовать",
+        selectCategory: "Выберите категорию ",
+        selectTags: "Выберите тэги",
     },
 };
