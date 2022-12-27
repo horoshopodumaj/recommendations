@@ -92,8 +92,6 @@ export default function WriteReview({ open, onClose }) {
                 <IconButton
                     onClick={onClose}
                     sx={{
-                        //float: "right",
-                        //paddingRight: "0",
                         position: "absolute",
                         right: "10px",
                         top: "9px",
@@ -238,7 +236,7 @@ export default function WriteReview({ open, onClose }) {
                     </Typography>
                     <FilePicker />
                 </Box>
-                <Button type="submit" sx={{ float: "right" }}>
+                <Button type="submit" sx={{ float: "right" }} variant="contained">
                     <FormattedMessage id="submit" />
                 </Button>
             </Box>
