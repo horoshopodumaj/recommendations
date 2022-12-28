@@ -331,33 +331,60 @@ export default function CardReviewFull() {
                     </CardActions>
                 </Grid>
             </Grid>
-            <Collapse in={expanded} timeout="auto" sx={{ padding: "0 25px", marginBottom: "30px" }}>
+            <Collapse
+                in={expanded}
+                timeout="auto"
+                sx={{ padding: { xs: "20px 12px 0", sm: "0 25px" }, marginBottom: "30px" }}>
                 <Divider sx={{ mb: "15px", mx: "-25px" }} />
                 {/* <Typography>Comments</Typography> */}
-                <Grid container sx={{ flexDirection: { xs: "row" } }}>
-                    <Grid item xs={3}>
+                <Grid container sx={{ flexDirection: { xs: "row" }, alignItems: "center" }}>
+                    <Grid item xs={2} md={3} sx={{ display: { xs: "none", sm: "block" } }}>
                         <Avatar
                             sx={{
-                                width: "50px",
-                                height: "50px",
+                                width: "40px",
+                                height: "40px",
                                 backgroundColor: userInfo.sx.bgcolor,
                                 mr: { xs: "0", md: "20px" },
                                 mb: { xs: "10px" },
                             }}>
                             {userInfo.children}
                         </Avatar>
-                        <Link to="/profile">
-                            <Typography
-                                sx={{
-                                    mb: "10px",
-                                    textAlign: { xs: "left" },
-                                    fontSize: { xs: "0.9rem", sm: "1rem" },
-                                }}>
-                                {userName}
-                            </Typography>
-                        </Link>
+                        <Box sx={{ display: { xs: "none", md: "inline-block" } }}>
+                            <Link to="/profile">
+                                <Typography
+                                    sx={{
+                                        mb: "10px",
+                                        textAlign: { xs: "left" },
+                                        fontSize: { xs: "0.9rem", sm: "1rem" },
+                                    }}>
+                                    {userName}
+                                </Typography>
+                            </Link>
+                        </Box>
                     </Grid>
-                    <Grid item xs={9}>
+                    <Grid
+                        item
+                        xs={10}
+                        md={9}
+                        sx={{
+                            display: "flex",
+                            //alignItems: "center",
+                            flexDirection: { xs: "column" },
+                            justifyContent: "center",
+                        }}>
+                        <Box sx={{ display: { xs: "inline-block", md: "none" } }}>
+                            <Link to="/profile">
+                                <Typography
+                                    sx={{
+                                        mb: "10px",
+                                        textAlign: { xs: "left" },
+                                        fontSize: { xs: "0.9rem", sm: "1rem" },
+                                    }}>
+                                    {userName}
+                                </Typography>
+                            </Link>
+                        </Box>
+
                         <Grid container sx={{ alignItems: "center" }}>
                             <Grid item xs={11}>
                                 <TextField
