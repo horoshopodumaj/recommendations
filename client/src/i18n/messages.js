@@ -64,6 +64,7 @@ export const messages = {
         submit: "Submit",
         selectCategory: "Select a category",
         edit: "Edit",
+        writeComment: "Write a comment...",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -129,5 +130,6 @@ export const messages = {
         submit: "Опубликовать",
         selectCategory: "Выберите категорию ",
         edit: "Редактировать",
+        writeComment: "Написать комментарий...",
     },
 };

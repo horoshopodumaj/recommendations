@@ -8,14 +8,21 @@ import {
     CardActions,
     CardContent,
     CardMedia,
+    Collapse,
     Grid,
+    Divider,
     IconButton,
     Rating,
     Typography,
+    TextField,
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import { FormattedMessage } from "react-intl";
 import { grey } from "@mui/material/colors";
+import { useIntl } from "react-intl";
+import { useFormatMessage } from "../../hooks/useFormatMessage";
+import SendIcon from "@mui/icons-material/Send";
 
 function stringToColor(string) {
     let hash = 0;
@@ -87,6 +94,7 @@ export default function CardReviewFull() {
     const [rating, setRating] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
     const [like, setLike] = useState(totalLikes);
+    const [expanded, setExpanded] = useState(false);
 
     const title = "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ РОБИНЗОНА КРУЗО";
 
@@ -94,9 +102,13 @@ export default function CardReviewFull() {
         setLike(isLiked ? like - 1 : like + 1);
         setIsLiked(!isLiked);
     };
+
+    const commentHandler = () => {
+        setExpanded(!expanded);
+    };
     return (
         <Card sx={{ mb: "30px" }}>
-            <Grid container sx={{ padding: "25px 25px 0", marginBottom: "30px" }} spacing={3}>
+            <Grid container sx={{ padding: { xs: "20px 12px 0", sm: "25px 25px 0" } }} spacing={3}>
                 <Grid item xs={12} md={3} sm={12}>
                     <Box
                         sx={{
@@ -114,7 +126,6 @@ export default function CardReviewFull() {
                             {userInfo.children}
                         </Avatar>
                     </Box>
-
                     <Typography
                         sx={{
                             mb: "10px",
@@ -207,12 +218,10 @@ export default function CardReviewFull() {
                                 <FormattedMessage id="authorAssessment" />
                             </Typography>
                             <Rating name="authorAssessment" readOnly value={7} max={10} />
-                            {/* <Box ml={1} sx={{ fontSize: "14px" }}>{`7.0 / 10.0`}</Box> */}
                         </Box>
 
                         <Typography
                             sx={{ fontStyle: "oblique", opacity: "0.8", textAlign: "right" }}>
-                            {/* <FormattedMessage id="category" />:{" "} */}
                             <Link to="/books" style={{ textTransform: "capitalize" }}>
                                 <FormattedMessage id="books" />
                             </Link>
@@ -261,7 +270,6 @@ export default function CardReviewFull() {
                     </CardContent>
                     <CardActions
                         sx={{
-                            //justifyContent: "space-between",
                             flexDirection: "column",
                             px: "0",
                         }}>
@@ -277,7 +285,13 @@ export default function CardReviewFull() {
                                 </Link>
                             ))}
                         </Box>
-                        <Box sx={{ display: "flex", alignSelf: "flex-end", alignItems: "center" }}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignSelf: "flex-end",
+                                alignItems: "center",
+                                marginTop: "10px",
+                            }}>
                             <IconButton
                                 sx={{
                                     padding: 0,
@@ -288,13 +302,77 @@ export default function CardReviewFull() {
                                 <ThumbUpIcon sx={{ fontSize: "24px" }} />
                             </IconButton>
                             <Typography
-                                sx={{ color: isLiked && "#3578fa", fontWeight: 500, mt: "7px" }}>
+                                sx={{
+                                    color: isLiked && "#3578fa",
+                                    fontWeight: 500,
+                                    mt: "7px",
+                                    mr: "10px",
+                                }}>
                                 {like}
+                            </Typography>
+                            <IconButton
+                                sx={{
+                                    padding: 0,
+                                    color: expanded && "#3578fa",
+                                    mr: "8px",
+                                }}
+                                onClick={commentHandler}>
+                                <ModeCommentIcon />
+                            </IconButton>
+                            <Typography
+                                sx={{
+                                    color: expanded && "#3578fa",
+                                    fontWeight: 500,
+                                    mt: "7px",
+                                }}>
+                                {113}
                             </Typography>
                         </Box>
                     </CardActions>
                 </Grid>
             </Grid>
+            <Collapse in={expanded} timeout="auto" sx={{ padding: "0 25px", marginBottom: "30px" }}>
+                <Divider sx={{ mb: "15px", mx: "-25px" }} />
+                {/* <Typography>Comments</Typography> */}
+                <Grid container sx={{ flexDirection: { xs: "row" } }}>
+                    <Grid item xs={3}>
+                        <Avatar
+                            sx={{
+                                width: "50px",
+                                height: "50px",
+                                backgroundColor: userInfo.sx.bgcolor,
+                                mr: { xs: "0", md: "20px" },
+                                mb: { xs: "10px" },
+                            }}>
+                            {userInfo.children}
+                        </Avatar>
+                        <Link to="/profile">
+                            <Typography
+                                sx={{
+                                    mb: "10px",
+                                    textAlign: { xs: "left" },
+                                    fontSize: { xs: "0.9rem", sm: "1rem" },
+                                }}>
+                                {userName}
+                            </Typography>
+                        </Link>
+                    </Grid>
+                    <Grid item xs={9}>
+                        <Grid container sx={{ alignItems: "center" }}>
+                            <Grid item xs={11}>
+                                <TextField
+                                    fullWidth
+                                    placeholder={useFormatMessage("writeComment")}></TextField>
+                            </Grid>
+                            <Grid item xs={1}>
+                                <IconButton>
+                                    <SendIcon sx={{ color: "primary.main" }} />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Collapse>
         </Card>
     );
 }
