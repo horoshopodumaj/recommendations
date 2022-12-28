@@ -10,6 +10,8 @@ import GlobalContext from "./contexts/GlobalContext";
 import ContentPage from "./pages/contentPage";
 import WriteReview from "./components/writeReview";
 
+export const URL = process.env.REACT_APP_SERVER_URL;
+
 const pages = ["films", "books", "games"];
 
 function App() {

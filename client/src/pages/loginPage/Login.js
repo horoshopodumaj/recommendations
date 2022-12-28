@@ -9,6 +9,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import { FormattedMessage } from "react-intl";
 import LocalePicker from "../../components/header/LocalePicker";
+import { URL } from "../../App";
 
 const buttonsOptions = [
     {
@@ -34,6 +35,11 @@ const buttonsOptions = [
 ];
 
 const Login = () => {
+    const auth = (socialMedia) => {
+        if (socialMedia === "Google") {
+            window.open(`${URL}/api/user/login/google`, "_self");
+        }
+    };
     return (
         <section className={style.container}>
             <Box
@@ -61,6 +67,7 @@ const Login = () => {
                     {buttonsOptions.map((item) => (
                         <Button
                             fullWidth
+                            key={item.socialMedia}
                             endIcon={item.icon}
                             sx={{
                                 mb: "10px",
@@ -75,7 +82,8 @@ const Login = () => {
                                     filter: "brightness(125%)",
                                 },
                             }}
-                            variant="outlined">
+                            variant="outlined"
+                            onClick={() => auth(item.socialMedia)}>
                             <FormattedMessage id="signInWith" /> {item.socialMedia}
                         </Button>
                     ))}

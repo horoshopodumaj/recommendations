@@ -15,7 +15,9 @@ class UserController {
 
     async check(req, res, next) {
         res.status(200).json({
+            success: true,
             message: "Welcome!",
+            user: req.user,
         });
     }
 }
