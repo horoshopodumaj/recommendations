@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./CartReview.module.scss";
 import {
-    Avatar,
     Box,
     Card,
     CardActions,
@@ -15,44 +14,19 @@ import {
     Rating,
     Typography,
     TextField,
+    Badge,
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import { FormattedMessage } from "react-intl";
 import { grey } from "@mui/material/colors";
-import { useIntl } from "react-intl";
 import { useFormatMessage } from "../../hooks/useFormatMessage";
 import SendIcon from "@mui/icons-material/Send";
+import UserAvatar from "../avatar/UserAvatar";
 
-function stringToColor(string) {
-    let hash = 0;
-    let i;
-
-    for (i = 0; i < string.length; i += 1) {
-        hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    let color = "#";
-
-    for (i = 0; i < 3; i += 1) {
-        const value = (hash >> (i * 8)) & 0xff;
-        color += `00${value.toString(16)}`.slice(-2);
-    }
-
-    return color;
-}
-
-function stringAvatar(name) {
-    return {
-        sx: {
-            bgcolor: stringToColor(name),
-        },
-        children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
-    };
-}
 const userName = "VeryLongNameJed VeryLongSurnameDodds";
-const userInfo = { ...stringAvatar(userName) };
 
+const likes = 45;
 const totalRating = 3.7;
 const totalLikes = 10;
 const tags = [
@@ -114,17 +88,18 @@ export default function CardReviewFull() {
                         sx={{
                             display: "flex",
                             justifyContent: { xs: "center", sm: "flex-start" },
+                            mb: "10px",
                         }}>
-                        <Avatar
-                            sx={{
-                                width: "50px",
-                                height: "50px",
-                                backgroundColor: userInfo.sx.bgcolor,
-                                // mr: { xs: "0", md: "20px" },
-                                mb: { xs: "10px" },
+                        <Badge
+                            overlap="circular"
+                            badgeContent={likes}
+                            color="secondary"
+                            anchorOrigin={{
+                                vertical: "bottom",
+                                horizontal: "right",
                             }}>
-                            {userInfo.children}
-                        </Avatar>
+                            <UserAvatar width={"50px"} height={"50px"} name={userName} />
+                        </Badge>
                     </Box>
                     <Typography
                         sx={{
@@ -339,16 +314,10 @@ export default function CardReviewFull() {
                 {/* <Typography>Comments</Typography> */}
                 <Grid container sx={{ flexDirection: { xs: "row" }, alignItems: "center" }}>
                     <Grid item xs={2} md={3} sx={{ display: { xs: "none", sm: "block" } }}>
-                        <Avatar
-                            sx={{
-                                width: "40px",
-                                height: "40px",
-                                backgroundColor: userInfo.sx.bgcolor,
-                                mr: { xs: "0", md: "20px" },
-                                mb: { xs: "10px" },
-                            }}>
-                            {userInfo.children}
-                        </Avatar>
+                        <Box sx={{ mr: { xs: "0", md: "20px" }, mb: { xs: "10px" } }}>
+                            <UserAvatar width={"40px"} height={"40px"} name={userName} />
+                        </Box>
+
                         <Box sx={{ display: { xs: "none", md: "inline-block" } }}>
                             <Link to="/profile">
                                 <Typography
