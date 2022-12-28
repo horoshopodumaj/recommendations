@@ -9,7 +9,7 @@ import CardReviewFull from "../../components/cardReview";
 import { grey } from "@mui/material/colors";
 import Footer from "../../components/footer";
 import WriteReview from "../../components/writeReview/WriteReview";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -21,6 +21,10 @@ const ContentPage = ({ category }) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [category]);
     return (
         <>
             <Header />

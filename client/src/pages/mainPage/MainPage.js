@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import style from "./MainPage.module.scss";
 import { useScrollbar } from "../../hooks/useScrollbar";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
@@ -44,6 +44,10 @@ export default function MainPage() {
     const hasScroll = tags.length > 5;
 
     useScrollbar(tagsBox, hasScroll);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <>
             <Header backgroundColor={"transparent"} color={true} />

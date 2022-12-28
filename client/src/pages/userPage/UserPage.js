@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./User.module.scss";
 import Header from "../../components/header";
 import { Box, Button, Container, Grid, List, ListItem, Typography } from "@mui/material";
@@ -26,6 +26,10 @@ export default function UserPage() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <>
             <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
