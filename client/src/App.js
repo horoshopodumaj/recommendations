@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import GlobalContext from "./contexts/GlobalContext";
 import ContentPage from "./pages/contentPage";
 import WriteReview from "./components/writeReview";
+import { usersAPI } from "./api/api";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -22,27 +23,11 @@ function App() {
 
     useEffect(() => {
         const getUser = () => {
-            fetch(`${URL}/api/user/login/success`, {
-                method: "GET",
-                credentials: "include",
-                mode: "cors",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Credentials": true,
-                },
-            })
-                .then((response) => {
-                    console.log(response);
-                    if (response.status === 200) return response.json();
-                    throw new Error("authentication has been failed");
-                })
-                .then((resObject) => {
-                    setUser(resObject.user);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            try {
+                usersAPI.isAuth().then((data) => setUser(data.user));
+            } catch (error) {
+                console.log(error);
+            }
         };
         getUser();
     }, []);
