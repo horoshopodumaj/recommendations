@@ -20,6 +20,24 @@ class UserController {
             user: req.user,
         });
     }
+
+    async failed(req, res) {
+        res.status(401).json({
+            success: false,
+            message: "failure",
+        });
+    }
+
+    async success(req, res) {
+        console.log(req.user);
+        if (req.user) {
+            res.status(200).json({
+                success: true,
+                message: "successfull",
+                user: req.user,
+            });
+        }
+    }
 }
 
 module.exports = new UserController();

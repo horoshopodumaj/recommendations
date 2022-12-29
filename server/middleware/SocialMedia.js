@@ -1,7 +1,7 @@
 const passport = require("passport");
 
-const successLoginUrl = `${process.env.CLIENT_URL}/books`;
-const errorLoginUrl = ` ${process.env.CLIENT_URL}/login`;
+const successLoginUrl = `${process.env.CLIENT_URL}`;
+const errorLoginUrl = ` ${process.env.SERVER_URL}/api/user/login/failed`;
 
 module.exports.googleLogin = passport.authenticate("google", { scope: ["profile", "email"] });
 

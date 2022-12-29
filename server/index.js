@@ -16,21 +16,31 @@ require("./auth/passportGoogle");
 PORT = process.env.PORT || 8000;
 
 const app = express();
+
+app.use(express.json());
+app.use(express.static(path.resolve(__dirname, "static")));
+app.use(fileUpload({}));
+app.use(cookieParser());
+app.use(
+    session({
+        secret: process.env.SECRET_KEY,
+        cookie: {
+            secure: false,
+        },
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(
     cors({
         origin: process.env.CLIENT_URL,
         credentials: true,
     })
 );
-app.use(express.json());
-app.use(express.static(path.resolve(__dirname, "static")));
-app.use(fileUpload({}));
-app.use(session({ secret: process.env.SECRET_KEY }));
-app.use(cookieParser());
-app.use("/api", router);
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.use("/api", router);
 
 //app.use(errorHandler);
 

@@ -13,5 +13,7 @@ router.get("/login/google", googleLogin);
 router.get("/auth/google/callback", googleCallback, userController.googleCallback);
 router.get("/logout", userController.logout);
 router.get("/auth", isUserAuthenticated, userController.check);
+router.get("/login/failed", userController.failed);
+router.get("/login/success", userController.success);
 
 module.exports = router;

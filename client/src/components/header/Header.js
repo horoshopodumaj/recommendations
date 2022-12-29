@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./Header.module.scss";
 import { AppBar, Toolbar, Typography, Box, Button, IconButton } from "@mui/material";
@@ -8,9 +8,11 @@ import Search from "./Search";
 import UserAuth from "./UserAuth";
 import DrawerMenu from "./DrawerMenu";
 import Chapters from "./Chapters";
+import GlobalContext from "../../contexts/GlobalContext";
 
 const Header = ({ backgroundColor, color }) => {
-    const isAuth = true;
+    const { user } = useContext(GlobalContext);
+    const isAuth = user;
     const [scrolled, setScrolled] = useState(false);
 
     //const [isSearchOpen, setSearchOpen] = useState(false);
@@ -102,7 +104,7 @@ const Header = ({ backgroundColor, color }) => {
                 ) : (
                     <Box sx={{ display: "flex" }}>
                         <Button sx={{ my: 2, display: "block" }}>
-                            <Link to="/" className={style.chapter}>
+                            <Link to="/login" className={style.chapter}>
                                 login
                             </Link>
                         </Button>

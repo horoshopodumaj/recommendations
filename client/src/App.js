@@ -5,7 +5,7 @@ import MainPage from "./pages/mainPage";
 import UserPage from "./pages/userPage";
 import { LOCALES } from "../src/i18n/locales";
 import { messages } from "../src/i18n/messages";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GlobalContext from "./contexts/GlobalContext";
 import ContentPage from "./pages/contentPage";
 import WriteReview from "./components/writeReview";
@@ -18,8 +18,38 @@ function App() {
     const [currentLocale, setCurrentLocale] = useState(
         localStorage.getItem("language") || LOCALES.EN
     );
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const getUser = () => {
+            fetch(`${URL}/api/user/login/success`, {
+                method: "GET",
+                credentials: "include",
+                mode: "cors",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                },
+            })
+                .then((response) => {
+                    console.log(response);
+                    if (response.status === 200) return response.json();
+                    throw new Error("authentication has been failed");
+                })
+                .then((resObject) => {
+                    setUser(resObject.user);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+        getUser();
+    }, []);
+
+    console.log(user);
     return (
-        <GlobalContext.Provider value={{ currentLocale, setCurrentLocale }}>
+        <GlobalContext.Provider value={{ currentLocale, setCurrentLocale, user }}>
             <IntlProvider
                 messages={messages[currentLocale]}
                 locale={currentLocale}
