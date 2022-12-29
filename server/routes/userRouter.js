@@ -11,7 +11,7 @@ const { isUserAuthenticated } = require("../middleware/auth");
 //router.post("/login", userController.login);
 router.get("/login/google", googleLogin);
 router.get("/auth/google/callback", googleCallback, userController.googleCallback);
-router.get("/logout", userController.logout);
+router.get("/logout", userController.logoutUser);
 router.get("/auth", isUserAuthenticated, userController.check);
 router.get("/login/failed", userController.failed);
 router.get("/login/success", userController.success);

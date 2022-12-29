@@ -1,6 +1,6 @@
 const ApiError = require("../error/ApiError");
 const passport = require("passport");
-const errorLoginUrl = ` ${process.env.CLIENT_URL}/login`;
+const errorLoginUrl = ` ${process.env.CLIENT_URL}`;
 
 class UserController {
     async googleCallback(req, res) {
@@ -8,9 +8,13 @@ class UserController {
         res.send("Thank you for signing in!");
     }
 
-    async logout(req, res) {
-        req.logout();
-        res.redirect(errorLoginUrl);
+    async logoutUser(req, res) {
+        req.logout(function (err) {
+            if (err) {
+                return next(err);
+            }
+            res.redirect(process.env.CLIENT_URL);
+        });
     }
 
     async check(req, res, next) {

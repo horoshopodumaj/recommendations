@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Box, Tooltip, IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { FormattedMessage } from "react-intl";
+import { URL } from "../../App";
 
 export default function UserAuth({ color }) {
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -12,6 +13,11 @@ export default function UserAuth({ color }) {
     };
 
     const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
+    const logout = () => {
+        window.open(`${URL}/api/user/logout`, "_self");
         setAnchorElUser(null);
     };
     return (
@@ -46,10 +52,7 @@ export default function UserAuth({ color }) {
                         <FormattedMessage id="my_account" />
                     </MenuItem>
                 </Link>
-                <Link
-                    onClick={handleCloseUserMenu}
-                    to="/"
-                    style={{ textDecoration: "none", color: "black" }}>
+                <Link onClick={logout} style={{ textDecoration: "none", color: "black" }}>
                     <MenuItem>
                         <FormattedMessage id="Logout" />
                     </MenuItem>
