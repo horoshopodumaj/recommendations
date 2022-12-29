@@ -22,9 +22,9 @@ function App() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const getUser = () => {
+        const getUser = async () => {
             try {
-                usersAPI.isAuth().then((data) => setUser(data.user));
+                await usersAPI.isAuth().then((data) => setUser(data.user));
             } catch (error) {
                 console.log(error);
             }
@@ -43,9 +43,9 @@ function App() {
                     <Routes>
                         <Route path="/" element={<MainPage />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/writereview" element={<WriteReview />} />
-                        <Route path="/profile" element={<UserPage />}>
-                            <Route path=":userId" element={<UserPage />} />
+                        {/* <Route path="/writereview" element={<WriteReview />} /> */}
+                        <Route path="/profile/:id" element={<UserPage />}>
+                            {/* <Route path=":userId" element={<UserPage />} /> */}
                         </Route>
                         {pages.map((page) => (
                             <Route

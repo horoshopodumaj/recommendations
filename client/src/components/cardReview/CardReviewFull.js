@@ -64,13 +64,13 @@ const tags = [
     "Robinson Crusoe",
 ];
 
-export default function CardReviewFull() {
+export default function CardReviewFull({ post }) {
     const [rating, setRating] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
     const [like, setLike] = useState(totalLikes);
     const [expanded, setExpanded] = useState(false);
 
-    const title = "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ РОБИНЗОНА КРУЗО";
+    //const title = "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ РОБИНЗОНА КРУЗО";
 
     const likeHandler = () => {
         setLike(isLiked ? like - 1 : like + 1);
@@ -107,13 +107,13 @@ export default function CardReviewFull() {
                             fontWeight: 500,
                             textAlign: { xs: "center", sm: "left" },
                         }}>
-                        {userName}
+                        {post.userId}
                     </Typography>
                     <Typography
                         sx={{
                             mb: "10px",
                             textAlign: { xs: "center", sm: "left" },
-                        }}>{`"${title}"`}</Typography>
+                        }}>{`"${post.workName}"`}</Typography>
                     <Box
                         sx={{
                             display: "flex",
@@ -212,36 +212,9 @@ export default function CardReviewFull() {
                                 fontSize: "1.25rem",
                                 textAlign: { xs: "center", sm: "left" },
                             }}>
-                            Title Review
+                            {post.title}
                         </Typography>
-                        <Typography sx={{ textAlign: "justify" }}>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum
-                            blanditiis, error aut libero vel quidem temporibus architecto ipsum
-                            quisquam modi natus doloribus et eos sequi alias cupiditate quasi eum.
-                            Aspernatur?Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Totam odio voluptatibus quo culpa sunt vitae, deleniti molestiae debitis
-                            hic ducimus, distinctio iusto, reiciendis dolorem corrupti eos tenetur
-                            cumque sed quibusdam. Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Praesentium nobis ipsum repudiandae saepe, dolores et consequuntur
-                            repellendus a explicabo velit alias delectus voluptates ex impedit,
-                            minima mollitia eius nostrum doloribus? Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit. Pariatur asperiores explicabo sequi ipsa
-                            similique vel impedit ut obcaecati quibusdam. Corrupti labore nisi
-                            possimus distinctio expedita, dolor nihil fugit mollitia et. Lorem ipsum
-                            dolor sit amet, consectetur adipisicing elit. Cum blanditiis, error aut
-                            libero vel quidem temporibus architecto ipsum quisquam modi natus
-                            doloribus et eos sequi alias cupiditate quasi eum. Aspernatur?Lorem
-                            ipsum dolor sit amet, consectetur adipisicing elit. Totam odio
-                            voluptatibus quo culpa sunt vitae, deleniti molestiae debitis hic
-                            ducimus, distinctio iusto, reiciendis dolorem corrupti eos tenetur
-                            cumque sed quibusdam. Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Praesentium nobis ipsum repudiandae saepe, dolores et consequuntur
-                            repellendus a explicabo velit alias delectus voluptates ex impedit,
-                            minima mollitia eius nostrum doloribus? Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit. Pariatur asperiores explicabo sequi ipsa
-                            similique vel impedit ut obcaecati quibusdam. Corrupti labore nisi
-                            possimus distinctio expedita, dolor nihil fugit mollitia et.
-                        </Typography>
+                        <Typography sx={{ textAlign: "justify" }}>{post.description}</Typography>
                     </CardContent>
                     <CardActions
                         sx={{

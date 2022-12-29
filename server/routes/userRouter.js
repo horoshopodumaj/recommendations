@@ -15,5 +15,6 @@ router.get("/logout", userController.logoutUser);
 router.get("/auth", isUserAuthenticated, userController.check);
 router.get("/login/failed", userController.failed);
 router.get("/login/success", userController.success);
+router.get("/profile/:id", userController.getOne);
 
 module.exports = router;

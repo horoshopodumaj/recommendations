@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./User.module.scss";
 import Header from "../../components/header";
 import { Box, Button, Container, Grid, List, ListItem, Typography } from "@mui/material";
@@ -12,8 +12,11 @@ import Footer from "../../components/footer";
 import CardReviewFull from "../../components/cardReview";
 import WriteReview from "../../components/writeReview/WriteReview";
 import UserAvatar from "../../components/avatar/UserAvatar";
+import GlobalContext from "../../contexts/GlobalContext";
+import axios from "axios";
+import { URL } from "../../App";
 
-const userName = "VeryLongNameJed VeryLongSurnameDodds";
+//const userName = "VeryLongNameJed VeryLongSurnameDodds";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -22,6 +25,23 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 });
 
 export default function UserPage() {
+    const { user } = useContext(GlobalContext);
+    const [posts, setPosts] = useState([]);
+
+    const getProfile = async () => {
+        try {
+            await axios
+                .get(`${URL}/api/review/user/${user.id}`)
+                .then((response) => setPosts(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getProfile();
+    }, [posts]);
+
     const isUser = true;
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -47,12 +67,18 @@ export default function UserPage() {
                                         mb: { xs: "20px", md: "0" },
                                         fontSize: "2rem",
                                     }}>
-                                    <UserAvatar
-                                        width={"120px"}
-                                        height={"120px"}
-                                        name={userName}
-                                        fontSize={"2rem"}
-                                    />
+                                    <Box
+                                        sx={{
+                                            mr: { xs: "0", md: "20px" },
+                                            mb: { xs: "20px", md: "0" },
+                                        }}>
+                                        <UserAvatar
+                                            width={"120px"}
+                                            height={"120px"}
+                                            name={user.name}
+                                            fontSize={"2rem"}
+                                        />
+                                    </Box>
                                     <Typography
                                         component="h3"
                                         sx={{
@@ -63,7 +89,7 @@ export default function UserPage() {
                                             textAlign: "center",
                                             color: "white",
                                         }}>
-                                        {userName}
+                                        {user.name}
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -140,8 +166,11 @@ export default function UserPage() {
                     paddingBottom: "35px",
                 }}>
                 <Container>
-                    <CardReviewFull />
-                    <CardReviewFull />
+                    {posts.map((post) => (
+                        <CardReviewFull post={post} />
+                    ))}
+
+                    {/* <CardReviewFull /> */}
                 </Container>
             </section>
             <Footer />

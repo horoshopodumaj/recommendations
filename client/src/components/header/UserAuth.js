@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Tooltip, IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { FormattedMessage } from "react-intl";
 import { URL } from "../../App";
+import GlobalContext from "../../contexts/GlobalContext";
 
 export default function UserAuth({ color }) {
+    const { user } = useContext(GlobalContext);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenUserMenu = (event) => {
@@ -46,7 +48,7 @@ export default function UserAuth({ color }) {
                 onClose={handleCloseUserMenu}>
                 <Link
                     onClick={handleCloseUserMenu}
-                    to="/profile"
+                    to={`/profile/${user.id}`}
                     style={{ textDecoration: "none", color: "black" }}>
                     <MenuItem>
                         <FormattedMessage id="my_account" />

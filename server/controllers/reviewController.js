@@ -44,6 +44,11 @@ class ReviewController {
         const review = await Review.findOne({ where: { id } });
         return res.json(review);
     }
+    async getUserReviews(req, res) {
+        const { id } = req.params;
+        const reviews = await Review.findAll({ where: { userId: id } });
+        return res.json(reviews);
+    }
 }
 
 module.exports = new ReviewController();
