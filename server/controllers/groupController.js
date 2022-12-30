@@ -11,6 +11,11 @@ class GroupController {
         const group = await Group.findAll();
         return res.json(group);
     }
+    async getOne(req, res) {
+        const { id } = req.params;
+        const group = await Group.findOne({ where: { id } });
+        return res.json(group);
+    }
 }
 
 module.exports = new GroupController();

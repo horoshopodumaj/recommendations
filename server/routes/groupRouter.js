@@ -4,5 +4,6 @@ const groupController = require("../controllers/groupController");
 
 router.post("/", groupController.create);
 router.get("/", groupController.getAll);
+router.get("/:id", groupController.getOne);
 
 module.exports = router;

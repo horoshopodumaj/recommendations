@@ -14,8 +14,6 @@ import axios from "axios";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
-//const pages = ["films", "books", "games"];
-
 function App() {
     const [currentLocale, setCurrentLocale] = useState(
         localStorage.getItem("language") || LOCALES.EN

@@ -72,14 +72,13 @@ export default function CardReviewFull({ post }) {
     const [like, setLike] = useState(totalLikes);
     const [expanded, setExpanded] = useState(false);
     const [user, setUser] = useState({});
-
-    //const title = "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ РОБИНЗОНА КРУЗО";
+    const [category, setCategory] = useState({});
 
     const likeHandler = () => {
         setLike(isLiked ? like - 1 : like + 1);
         setIsLiked(!isLiked);
     };
-    console.log(post);
+
     const commentHandler = () => {
         setExpanded(!expanded);
     };
@@ -96,7 +95,22 @@ export default function CardReviewFull({ post }) {
         };
         getUser();
     }, [post]);
-    console.log(user);
+
+    useEffect(() => {
+        const getCategory = async () => {
+            try {
+                await axios
+                    .get(`${URL}/api/group/${post.groupId}`)
+                    .then((response) => setCategory(response.data));
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getCategory();
+    }, [post]);
+
+    const date = Date.parse(post.createdAt);
+
     return (
         <Card sx={{ mb: "30px" }}>
             <Grid container sx={{ padding: { xs: "20px 12px 0", sm: "25px 25px 0" } }} spacing={3}>
@@ -189,7 +203,8 @@ export default function CardReviewFull({ post }) {
                                 order: { xs: 1, sm: 2 },
                                 mb: "10px",
                             }}>
-                            <FormattedMessage id="published" />: data publish
+                            <FormattedMessage id="published" />:{" "}
+                            {new Date(date).toLocaleDateString("ru-RU")}
                         </Typography>
                     </Box>
                     <Box
@@ -214,8 +229,8 @@ export default function CardReviewFull({ post }) {
 
                         <Typography
                             sx={{ fontStyle: "oblique", opacity: "0.8", textAlign: "right" }}>
-                            <Link to="/books" style={{ textTransform: "capitalize" }}>
-                                <FormattedMessage id="books" />
+                            <Link to={`/${category.name}`} style={{ textTransform: "capitalize" }}>
+                                <FormattedMessage id={`${category.name}`} />
                             </Link>
                         </Typography>
                     </Box>
