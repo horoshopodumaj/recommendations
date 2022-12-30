@@ -163,8 +163,9 @@ export default function MainPage() {
                                     minHeight: "300px",
                                 }}
                                 ref={tagsBox}>
-                                {tags.map((tag) => (
+                                {tags.map((tag, index) => (
                                     <Link
+                                        key={index}
                                         className={style.tagslink}
                                         style={{ maxWidth: "200px", backgroundColor: grey[100] }}>
                                         <Typography sx={{ fontSize: "0.9rem" }} noWrap>

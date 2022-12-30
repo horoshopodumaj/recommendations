@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./CartReview.module.scss";
 import {
@@ -26,6 +26,7 @@ import SendIcon from "@mui/icons-material/Send";
 import UserAvatar from "../avatar/UserAvatar";
 import axios from "axios";
 import { URL } from "../../App";
+import GlobalContext from "../../contexts/GlobalContext";
 
 const userName = "VeryLongNameJed VeryLongSurnameDodds";
 
@@ -68,6 +69,7 @@ const tags = [
 ];
 
 export default function CardReviewFull({ post }) {
+    const { currentUser } = useContext(GlobalContext);
     const [rating, setRating] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
     const [like, setLike] = useState(totalLikes);
@@ -197,6 +199,7 @@ export default function CardReviewFull({ post }) {
                                 name="yourRating"
                                 onChange={(event, newValue) => setRating(newValue)}
                                 value={rating}
+                                readOnly={currentUser ? false : true}
                             />
                         </Box>
                         <Typography
@@ -281,7 +284,7 @@ export default function CardReviewFull({ post }) {
                                     color: isLiked && "#3578fa",
                                     mr: "8px",
                                 }}
-                                onClick={likeHandler}>
+                                onClick={currentUser ? likeHandler : null}>
                                 <ThumbUpIcon sx={{ fontSize: "24px" }} />
                             </IconButton>
                             <Typography
