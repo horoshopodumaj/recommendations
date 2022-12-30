@@ -15,8 +15,7 @@ import UserAvatar from "../../components/avatar/UserAvatar";
 import GlobalContext from "../../contexts/GlobalContext";
 import axios from "axios";
 import { URL } from "../../App";
-
-//const userName = "VeryLongNameJed VeryLongSurnameDodds";
+import { useParams } from "react-router-dom";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -25,22 +24,35 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 });
 
 export default function UserPage() {
-    const { user } = useContext(GlobalContext);
     const [posts, setPosts] = useState([]);
+    const [user, setUser] = useState({});
+    const { id } = useParams();
+
+    const getUser = useCallback(async () => {
+        console.log(1);
+        try {
+            await axios
+                .get(`${URL}/api/user/profile/${id}`)
+                .then((response) => setUser(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    }, [id]);
 
     const getProfile = useCallback(async () => {
         try {
             await axios
-                .get(`${URL}/api/review/user/${user.id}`)
+                .get(`${URL}/api/review/user/${id}`)
                 .then((response) => setPosts(response.data));
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    }, [id]);
 
     useEffect(() => {
+        getUser();
         getProfile();
-    }, [getProfile]);
+    }, [getUser, getProfile]);
 
     const isUser = true;
     const [open, setOpen] = useState(false);
@@ -72,12 +84,12 @@ export default function UserPage() {
                                             mr: { xs: "0", md: "20px" },
                                             mb: { xs: "20px", md: "0" },
                                         }}>
-                                        <UserAvatar
+                                        {/* <UserAvatar
                                             width={"120px"}
                                             height={"120px"}
                                             name={user.name}
                                             fontSize={"2rem"}
-                                        />
+                                        /> */}
                                     </Box>
                                     <Typography
                                         component="h3"
@@ -156,6 +168,7 @@ export default function UserPage() {
                             </Box>
                         )}
                     </Container>
+                    {id}
                 </div>
                 <WriteReview onClose={handleClose} open={open} />
             </section>
@@ -169,8 +182,6 @@ export default function UserPage() {
                     {posts.map((post) => (
                         <CardReviewFull post={post} />
                     ))}
-
-                    {/* <CardReviewFull /> */}
                 </Container>
             </section>
             <Footer />

@@ -18,19 +18,19 @@ function App() {
     const [currentLocale, setCurrentLocale] = useState(
         localStorage.getItem("language") || LOCALES.EN
     );
-    const [user, setUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
     const [categories, setCategories] = useState([]);
 
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                await usersAPI.isAuth().then((data) => setUser(data.user));
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getUser();
-    }, []);
+    // useEffect(() => {
+    //     const getUser = async () => {
+    //         try {
+    //             await usersAPI.isAuth().then((data) => setCurrentUser(data.user));
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //     getUser();
+    // }, []);
 
     const getCategory = useCallback(async () => {
         try {
@@ -44,9 +44,9 @@ function App() {
         getCategory();
     }, []);
 
-    console.log(user);
+    console.log(currentUser);
     return (
-        <GlobalContext.Provider value={{ currentLocale, setCurrentLocale, user }}>
+        <GlobalContext.Provider value={{ currentLocale, setCurrentLocale, currentUser }}>
             <IntlProvider
                 messages={messages[currentLocale]}
                 locale={currentLocale}

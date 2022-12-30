@@ -7,7 +7,7 @@ import { URL } from "../../App";
 import GlobalContext from "../../contexts/GlobalContext";
 
 export default function UserAuth({ color }) {
-    const { user } = useContext(GlobalContext);
+    const { currentUser } = useContext(GlobalContext);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenUserMenu = (event) => {
@@ -48,7 +48,7 @@ export default function UserAuth({ color }) {
                 onClose={handleCloseUserMenu}>
                 <Link
                     onClick={handleCloseUserMenu}
-                    to={`/profile/${user.id}`}
+                    to={`/profile/${currentUser.id}`}
                     style={{ textDecoration: "none", color: "black" }}>
                     <MenuItem>
                         <FormattedMessage id="my_account" />
