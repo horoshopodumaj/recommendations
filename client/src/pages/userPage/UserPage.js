@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import style from "./User.module.scss";
 import Header from "../../components/header";
-import { Box, Button, Container, Grid, List, ListItem, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, Grid, List, ListItem, Typography } from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import StarIcon from "@mui/icons-material/Star";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -63,6 +63,9 @@ export default function UserPage() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    //const userName = `${user.name.split(" ")[0][0]}${user.name.split(" ")[1][0]}`;
+    // console.log(userName);
     return (
         <>
             <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
@@ -86,11 +89,15 @@ export default function UserPage() {
                                             mb: { xs: "20px", md: "0" },
                                         }}>
                                         {/* <UserAvatar
-                                            width={"120px"}
-                                            height={"120px"}
-                                            name={user.name}
-                                            fontSize={"2rem"}
+                                        //width={"120px"}
+                                        //height={"120px"}
+                                        //name={"iiojllkkl"}
+                                        //fontSize={"2rem"}
                                         /> */}
+                                        <Avatar
+                                            sx={{ width: "120px", height: "120px" }}
+                                            alt={user.name}
+                                        />
                                     </Box>
                                     <Typography
                                         component="h3"

@@ -15,6 +15,7 @@ import {
     Typography,
     TextField,
     Badge,
+    Avatar,
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
@@ -130,7 +131,8 @@ export default function CardReviewFull({ post }) {
                                 vertical: "bottom",
                                 horizontal: "right",
                             }}>
-                            <UserAvatar width={"50px"} height={"50px"} name={userName} />
+                            {/* <UserAvatar width={"50px"} height={"50px"} name={userName} /> */}
+                            <Avatar sx={{ width: "50px", height: "50px" }} alt={user.name} />
                         </Badge>
                     </Box>
                     <Typography
