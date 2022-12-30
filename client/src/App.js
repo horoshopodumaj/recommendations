@@ -5,21 +5,23 @@ import MainPage from "./pages/mainPage";
 import UserPage from "./pages/userPage";
 import { LOCALES } from "../src/i18n/locales";
 import { messages } from "../src/i18n/messages";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import GlobalContext from "./contexts/GlobalContext";
 import ContentPage from "./pages/contentPage";
 import WriteReview from "./components/writeReview";
 import { usersAPI } from "./api/api";
+import axios from "axios";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
-const pages = ["films", "books", "games"];
+//const pages = ["films", "books", "games"];
 
 function App() {
     const [currentLocale, setCurrentLocale] = useState(
         localStorage.getItem("language") || LOCALES.EN
     );
     const [user, setUser] = useState(null);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         const getUser = async () => {
@@ -30,6 +32,18 @@ function App() {
             }
         };
         getUser();
+    }, []);
+
+    const getCategory = useCallback(async () => {
+        try {
+            await axios.get(`${URL}/api/group`).then((response) => setCategories(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    }, [categories]);
+
+    useEffect(() => {
+        getCategory();
     }, []);
 
     console.log(user);
@@ -47,11 +61,11 @@ function App() {
                         <Route path="/profile/:id" element={<UserPage />}>
                             {/* <Route path=":userId" element={<UserPage />} /> */}
                         </Route>
-                        {pages.map((page) => (
+                        {categories.map((category) => (
                             <Route
-                                key={page}
-                                path={`/${page.toLowerCase()}`}
-                                element={<ContentPage category={page.toLowerCase()} />}
+                                key={category.id}
+                                path={`/${category.name.toLowerCase()}`}
+                                element={<ContentPage category={category.name.toLowerCase()} />}
                             />
                         ))}
                     </Routes>

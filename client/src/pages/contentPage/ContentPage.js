@@ -21,6 +21,7 @@ const ContentPage = ({ category }) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    console.log(category);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -108,8 +109,8 @@ const ContentPage = ({ category }) => {
                     paddingBottom: "35px",
                 }}>
                 <Container>
-                    <CardReviewFull />
-                    <CardReviewFull />
+                    {/* <CardReviewFull />
+                    <CardReviewFull /> */}
                 </Container>
             </section>
 
