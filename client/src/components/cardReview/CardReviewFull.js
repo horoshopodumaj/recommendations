@@ -110,6 +110,7 @@ export default function CardReviewFull({ post }) {
     }, [post]);
 
     const date = Date.parse(post.createdAt);
+    console.log(typeof user.name);
 
     return (
         <Card sx={{ mb: "30px" }}>
@@ -224,7 +225,7 @@ export default function CardReviewFull({ post }) {
                             <Typography sx={{ mr: "10px", fontStyle: "oblique" }}>
                                 <FormattedMessage id="authorAssessment" />
                             </Typography>
-                            <Rating name="authorAssessment" readOnly value={7} max={10} />
+                            <Rating name="authorAssessment" readOnly value={post.rating} max={10} />
                         </Box>
 
                         <Typography
