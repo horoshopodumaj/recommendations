@@ -21,16 +21,16 @@ function App() {
     const [currentUser, setCurrentUser] = useState(null);
     const [categories, setCategories] = useState([]);
 
-    // useEffect(() => {
-    //     const getUser = async () => {
-    //         try {
-    //             await usersAPI.isAuth().then((data) => setCurrentUser(data.user));
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
-    //     getUser();
-    // }, []);
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                await usersAPI.isAuth().then((data) => setCurrentUser(data.user));
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getUser();
+    }, []);
 
     const getCategory = useCallback(async () => {
         try {

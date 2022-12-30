@@ -24,12 +24,12 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 });
 
 export default function UserPage() {
+    const { currentUser } = useContext(GlobalContext);
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState({});
     const { id } = useParams();
 
     const getUser = useCallback(async () => {
-        console.log(1);
         try {
             await axios
                 .get(`${URL}/api/user/profile/${id}`)
@@ -54,7 +54,8 @@ export default function UserPage() {
         getProfile();
     }, [getUser, getProfile]);
 
-    const isUser = true;
+    const isUser = currentUser ? currentUser.id === user.id || currentUser.role === "ADMIN" : false;
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

@@ -11,8 +11,8 @@ import Chapters from "./Chapters";
 import GlobalContext from "../../contexts/GlobalContext";
 
 const Header = ({ backgroundColor, color }) => {
-    const { user } = useContext(GlobalContext);
-    const isAuth = user;
+    const { currentUser } = useContext(GlobalContext);
+    const isAuth = currentUser;
     const [scrolled, setScrolled] = useState(false);
 
     //const [isSearchOpen, setSearchOpen] = useState(false);
