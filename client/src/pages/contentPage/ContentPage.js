@@ -9,7 +9,9 @@ import CardReviewFull from "../../components/cardReview";
 import { grey } from "@mui/material/colors";
 import Footer from "../../components/footer";
 import WriteReview from "../../components/writeReview/WriteReview";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+import { URL } from "../../App";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -19,9 +21,26 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 
 const ContentPage = ({ category }) => {
     const [open, setOpen] = useState(false);
+    const [posts, setPosts] = useState([]);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     console.log(category);
+
+    const getPosts = useCallback(async () => {
+        try {
+            await axios
+                .get(`${URL}/api/review/category/${category.id}`)
+                .then((response) => setPosts(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    }, [category]);
+
+    console.log(posts);
+
+    useEffect(() => {
+        getPosts();
+    }, [getPosts]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -55,7 +74,7 @@ const ContentPage = ({ category }) => {
                                         color: "white",
                                         textTransform: "capitalize",
                                     }}>
-                                    <FormattedMessage id={`${category}`} />
+                                    <FormattedMessage id={`${category.name}`} />
                                 </Typography>
                                 <Typography
                                     component="p"
@@ -69,7 +88,7 @@ const ContentPage = ({ category }) => {
                                         textTransform: "capitalize",
                                     }}>
                                     <FormattedMessage id="hereAreReviewsOf" />{" "}
-                                    <FormattedMessage id={`${category}`} />
+                                    <FormattedMessage id={`${category.name}`} />
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={6} sm={12}>
@@ -109,8 +128,9 @@ const ContentPage = ({ category }) => {
                     paddingBottom: "35px",
                 }}>
                 <Container>
-                    {/* <CardReviewFull />
-                    <CardReviewFull /> */}
+                    {posts.map((post) => (
+                        <CardReviewFull post={post} />
+                    ))}
                 </Container>
             </section>
 

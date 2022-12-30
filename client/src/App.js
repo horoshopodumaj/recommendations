@@ -65,7 +65,7 @@ function App() {
                             <Route
                                 key={category.id}
                                 path={`/${category.name.toLowerCase()}`}
-                                element={<ContentPage category={category.name.toLowerCase()} />}
+                                element={<ContentPage category={category} />}
                             />
                         ))}
                     </Routes>

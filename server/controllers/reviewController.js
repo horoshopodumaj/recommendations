@@ -49,6 +49,11 @@ class ReviewController {
         const reviews = await Review.findAll({ where: { userId: id } });
         return res.json(reviews);
     }
+    async getCategoryReviews(req, res) {
+        const { id } = req.params;
+        const reviews = await Review.findAll({ where: { groupId: id } });
+        return res.json(reviews);
+    }
 }
 
 module.exports = new ReviewController();

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import style from "./User.module.scss";
 import Header from "../../components/header";
 import { Box, Button, Container, Grid, List, ListItem, Typography } from "@mui/material";
@@ -28,7 +28,7 @@ export default function UserPage() {
     const { user } = useContext(GlobalContext);
     const [posts, setPosts] = useState([]);
 
-    const getProfile = async () => {
+    const getProfile = useCallback(async () => {
         try {
             await axios
                 .get(`${URL}/api/review/user/${user.id}`)
@@ -36,11 +36,11 @@ export default function UserPage() {
         } catch (error) {
             console.log(error);
         }
-    };
+    }, []);
 
     useEffect(() => {
         getProfile();
-    }, [posts]);
+    }, [getProfile]);
 
     const isUser = true;
     const [open, setOpen] = useState(false);

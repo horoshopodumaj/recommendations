@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./CartReview.module.scss";
 import {
@@ -23,6 +23,8 @@ import { grey } from "@mui/material/colors";
 import { useFormatMessage } from "../../hooks/useFormatMessage";
 import SendIcon from "@mui/icons-material/Send";
 import UserAvatar from "../avatar/UserAvatar";
+import axios from "axios";
+import { URL } from "../../App";
 
 const userName = "VeryLongNameJed VeryLongSurnameDodds";
 
@@ -69,6 +71,7 @@ export default function CardReviewFull({ post }) {
     const [isLiked, setIsLiked] = useState(false);
     const [like, setLike] = useState(totalLikes);
     const [expanded, setExpanded] = useState(false);
+    const [user, setUser] = useState({});
 
     //const title = "ЖИЗНЬ И УДИВИТЕЛЬНЫЕ ПРИКЛЮЧЕНИЯ РОБИНЗОНА КРУЗО";
 
@@ -76,10 +79,24 @@ export default function CardReviewFull({ post }) {
         setLike(isLiked ? like - 1 : like + 1);
         setIsLiked(!isLiked);
     };
-
+    console.log(post);
     const commentHandler = () => {
         setExpanded(!expanded);
     };
+
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                await axios
+                    .get(`${URL}/api/user/profile/${post.userId}`)
+                    .then((response) => setUser(response.data));
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getUser();
+    }, [post]);
+    console.log(user);
     return (
         <Card sx={{ mb: "30px" }}>
             <Grid container sx={{ padding: { xs: "20px 12px 0", sm: "25px 25px 0" } }} spacing={3}>
@@ -107,7 +124,7 @@ export default function CardReviewFull({ post }) {
                             fontWeight: 500,
                             textAlign: { xs: "center", sm: "left" },
                         }}>
-                        {post.userId}
+                        {user.name}
                     </Typography>
                     <Typography
                         sx={{
