@@ -111,7 +111,7 @@ export default function UserPage() {
                                     sx={{ display: "flex", float: { xs: "center", md: "right" } }}>
                                     <ListItem
                                         sx={{ flexDirection: "column", alignItems: "center" }}>
-                                        <strong className="strong">12</strong>
+                                        <strong className="strong">{posts.length}</strong>
                                         <CustomWidthTooltip
                                             sx={{
                                                 maxWidth: { xs: "200px", md: "500px" },
