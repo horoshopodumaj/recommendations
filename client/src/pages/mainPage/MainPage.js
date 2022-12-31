@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import style from "./MainPage.module.scss";
 import { useScrollbar } from "../../hooks/useScrollbar";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
@@ -10,40 +10,55 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { grey } from "@mui/material/colors";
 import Card from "../../components/card";
 import Carousel from "../../components/carousel";
+import axios from "axios";
+import { URL } from "../../App";
 
-const tags = [
-    "film",
-    "book",
-    "2022",
-    "2021",
-    "Avatar",
-    "Аватар",
-    "Бакман",
-    "jrgrijigrkjdgijopokklk;ll'l'l'lsmd;;k;kkjjlklkjljkk;k;;k",
-    "очень длинный тэг",
-    " travel",
-    "dance",
-    "animal",
-    "1988",
-    "2013",
-    "games",
-    "favorite books",
-    "GTA",
-    "summer",
-    "winter",
-    "весна",
-    "зима",
-    "forest",
-    "games 1973",
-    "1984",
-    "author",
-];
+// const tags = [
+//     "film",
+//     "book",
+//     "2022",
+//     "2021",
+//     "Avatar",
+//     "Аватар",
+//     "Бакман",
+//     "jrgrijigrkjdgijopokklk;ll'l'l'lsmd;;k;kkjjlklkjljkk;k;;k",
+//     "очень длинный тэг",
+//     " travel",
+//     "dance",
+//     "animal",
+//     "1988",
+//     "2013",
+//     "games",
+//     "favorite books",
+//     "GTA",
+//     "summer",
+//     "winter",
+//     "весна",
+//     "зима",
+//     "forest",
+//     "games 1973",
+//     "1984",
+//     "author",
+// ];
 
 export default function MainPage() {
+    const [tags, setTags] = useState([]);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
 
     useScrollbar(tagsBox, hasScroll);
+
+    const getTags = useCallback(async () => {
+        try {
+            await axios.get(`${URL}/api/tag`).then((response) => setTags(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    useEffect(() => {
+        getTags();
+    }, [getTags]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -169,7 +184,7 @@ export default function MainPage() {
                                         className={style.tagslink}
                                         style={{ maxWidth: "200px", backgroundColor: grey[100] }}>
                                         <Typography sx={{ fontSize: "0.9rem" }} noWrap>
-                                            {tag}
+                                            {tag.name}
                                         </Typography>
                                     </Link>
                                 ))}
