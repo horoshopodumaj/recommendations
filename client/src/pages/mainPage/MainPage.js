@@ -13,34 +13,6 @@ import Carousel from "../../components/carousel";
 import axios from "axios";
 import { URL } from "../../App";
 
-// const tags = [
-//     "film",
-//     "book",
-//     "2022",
-//     "2021",
-//     "Avatar",
-//     "Аватар",
-//     "Бакман",
-//     "jrgrijigrkjdgijopokklk;ll'l'l'lsmd;;k;kkjjlklkjljkk;k;;k",
-//     "очень длинный тэг",
-//     " travel",
-//     "dance",
-//     "animal",
-//     "1988",
-//     "2013",
-//     "games",
-//     "favorite books",
-//     "GTA",
-//     "summer",
-//     "winter",
-//     "весна",
-//     "зима",
-//     "forest",
-//     "games 1973",
-//     "1984",
-//     "author",
-// ];
-
 export default function MainPage() {
     const [tags, setTags] = useState([]);
     const tagsBox = useRef(null);

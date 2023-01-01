@@ -64,6 +64,8 @@ export default function UserPage() {
         window.scrollTo(0, 0);
     }, []);
 
+    console.log(posts);
+
     //const userName = `${user.name.split(" ")[0][0]}${user.name.split(" ")[1][0]}`;
     // console.log(userName);
     return (
@@ -187,9 +189,34 @@ export default function UserPage() {
                     paddingBottom: "35px",
                 }}>
                 <Container>
-                    {posts.map((post) => (
-                        <CardReviewFull post={post} />
-                    ))}
+                    {posts.length > 0 ? (
+                        posts.map((post) => <CardReviewFull post={post} />)
+                    ) : isUser ? (
+                        <Box sx={{ textAlign: "center" }}>
+                            <Typography
+                                sx={{
+                                    fontSize: { xs: "1.3rem", sm: "2rem" },
+                                    fontWeight: 500,
+                                    mb: { xs: "20px", sm: "30px" },
+                                }}>
+                                <FormattedMessage id="firstReview" />
+                            </Typography>
+                            <Button sx={{ color: "#3578fa" }} onClick={handleOpen}>
+                                <FormattedMessage id="writeReview" />
+                            </Button>
+                        </Box>
+                    ) : (
+                        <Box sx={{ textAlign: "center" }}>
+                            <Typography
+                                sx={{
+                                    fontSize: { xs: "1.3rem", sm: "2rem" },
+                                    fontWeight: 500,
+                                    mb: { xs: "20px", sm: "30px" },
+                                }}>
+                                <FormattedMessage id="noReview" />
+                            </Typography>
+                        </Box>
+                    )}
                 </Container>
             </section>
             <Footer />
