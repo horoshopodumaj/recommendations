@@ -67,6 +67,7 @@ export const messages = {
         writeComment: "Write a comment...",
         firstReview: "Write your first review",
         noReview: "This user has no reviews yet",
+        noUser: "There is no such user, or he is lost(",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -135,5 +136,6 @@ export const messages = {
         writeComment: "Написать комментарий...",
         firstReview: "Оставьте свой первый отзыв",
         noReview: "У этого пользователя пока нет отзывов",
+        noUser: "Такого пользователя не существует, либо он потерялся(",
     },
 };
