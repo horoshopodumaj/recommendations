@@ -129,7 +129,7 @@ const ContentPage = ({ category }) => {
                 }}>
                 <Container>
                     {posts.map((post) => (
-                        <CardReviewFull post={post} />
+                        <CardReviewFull key={post.id} post={post} />
                     ))}
                 </Container>
             </section>

@@ -113,7 +113,6 @@ export default function CardReviewFull({ post }) {
     }, [post]);
 
     const date = Date.parse(post.createdAt);
-    console.log(typeof user.name);
 
     return (
         <Card sx={{ mb: "30px" }}>
@@ -284,7 +283,7 @@ export default function CardReviewFull({ post }) {
                                     color: isLiked && "#3578fa",
                                     mr: "8px",
                                 }}
-                                onClick={currentUser ? likeHandler : null}>
+                                onClick={currentUser && likeHandler}>
                                 <ThumbUpIcon sx={{ fontSize: "24px" }} />
                             </IconButton>
                             <Typography
