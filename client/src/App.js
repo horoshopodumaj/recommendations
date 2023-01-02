@@ -46,7 +46,8 @@ function App() {
 
     console.log(currentUser);
     return (
-        <GlobalContext.Provider value={{ currentLocale, setCurrentLocale, currentUser }}>
+        <GlobalContext.Provider
+            value={{ currentLocale, setCurrentLocale, currentUser, categories }}>
             <IntlProvider
                 messages={messages[currentLocale]}
                 locale={currentLocale}

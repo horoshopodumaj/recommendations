@@ -16,6 +16,7 @@ import GlobalContext from "../../contexts/GlobalContext";
 import axios from "axios";
 import { URL } from "../../App";
 import { useParams } from "react-router-dom";
+import TableReviews from "../../components/table/TableReviews";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -27,6 +28,7 @@ export default function UserPage() {
     const { currentUser } = useContext(GlobalContext);
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState({});
+    const [edit, setEdit] = useState(false);
     const { id } = useParams();
 
     const getUser = useCallback(async () => {
@@ -49,12 +51,17 @@ export default function UserPage() {
         }
     }, [id]);
 
+    const editOpen = () => {
+        setEdit(!edit);
+    };
+
     useEffect(() => {
         getUser();
         getProfile();
     }, [getUser, getProfile]);
 
     console.log(user);
+    console.log(posts);
 
     const isUser =
         user && currentUser ? currentUser.id === user.id || currentUser.role === "ADMIN" : false;
@@ -194,7 +201,7 @@ export default function UserPage() {
                                         <Button sx={{ color: "white" }} onClick={handleOpen}>
                                             <FormattedMessage id="writeReview" />
                                         </Button>
-                                        <Button sx={{ color: "white" }}>
+                                        <Button sx={{ color: "white" }} onClick={editOpen}>
                                             <FormattedMessage id="edit" />
                                         </Button>
                                     </Box>
@@ -210,36 +217,43 @@ export default function UserPage() {
                             paddingTop: "60px",
                             paddingBottom: "35px",
                         }}>
-                        <Container>
-                            {posts.length > 0 ? (
-                                posts.map((post) => <CardReviewFull post={post} />)
-                            ) : isUser ? (
-                                <Box sx={{ textAlign: "center" }}>
-                                    <Typography
-                                        sx={{
-                                            fontSize: { xs: "1.3rem", sm: "2rem" },
-                                            fontWeight: 500,
-                                            mb: { xs: "20px", sm: "30px" },
-                                        }}>
-                                        <FormattedMessage id="firstReview" />
-                                    </Typography>
-                                    <Button sx={{ color: "#3578fa" }} onClick={handleOpen}>
-                                        <FormattedMessage id="writeReview" />
-                                    </Button>
-                                </Box>
-                            ) : (
-                                <Box sx={{ textAlign: "center" }}>
-                                    <Typography
-                                        sx={{
-                                            fontSize: { xs: "1.3rem", sm: "2rem" },
-                                            fontWeight: 500,
-                                            mb: { xs: "20px", sm: "30px" },
-                                        }}>
-                                        <FormattedMessage id="noReview" />
-                                    </Typography>
-                                </Box>
-                            )}
-                        </Container>
+                        {edit ? (
+                            <Container>
+                                <TableReviews posts={posts} />
+                                <Button onClick={editOpen}>Cancel</Button>
+                            </Container>
+                        ) : (
+                            <Container>
+                                {posts.length > 0 ? (
+                                    posts.map((post) => <CardReviewFull post={post} />)
+                                ) : isUser ? (
+                                    <Box sx={{ textAlign: "center" }}>
+                                        <Typography
+                                            sx={{
+                                                fontSize: { xs: "1.3rem", sm: "2rem" },
+                                                fontWeight: 500,
+                                                mb: { xs: "20px", sm: "30px" },
+                                            }}>
+                                            <FormattedMessage id="firstReview" />
+                                        </Typography>
+                                        <Button sx={{ color: "#3578fa" }} onClick={handleOpen}>
+                                            <FormattedMessage id="writeReview" />
+                                        </Button>
+                                    </Box>
+                                ) : (
+                                    <Box sx={{ textAlign: "center" }}>
+                                        <Typography
+                                            sx={{
+                                                fontSize: { xs: "1.3rem", sm: "2rem" },
+                                                fontWeight: 500,
+                                                mb: { xs: "20px", sm: "30px" },
+                                            }}>
+                                            <FormattedMessage id="noReview" />
+                                        </Typography>
+                                    </Box>
+                                )}
+                            </Container>
+                        )}
                     </section>
                 </>
             ) : (
