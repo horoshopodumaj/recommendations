@@ -7,9 +7,9 @@ class ReviewController {
     async create(req, res, next) {
         try {
             let { title, workName, description, groupId, rating } = req.body;
-            const { image } = req.files;
+            const { image } = req.files || {};
             let fileName = uuid.v4() + ".jpg";
-            image.mv(path.resolve(__dirname, "..", "static", fileName));
+            image && image.mv(path.resolve(__dirname, "..", "static", fileName));
 
             const review = await Review.create({
                 title,
@@ -17,7 +17,7 @@ class ReviewController {
                 description,
                 groupId,
                 rating,
-                image: fileName,
+                image: fileName || null,
             });
             return res.json(review);
         } catch (error) {
