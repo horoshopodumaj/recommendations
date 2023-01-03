@@ -1,26 +1,9 @@
-import {
-    Box,
-    Container,
-    Grid,
-    Rating,
-    TextField,
-    Typography,
-    FormControl,
-    FormLabel,
-    Modal,
-    Button,
-    IconButton,
-} from "@mui/material";
+import { Box, Rating, TextField, Typography, Modal, Button, IconButton } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "./WriteReview.module.scss";
 import { useContext, useState } from "react";
 import { FormattedMessage } from "react-intl";
-import Header from "../header";
-import { grey } from "@mui/material/colors";
-//import style from "./WriteReview.module.scss";
-import Footer from "../footer";
-import FilePicker from "../dragAndDrop/FilePicker";
 import GlobalContext from "../../contexts/GlobalContext";
 import axios from "axios";
 import { URL } from "../../App";
@@ -53,14 +36,36 @@ export default function WriteReview({ open, onClose }) {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [tag, setTag] = useState([]);
-    //const [tagList, setTagList] = useState(tags);
     const [maxLengthName, setMaxLengthName] = useState(maxLength);
     const [maxLengthDesc, setMaxLengthDesc] = useState(maxLengthDescription);
     const [maxLengthTitleReview, setMaxLengthTitleReview] = useState(maxLength);
+    const [previewSource, setPreviewSource] = useState();
 
-    console.log(tags);
-    console.log(tag);
-    console.log(category);
+    const onFilesChange = (event) => {
+        const file = event.target.files[0];
+        previewFile(file);
+    };
+
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewSource(reader.result);
+        };
+    };
+
+    const onDropFiles = (event) => {
+        event.preventDefault();
+        previewFile(event.dataTransfer.files[0]);
+    };
+
+    const onDragOver = (event) => {
+        event.preventDefault();
+    };
+
+    const onDeleteFile = () => {
+        setPreviewSource();
+    };
 
     const inputChangeName = (event, newValue) => {
         const length = event.target.value.length;
@@ -88,19 +93,26 @@ export default function WriteReview({ open, onClose }) {
         formData.append("groupId", category[0].id);
         formData.append("userId", currentUser.id);
         formData.append("tag", JSON.stringify(tag));
-        formData.append("image", null);
+        formData.append("image", previewSource);
         try {
             await axios
                 .post(`${URL}/api/review`, formData)
                 .then((response) => console.log(response.data));
-            console.log("first");
+            onClose();
+            setWorkName("");
+            setTitle("");
+            setDesc("");
+            setWorkName("");
+            setTag([]);
+            setRating(0);
+            setPreviewSource();
         } catch (error) {
             console.log(error);
         }
     };
     return (
         <Modal open={open}>
-            <form>
+            <form onSubmit={(event) => addReview(event)}>
                 <Box sx={style}>
                     <IconButton
                         onClick={onClose}
@@ -181,7 +193,7 @@ export default function WriteReview({ open, onClose }) {
                             fullWidth
                             inputProps={{ maxLength: 60 }}
                             onChange={(event, newValue) =>
-                                inputChangeName(event, newValue)
+                                inputChangeName(event, event.target.value)
                             }></TextField>
                         <Typography
                             sx={{
@@ -209,7 +221,7 @@ export default function WriteReview({ open, onClose }) {
                             fullWidth
                             inputProps={{ maxLength: 60 }}
                             onChange={(event, newValue) =>
-                                inputChangeTitleReview(event, newValue)
+                                inputChangeTitleReview(event, event.target.value)
                             }></TextField>
                         <Typography
                             sx={{
@@ -238,7 +250,9 @@ export default function WriteReview({ open, onClose }) {
                             fullWidth
                             rows={4}
                             inputProps={{ maxLength: 2000 }}
-                            onChange={(event, newValue) => inputChangeDesc(event, newValue)}
+                            onChange={(event, newValue) =>
+                                inputChangeDesc(event, event.target.value)
+                            }
                             sx={{ width: "100%" }}></TextField>
                         <Typography
                             sx={{
@@ -318,13 +332,33 @@ export default function WriteReview({ open, onClose }) {
                         <Typography>
                             <FormattedMessage id="uploadPhoto" />
                         </Typography>
-                        <FilePicker />
+                        <div className="FilePicker" onDragOver={onDragOver} onDrop={onDropFiles}>
+                            <label
+                                className="FilePicker-add AddButton"
+                                style={{ marginRight: "10px" }}>
+                                <input
+                                    className="AddButton-Input"
+                                    type="file"
+                                    onChange={onFilesChange}
+                                    accept="image/*"
+                                />
+                            </label>
+                            {previewSource && (
+                                <li className="FileList-Item">
+                                    <img
+                                        src={previewSource}
+                                        alt="picture"
+                                        style={{ height: "100px" }}></img>
+                                    <button
+                                        className="FileList-Delete"
+                                        type="button"
+                                        onClick={() => onDeleteFile()}
+                                    />
+                                </li>
+                            )}
+                        </div>
                     </Box>
-                    <Button
-                        type="submit"
-                        sx={{ float: "right" }}
-                        variant="contained"
-                        onClick={(event) => addReview(event)}>
+                    <Button type="submit" sx={{ float: "right" }} variant="contained">
                         <FormattedMessage id="submit" />
                     </Button>
                 </Box>

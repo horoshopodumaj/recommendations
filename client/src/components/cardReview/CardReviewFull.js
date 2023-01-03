@@ -174,7 +174,9 @@ export default function CardReviewFull({ post }) {
                                 }}>{`${totalRating} / 5.0`}</Box>
                         </Box>
                     </Box>
-                    <CardMedia component="img" height="auto" image="./img/1.jpg" alt="picture" />
+                    {post.image && (
+                        <CardMedia component="img" height="auto" image={post.image} alt="picture" />
+                    )}
                 </Grid>
                 <Grid item xs={12} md={9} sm={12}>
                     <Box

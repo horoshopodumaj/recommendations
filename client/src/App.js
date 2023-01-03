@@ -59,6 +59,13 @@ function App() {
         <GlobalContext.Provider
             value={{ currentLocale, setCurrentLocale, currentUser, categories, tags }}>
             <IntlProvider
+                onError={(err) => {
+                    if (err.code === "MISSING_TRANSLATION") {
+                        //console.warn("Missing translation", err.message);
+                        return;
+                    }
+                    throw err;
+                }}
                 messages={messages[currentLocale]}
                 locale={currentLocale}
                 defaultLocale={LOCALES.EN}>

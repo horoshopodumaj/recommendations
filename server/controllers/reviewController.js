@@ -1,15 +1,23 @@
 const uuid = require("uuid");
-const path = require("path");
+const cloudinary = require("../utils/cloudinary");
 const { Review, Tag, TagReview } = require("../models/models");
 const ApiError = require("../error/ApiError");
 
 class ReviewController {
     async create(req, res, next) {
         try {
-            let { title, workName, description, groupId, rating, userId, tag } = req.body;
-            const { image } = req.files || {};
-            let fileName = uuid.v4() + ".jpg";
-            image && image.mv(path.resolve(__dirname, "..", "static", fileName));
+            let { title, workName, description, groupId, rating, userId, tag, image } = req.body;
+            let uploadResponse;
+            if (!!!image) {
+                uploadResponse = await cloudinary.uploader.upload(image, {
+                    folder: "recommend",
+                });
+            } else {
+                console.log(54);
+                uploadResponse = {
+                    secure_url: null,
+                };
+            }
             tag = JSON.parse(tag);
             const newTags = tag.filter((item) => item.inputValue);
             const tagsId = tag.filter((item) => item.id);
@@ -25,16 +33,15 @@ class ReviewController {
                 groupId,
                 rating,
                 userId,
-                image: fileName || null,
+                image: uploadResponse.secure_url,
             });
-            console.log(tagsId, 5);
             tagsId.forEach(async (item) => {
                 const id = item.id;
                 const newRelation = await TagReview.create({ tagId: id, reviewId: review.id });
             });
             return res.json({ message: "success" });
         } catch (error) {
-            next(ApiError.badRequest(error.message));
+            console.log(error);
         }
     }
 
