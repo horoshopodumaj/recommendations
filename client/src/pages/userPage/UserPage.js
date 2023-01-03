@@ -225,7 +225,9 @@ export default function UserPage() {
                         ) : (
                             <Container>
                                 {posts.length > 0 ? (
-                                    posts.map((post) => <CardReviewFull post={post} />)
+                                    posts.map((post) => (
+                                        <CardReviewFull key={post.id} post={post} />
+                                    ))
                                 ) : isUser ? (
                                     <Box sx={{ textAlign: "center" }}>
                                         <Typography
