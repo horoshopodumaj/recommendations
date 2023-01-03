@@ -20,6 +20,15 @@ function App() {
     );
     const [currentUser, setCurrentUser] = useState(null);
     const [categories, setCategories] = useState([]);
+    const [tags, setTags] = useState([]);
+
+    const getTags = useCallback(async () => {
+        try {
+            await axios.get(`${URL}/api/tag`).then((response) => setTags(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
     useEffect(() => {
         const getUser = async () => {
@@ -42,12 +51,13 @@ function App() {
 
     useEffect(() => {
         getCategory();
-    }, []);
+        getTags();
+    }, [getTags]);
 
     console.log(currentUser);
     return (
         <GlobalContext.Provider
-            value={{ currentLocale, setCurrentLocale, currentUser, categories }}>
+            value={{ currentLocale, setCurrentLocale, currentUser, categories, tags }}>
             <IntlProvider
                 messages={messages[currentLocale]}
                 locale={currentLocale}

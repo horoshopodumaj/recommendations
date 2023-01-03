@@ -22,39 +22,13 @@ import { grey } from "@mui/material/colors";
 import Footer from "../footer";
 import FilePicker from "../dragAndDrop/FilePicker";
 import GlobalContext from "../../contexts/GlobalContext";
+import axios from "axios";
+import { URL } from "../../App";
 
 const maxLength = 60;
 const maxLengthDescription = 2000;
 
 const filter = createFilterOptions();
-
-const tags = [
-    "film",
-    "book",
-    "2022",
-    "2021",
-    "Avatar",
-    "Аватар",
-    "Бакман",
-    "jrgrijigrkjdgijopokklk;ll'l'l'lsmd;;k;kkjjlklkjljkk;k;;k",
-    "очень длинный тэг",
-    " travel",
-    "dance",
-    "animal",
-    "1988",
-    "2013",
-    "games",
-    "favorite books",
-    "GTA",
-    "summer",
-    "winter",
-    "весна",
-    "зима",
-    "forest",
-    "games 1973",
-    "1984",
-    "author",
-];
 
 const style = {
     bgcolor: "background.paper",
@@ -72,17 +46,21 @@ const style = {
 };
 
 export default function WriteReview({ open, onClose }) {
-    const { categories } = useContext(GlobalContext);
+    const { categories, tags, currentUser } = useContext(GlobalContext);
     const [rating, setRating] = useState(0);
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState({});
     const [workName, setWorkName] = useState("");
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [tag, setTag] = useState([]);
-    const [tagList, setTagList] = useState(tags);
+    //const [tagList, setTagList] = useState(tags);
     const [maxLengthName, setMaxLengthName] = useState(maxLength);
     const [maxLengthDesc, setMaxLengthDesc] = useState(maxLengthDescription);
     const [maxLengthTitleReview, setMaxLengthTitleReview] = useState(maxLength);
+
+    console.log(tags);
+    console.log(tag);
+    console.log(category);
 
     const inputChangeName = (event, newValue) => {
         const length = event.target.value.length;
@@ -98,6 +76,27 @@ export default function WriteReview({ open, onClose }) {
         const length = event.target.value.length;
         setMaxLengthDesc(() => maxLengthDescription - length);
         setDesc(newValue);
+    };
+
+    const addReview = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("workName", workName);
+        formData.append("description", desc);
+        formData.append("rating", rating);
+        formData.append("groupId", category[0].id);
+        formData.append("userId", currentUser.id);
+        formData.append("tag", JSON.stringify(tag));
+        formData.append("image", null);
+        try {
+            await axios
+                .post(`${URL}/api/review`, formData)
+                .then((response) => console.log(response.data));
+            console.log("first");
+        } catch (error) {
+            console.log(error);
+        }
     };
     return (
         <Modal open={open}>
@@ -151,9 +150,11 @@ export default function WriteReview({ open, onClose }) {
                         <Autocomplete
                             id="chooseCategory"
                             options={categories.map((category) => category.name)}
-                            value={category}
+                            value={category.name}
                             onChange={(event, newValue) => {
-                                setCategory(newValue);
+                                setCategory(
+                                    categories.filter((category) => category.name === newValue)
+                                );
                             }}
                             freeSolo
                             renderInput={(params) => (
@@ -258,10 +259,53 @@ export default function WriteReview({ open, onClose }) {
                         </label>
                         <Autocomplete
                             multiple
-                            limitTags={2}
+                            limitTags={3}
                             id="tags"
-                            options={tagList}
-                            getOptionLabel={(option) => option}
+                            value={tag}
+                            onChange={(event, newValue) => {
+                                if (typeof newValue === "string") {
+                                    setTag({
+                                        name: newValue,
+                                    });
+                                } else if (newValue && newValue.inputValue) {
+                                    setTag({
+                                        name: newValue.inputValue,
+                                    });
+                                } else {
+                                    setTag(newValue);
+                                }
+                            }}
+                            filterOptions={(options, params) => {
+                                const filtered = filter(options, params);
+
+                                const { inputValue } = params;
+                                const isExisting = options.some(
+                                    (option) => inputValue === option.name
+                                );
+                                if (inputValue !== "" && !isExisting) {
+                                    filtered.push({
+                                        inputValue,
+                                        name: inputValue,
+                                    });
+                                }
+
+                                return filtered;
+                            }}
+                            selectOnFocus
+                            clearOnBlur
+                            handleHomeEndKeys
+                            options={tags}
+                            getOptionLabel={(option) => {
+                                if (typeof option === "string") {
+                                    return option;
+                                }
+                                if (option.inputValue) {
+                                    return option.inputValue;
+                                }
+                                return option.name;
+                            }}
+                            renderOption={(props, option) => <li {...props}>{option.name}</li>}
+                            freeSolo
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
@@ -276,7 +320,11 @@ export default function WriteReview({ open, onClose }) {
                         </Typography>
                         <FilePicker />
                     </Box>
-                    <Button type="submit" sx={{ float: "right" }} variant="contained">
+                    <Button
+                        type="submit"
+                        sx={{ float: "right" }}
+                        variant="contained"
+                        onClick={(event) => addReview(event)}>
                         <FormattedMessage id="submit" />
                     </Button>
                 </Box>

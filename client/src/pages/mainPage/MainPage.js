@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import style from "./MainPage.module.scss";
 import { useScrollbar } from "../../hooks/useScrollbar";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
@@ -10,27 +10,14 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { grey } from "@mui/material/colors";
 import Card from "../../components/card";
 import Carousel from "../../components/carousel";
-import axios from "axios";
-import { URL } from "../../App";
+import GlobalContext from "../../contexts/GlobalContext";
 
 export default function MainPage() {
-    const [tags, setTags] = useState([]);
+    const { tags } = useContext(GlobalContext);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
 
     useScrollbar(tagsBox, hasScroll);
-
-    const getTags = useCallback(async () => {
-        try {
-            await axios.get(`${URL}/api/tag`).then((response) => setTags(response.data));
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
-
-    useEffect(() => {
-        getTags();
-    }, [getTags]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
