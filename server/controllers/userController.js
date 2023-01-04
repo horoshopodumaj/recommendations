@@ -1,7 +1,7 @@
 const ApiError = require("../error/ApiError");
 const passport = require("passport");
 const errorLoginUrl = ` ${process.env.CLIENT_URL}`;
-const { User } = require("../models/models");
+const { User, Review, Group } = require("../models/models");
 
 class UserController {
     async googleCallback(req, res) {
@@ -47,8 +47,25 @@ class UserController {
     async getOne(req, res) {
         const { id } = req.params;
         console.log(id);
-        const user = await User.findOne({ where: { id } });
-        console.log(user);
+        const user = await User.findOne({
+            where: { id },
+            include: [
+                {
+                    model: Review,
+                    where: { userId: id },
+                    include: [
+                        {
+                            model: Group,
+                            attributes: ["id", "name"],
+                        },
+                        {
+                            model: User,
+                            attributes: ["id", "name"],
+                        },
+                    ],
+                },
+            ],
+        });
         return res.json(user);
     }
 }

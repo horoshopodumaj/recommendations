@@ -74,8 +74,6 @@ export default function CardReviewFull({ post }) {
     const [isLiked, setIsLiked] = useState(false);
     const [like, setLike] = useState(totalLikes);
     const [expanded, setExpanded] = useState(false);
-    const [user, setUser] = useState({});
-    const [category, setCategory] = useState({});
 
     const likeHandler = () => {
         setLike(isLiked ? like - 1 : like + 1);
@@ -85,32 +83,6 @@ export default function CardReviewFull({ post }) {
     const commentHandler = () => {
         setExpanded(!expanded);
     };
-
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                await axios
-                    .get(`${URL}/api/user/profile/${post.userId}`)
-                    .then((response) => setUser(response.data));
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getUser();
-    }, [post]);
-
-    useEffect(() => {
-        const getCategory = async () => {
-            try {
-                await axios
-                    .get(`${URL}/api/group/${post.groupId}`)
-                    .then((response) => setCategory(response.data));
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getCategory();
-    }, [post]);
 
     const date = Date.parse(post.createdAt);
 
@@ -133,7 +105,7 @@ export default function CardReviewFull({ post }) {
                                 horizontal: "right",
                             }}>
                             {/* <UserAvatar width={"50px"} height={"50px"} name={userName} /> */}
-                            <Avatar sx={{ width: "50px", height: "50px" }} alt={user.name} />
+                            <Avatar sx={{ width: "50px", height: "50px" }} alt={post.user.name} />
                         </Badge>
                     </Box>
                     <Typography
@@ -142,7 +114,7 @@ export default function CardReviewFull({ post }) {
                             fontWeight: 500,
                             textAlign: { xs: "center", sm: "left" },
                         }}>
-                        {user.name}
+                        {post.user.name}
                     </Typography>
                     <Typography
                         sx={{
@@ -236,8 +208,10 @@ export default function CardReviewFull({ post }) {
 
                         <Typography
                             sx={{ fontStyle: "oblique", opacity: "0.8", textAlign: "right" }}>
-                            <Link to={`/${category.name}`} style={{ textTransform: "capitalize" }}>
-                                <FormattedMessage id={`${category.name}`} />
+                            <Link
+                                to={`/${post.group.name}`}
+                                style={{ textTransform: "capitalize" }}>
+                                <FormattedMessage id={`${post.group.name}`} />
                             </Link>
                         </Typography>
                     </Box>

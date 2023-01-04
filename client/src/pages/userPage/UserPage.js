@@ -33,19 +33,10 @@ export default function UserPage() {
 
     const getUser = useCallback(async () => {
         try {
-            await axios
-                .get(`${URL}/api/user/profile/${id}`)
-                .then((response) => setUser(response.data));
-        } catch (error) {
-            console.log(error);
-        }
-    }, [id]);
-
-    const getProfile = useCallback(async () => {
-        try {
-            await axios
-                .get(`${URL}/api/review/user/${id}`)
-                .then((response) => setPosts(response.data));
+            await axios.get(`${URL}/api/user/profile/${id}`).then((response) => {
+                setUser(response.data);
+                setPosts(response.data.reviews);
+            });
         } catch (error) {
             console.log(error);
         }
@@ -57,11 +48,7 @@ export default function UserPage() {
 
     useEffect(() => {
         getUser();
-        getProfile();
-    }, [getUser, getProfile]);
-
-    console.log(user);
-    console.log(posts);
+    }, [getUser]);
 
     const isUser =
         user && currentUser ? currentUser.id === user.id || currentUser.role === "ADMIN" : false;
@@ -74,8 +61,6 @@ export default function UserPage() {
         window.scrollTo(0, 0);
     }, []);
 
-    //const userName = `${user.name.split(" ")[0][0]}${user.name.split(" ")[1][0]}`;
-    // console.log(userName);
     return (
         <>
             <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
