@@ -94,6 +94,11 @@ class ReviewController {
                     model: Group,
                     attributes: ["id", "name"],
                 },
+                {
+                    model: Like,
+                    where: { value: true },
+                    required: false,
+                },
             ],
         });
         return res.json(reviews);

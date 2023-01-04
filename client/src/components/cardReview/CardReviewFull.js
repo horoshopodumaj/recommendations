@@ -72,7 +72,7 @@ export default function CardReviewFull({ post }) {
     const { currentUser } = useContext(GlobalContext);
     const [rating, setRating] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
-    const [like, setLike] = useState(totalLikes);
+    const [like, setLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
 
     const likeHandler = () => {

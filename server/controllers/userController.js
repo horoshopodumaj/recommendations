@@ -1,7 +1,8 @@
 const ApiError = require("../error/ApiError");
 const passport = require("passport");
 const errorLoginUrl = ` ${process.env.CLIENT_URL}`;
-const { User, Review, Group } = require("../models/models");
+const { User, Review, Group, Like } = require("../models/models");
+const { sequelize } = require("sequelize");
 
 class UserController {
     async googleCallback(req, res) {
@@ -61,6 +62,11 @@ class UserController {
                         {
                             model: User,
                             attributes: ["id", "name"],
+                        },
+                        {
+                            model: Like,
+                            where: { value: true },
+                            required: false,
                         },
                     ],
                 },
