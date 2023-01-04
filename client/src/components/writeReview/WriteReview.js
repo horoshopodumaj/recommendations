@@ -30,7 +30,7 @@ const style = {
 
 export default function WriteReview({ open, onClose }) {
     const { categories, tags, currentUser } = useContext(GlobalContext);
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(5);
     const [category, setCategory] = useState({});
     const [workName, setWorkName] = useState("");
     const [title, setTitle] = useState("");
@@ -136,23 +136,7 @@ export default function WriteReview({ open, onClose }) {
                         }}>
                         <FormattedMessage id="writeReview" />
                     </Typography>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            flexDirection: { xs: "column", sm: "row" },
-                            mb: "8px",
-                        }}>
-                        <Typography sx={{ mr: "10px" }}>
-                            <FormattedMessage id="yourRating" />
-                        </Typography>
-                        <Rating
-                            name="authorAssessment"
-                            onChange={(event, newValue) => setRating(newValue)}
-                            value={rating}
-                            max={10}
-                        />
-                    </Box>
+
                     <Box sx={{ mb: "8px" }}>
                         <label htmlFor="chooseCategory">
                             <Typography sx={{ mb: "8px" }}>
@@ -326,6 +310,25 @@ export default function WriteReview({ open, onClose }) {
                                     label={<FormattedMessage id="selectTags" />}
                                 />
                             )}
+                        />
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            flexDirection: { xs: "column", sm: "row" },
+                            my: "15px",
+                        }}>
+                        <Typography sx={{ mr: "10px" }}>
+                            <FormattedMessage id="yourRating" />
+                        </Typography>
+                        <Rating
+                            name="authorAssessment"
+                            onChange={(event, newValue) => {
+                                setRating(newValue);
+                            }}
+                            value={rating}
+                            max={10}
                         />
                     </Box>
                     <Box sx={{ mb: "8px" }}>
