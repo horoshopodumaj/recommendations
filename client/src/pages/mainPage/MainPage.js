@@ -11,17 +11,35 @@ import { grey } from "@mui/material/colors";
 import Card from "../../components/card";
 import Carousel from "../../components/carousel";
 import GlobalContext from "../../contexts/GlobalContext";
+import axios from "axios";
+import { URL } from "../../App";
 
 export default function MainPage() {
     const { tags } = useContext(GlobalContext);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
+    const [larestReviews, setLatestReviews] = useState([]);
 
     useScrollbar(tagsBox, hasScroll);
+
+    const getLatestReviews = useCallback(async () => {
+        try {
+            await axios
+                .get(`${URL}/api/review/latest`)
+                .then((response) => setLatestReviews(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    useEffect(() => {
+        getLatestReviews();
+    }, [getLatestReviews]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+    console.log(larestReviews);
     return (
         <>
             <Header backgroundColor={"transparent"} color={true} />
@@ -87,7 +105,13 @@ export default function MainPage() {
                                 rowSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 columnSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 sx={{ gap: { xs: ".8rem", md: "0" } }}>
-                                <Grid item xs={12} md={6}>
+                                {larestReviews.map((review) => (
+                                    <Grid item xs={12} md={6} sx={{ display: "flex" }}>
+                                        <Card review={review} />
+                                    </Grid>
+                                ))}
+
+                                {/* <Grid item xs={12} md={6}>
                                     <Card />
                                 </Grid>
                                 <Grid item xs={12} md={6}>
@@ -95,10 +119,7 @@ export default function MainPage() {
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <Card />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Card />
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                             <Link to="/reviews" style={{ float: "right", marginTop: "10px" }}>
                                 <div className={style.link}>
@@ -187,7 +208,7 @@ export default function MainPage() {
                             }}>
                             <FormattedMessage id="latestReviewsDesc" />
                         </Typography>
-                        <Carousel />
+                        <Carousel larestReviews={larestReviews} />
                     </Container>
                 </div>
             </section>

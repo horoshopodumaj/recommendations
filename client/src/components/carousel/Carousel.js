@@ -23,10 +23,22 @@ const responsive = {
     },
 };
 
-export default function CarouselMainPage() {
+export default function CarouselMainPage({ larestReviews }) {
     return (
         <Carousel className={style.carousel} responsive={responsive} infinite={true}>
-            <div
+            {larestReviews.map((review) => (
+                <div
+                    style={{
+                        marginRight: "10px",
+                        overflow: "hidden",
+                        display: "flex",
+                        width: "100%",
+                    }}>
+                    <Card boxShadow={"none"} review={review} />
+                </div>
+            ))}
+
+            {/* <div
                 style={{
                     marginRight: "10px",
                     overflow: "hidden",
@@ -67,14 +79,7 @@ export default function CarouselMainPage() {
                     overflow: "hidden",
                 }}>
                 <Card boxShadow={"none"} />
-            </div>
-            <div
-                style={{
-                    marginRight: "10px",
-                    overflow: "hidden",
-                }}>
-                <Card boxShadow={"none"} />
-            </div>
+            </div> */}
         </Carousel>
     );
 }

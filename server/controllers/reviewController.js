@@ -1,6 +1,6 @@
 const uuid = require("uuid");
 const cloudinary = require("../utils/cloudinary");
-const { Review, Tag, TagReview } = require("../models/models");
+const { Review, Tag, TagReview, User } = require("../models/models");
 const ApiError = require("../error/ApiError");
 
 class ReviewController {
@@ -62,16 +62,29 @@ class ReviewController {
     async getOne(req, res) {
         const { id } = req.params;
         const review = await Review.findOne({ where: { id } });
+        const user = await User.findOne({ where: { id: review.userId } });
         return res.json(review);
     }
     async getUserReviews(req, res) {
         const { id } = req.params;
         const reviews = await Review.findAll({ where: { userId: id } });
-        return res.json(reviews);
+        return res.json(reviews, user);
     }
     async getCategoryReviews(req, res) {
         const { id } = req.params;
         const reviews = await Review.findAll({ where: { groupId: id } });
+        return res.json(reviews);
+    }
+
+    async getLatestReviews(req, res) {
+        let { limit } = req.query;
+        let queryParams = {
+            where: {},
+            order: [["createdAt", "DESC"]],
+            limit: limit || 4,
+        };
+
+        const reviews = await Review.findAll(queryParams);
         return res.json(reviews);
     }
 }

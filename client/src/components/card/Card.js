@@ -17,13 +17,19 @@ import UserAvatar from "../avatar/UserAvatar";
 const likes = 54;
 const userName = "Jed Dodds";
 
-export default function CardReview({ boxShadow }) {
+export default function CardReview({ boxShadow, review }) {
+    const date = Date.parse(review.createdAt);
+    const desc = review.description.slice(0, 120);
+
     return (
         <Card
             sx={{
                 "&.MuiPaper-root": {
                     boxShadow: boxShadow,
                 },
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
             }}>
             <CardHeader
                 avatar={
@@ -46,19 +52,17 @@ export default function CardReview({ boxShadow }) {
                 }
                 subheader={`Films`}
             />
-            <CardContent>
+            <CardContent sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
                 <Typography mb="5px">
-                    User Name <FormattedMessage id="reviewed" /> Work Name
+                    {review.userId} <FormattedMessage id="reviewed" /> {review.workName}
                 </Typography>
                 <Typography noWrap mb="10px" sx={{ fontWeight: 500, fontSize: "1.25rem" }}>
-                    Title Review
+                    {review.title}
                 </Typography>
-                <Typography mb="15px">
-                    Description Review Lorem, ipsum dolor sit amet consectetur adipisicing elit....
-                </Typography>
+                <Typography mb="15px">{`${desc} ...`}</Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: "space-between" }}>
-                <Typography>data publish</Typography>
+                <Typography>{new Date(date).toLocaleDateString("ru-RU")}</Typography>
                 <Link to="/review/:id">
                     <Button>
                         <FormattedMessage id="readReview" />
