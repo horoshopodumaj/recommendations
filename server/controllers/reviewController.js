@@ -83,7 +83,19 @@ class ReviewController {
     }
     async getCategoryReviews(req, res) {
         const { id } = req.params;
-        const reviews = await Review.findAll({ where: { groupId: id } });
+        const reviews = await Review.findAll({
+            where: { groupId: id },
+            include: [
+                {
+                    model: User,
+                    attributes: ["id", "name", "role"],
+                },
+                {
+                    model: Group,
+                    attributes: ["id", "name"],
+                },
+            ],
+        });
         return res.json(reviews);
     }
 
