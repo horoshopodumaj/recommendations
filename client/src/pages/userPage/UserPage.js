@@ -29,13 +29,15 @@ export default function UserPage() {
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState({});
     const [edit, setEdit] = useState(false);
+    const [userLikes, setUserLikes] = useState(0);
     const { id } = useParams();
 
     const getUser = useCallback(async () => {
         try {
             await axios.get(`${URL}/api/user/profile/${id}`).then((response) => {
-                setUser(response.data);
-                setPosts(response.data.reviews);
+                setUser(response.data.user);
+                setPosts(response.data.user.reviews);
+                setUserLikes(response.data.count);
             });
         } catch (error) {
             console.log(error);
@@ -64,7 +66,7 @@ export default function UserPage() {
     return (
         <>
             <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
-            {user ? (
+            {user.id ? (
                 <>
                     <section className="user_summary">
                         <div className="wrapper">
@@ -149,7 +151,7 @@ export default function UserPage() {
                                                     flexDirection: "column",
                                                     alignItems: "center",
                                                 }}>
-                                                <strong className="strong">45</strong>
+                                                <strong className="strong">{userLikes}</strong>
                                                 <CustomWidthTooltip
                                                     sx={{
                                                         maxWidth: { xs: "200px", md: "500px" },

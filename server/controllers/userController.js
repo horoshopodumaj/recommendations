@@ -82,7 +82,17 @@ class UserController {
                 },
             ],
         });
-        return res.json(user);
+
+        const { count } = await Review.findAndCountAll({
+            where: { userId: user.id },
+            include: [
+                {
+                    model: Like,
+                    where: { value: true },
+                },
+            ],
+        });
+        return res.json({ user, count });
     }
 }
 
