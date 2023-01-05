@@ -2,6 +2,7 @@ const uuid = require("uuid");
 const cloudinary = require("../utils/cloudinary");
 const { Review, Tag, TagReview, User, Group, Like } = require("../models/models");
 const ApiError = require("../error/ApiError");
+const { Op } = require("sequelize");
 
 class ReviewController {
     async create(req, res, next) {
@@ -82,26 +83,31 @@ class ReviewController {
         return res.json(reviews);
     }
     async getCategoryReviews(req, res) {
-        const { id } = req.params;
-        const reviews = await Review.findAll({
-            where: { groupId: id },
-            include: [
-                {
-                    model: User,
-                    attributes: ["id", "name", "role"],
-                },
-                {
-                    model: Group,
-                    attributes: ["id", "name"],
-                },
-                {
-                    model: Like,
-                    where: { value: true },
-                    required: false,
-                },
-            ],
-        });
-        return res.json(reviews);
+        try {
+            const { id } = req.params;
+            const reviews = await Review.findAll({
+                where: { groupId: id },
+                include: [
+                    {
+                        model: User,
+                        attributes: ["id", "name", "role"],
+                    },
+                    {
+                        model: Group,
+                        attributes: ["id", "name"],
+                    },
+                    {
+                        model: Like,
+                        where: { value: true },
+                        attributes: ["id", "value", "userId"],
+                        required: false,
+                    },
+                ],
+            });
+            return res.json(reviews);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async getLatestReviews(req, res) {

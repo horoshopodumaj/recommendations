@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./CartReview.module.scss";
 import {
@@ -29,10 +29,8 @@ import { URL } from "../../App";
 import GlobalContext from "../../contexts/GlobalContext";
 
 const userName = "VeryLongNameJed VeryLongSurnameDodds";
-
-const likes = 45;
 const totalRating = 3.7;
-const totalLikes = 10;
+
 const tags = [
     "book",
     "очень длинный тэг",
@@ -77,6 +75,7 @@ export default function CardReviewFull({ post }) {
     const [isLiked, setIsLiked] = useState(userLikePosts);
     const [like, setLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
+    const [count, setCount] = useState(0);
 
     const likeHandler = async () => {
         setLike(isLiked ? like - 1 : like + 1);
@@ -93,6 +92,20 @@ export default function CardReviewFull({ post }) {
             console.log(error);
         }
     };
+
+    const getUserLikes = useCallback(async () => {
+        try {
+            await axios
+                .get(`${URL}/api/user/likes/${post.userId}`)
+                .then((response) => setCount(response.data.count));
+        } catch (error) {
+            console.log(error);
+        }
+    }, [post]);
+
+    useEffect(() => {
+        getUserLikes();
+    }, [getUserLikes]);
 
     const commentHandler = () => {
         setExpanded(!expanded);
@@ -112,7 +125,7 @@ export default function CardReviewFull({ post }) {
                         }}>
                         <Badge
                             overlap="circular"
-                            badgeContent={likes}
+                            badgeContent={count}
                             color="secondary"
                             anchorOrigin={{
                                 vertical: "bottom",

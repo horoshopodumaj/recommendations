@@ -94,6 +94,24 @@ class UserController {
         });
         return res.json({ user, count });
     }
+
+    async getUserLikes(req, res) {
+        try {
+            const { id } = req.params;
+            const { count } = await Review.findAndCountAll({
+                where: { userId: id },
+                include: [
+                    {
+                        model: Like,
+                        where: { value: true },
+                    },
+                ],
+            });
+            return res.json({ count });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 module.exports = new UserController();
