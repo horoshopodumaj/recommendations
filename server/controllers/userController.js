@@ -36,10 +36,20 @@ class UserController {
     async success(req, res) {
         console.log(req.user);
         if (req.user) {
+            const user = await User.findOne({
+                where: { id: req.user.id },
+                include: [
+                    {
+                        model: Like,
+                        where: { value: true },
+                        required: false,
+                    },
+                ],
+            });
             res.status(200).json({
                 success: true,
                 message: "successfull",
-                user: req.user,
+                user: user,
             });
         }
     }

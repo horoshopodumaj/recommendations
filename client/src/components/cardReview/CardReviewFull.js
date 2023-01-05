@@ -70,8 +70,11 @@ const tags = [
 
 export default function CardReviewFull({ post }) {
     const { currentUser } = useContext(GlobalContext);
+    const userLikes = currentUser
+        ? !!currentUser.likes.filter((like) => like.reviewId === post.id).length
+        : false;
     const [rating, setRating] = useState(0);
-    const [isLiked, setIsLiked] = useState(false);
+    const [isLiked, setIsLiked] = useState(userLikes);
     const [like, setLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
 
