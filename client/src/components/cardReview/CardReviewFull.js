@@ -75,9 +75,20 @@ export default function CardReviewFull({ post }) {
     const [like, setLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
 
-    const likeHandler = () => {
+    const likeHandler = async () => {
         setLike(isLiked ? like - 1 : like + 1);
         setIsLiked(!isLiked);
+        try {
+            await axios
+                .post(`${URL}/api/like`, {
+                    value: !isLiked,
+                    userId: currentUser.id,
+                    reviewId: post.id,
+                })
+                .then((response) => response.data);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const commentHandler = () => {

@@ -1,7 +1,8 @@
 const Router = require("express");
+const likeContoller = require("../controllers/likeContoller");
 const router = new Router();
 
-router.post("/");
+router.post("/", likeContoller.create);
 router.get("/");
 
 module.exports = router;
