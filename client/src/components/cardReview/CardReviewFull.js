@@ -78,8 +78,6 @@ export default function CardReviewFull({ post }) {
     const [count, setCount] = useState(0);
 
     const likeHandler = async () => {
-        setLike(isLiked ? like - 1 : like + 1);
-        setIsLiked(!isLiked);
         try {
             await axios
                 .post(`${URL}/api/like`, {
@@ -91,6 +89,23 @@ export default function CardReviewFull({ post }) {
         } catch (error) {
             console.log(error);
         }
+        setLike(isLiked ? like - 1 : like + 1);
+        setIsLiked(!isLiked);
+    };
+
+    const ratingHandler = async (newValue) => {
+        try {
+            await axios
+                .post(`${URL}/api/star`, {
+                    value: Number(newValue),
+                    userId: currentUser.id,
+                    reviewId: post.id,
+                })
+                .then((response) => response.data);
+        } catch (error) {
+            console.log(error);
+        }
+        setRating(Number(newValue));
     };
 
     const getUserLikes = useCallback(async () => {
@@ -197,7 +212,7 @@ export default function CardReviewFull({ post }) {
                             </Typography>
                             <Rating
                                 name="yourRating"
-                                onChange={(event, newValue) => setRating(newValue)}
+                                onChange={(event) => ratingHandler(event.target.value)}
                                 value={rating}
                                 readOnly={currentUser ? false : true}
                             />
