@@ -28,6 +28,7 @@ export default function CarouselMainPage({ larestReviews }) {
         <Carousel className={style.carousel} responsive={responsive} infinite={true}>
             {larestReviews.map((review) => (
                 <div
+                    key={review.id}
                     style={{
                         marginRight: "10px",
                         overflow: "hidden",

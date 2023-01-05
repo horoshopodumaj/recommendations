@@ -106,7 +106,12 @@ export default function MainPage() {
                                 columnSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 sx={{ gap: { xs: ".8rem", md: "0" } }}>
                                 {larestReviews.map((review) => (
-                                    <Grid item xs={12} md={6} sx={{ display: "flex" }}>
+                                    <Grid
+                                        key={review.id}
+                                        item
+                                        xs={12}
+                                        md={6}
+                                        sx={{ display: "flex" }}>
                                         <Card review={review} />
                                     </Grid>
                                 ))}
