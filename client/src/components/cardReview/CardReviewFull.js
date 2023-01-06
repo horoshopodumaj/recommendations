@@ -137,14 +137,17 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                             <Avatar sx={{ width: "50px", height: "50px" }} alt={post.user.name} />
                         </Badge>
                     </Box>
-                    <Typography
-                        sx={{
-                            mb: "10px",
-                            fontWeight: 500,
-                            textAlign: { xs: "center", sm: "left" },
-                        }}>
-                        {post.user.name}
-                    </Typography>
+                    <Link to={`/profile/${post.user.id}`}>
+                        <Typography
+                            sx={{
+                                mb: "10px",
+                                fontWeight: 500,
+                                textAlign: { xs: "center", sm: "left" },
+                            }}>
+                            {post.user.name}
+                        </Typography>
+                    </Link>
+
                     <Typography
                         sx={{
                             mb: "10px",
