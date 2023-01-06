@@ -66,14 +66,13 @@ const tags = [
     "Robinson Crusoe",
 ];
 
-export default function CardReviewFull({ post }) {
+export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     const { currentUser } = useContext(GlobalContext);
 
     const [userRating, setUserRating] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
     const [totalLike, setTotalLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
-    const [countUserLikes, setCountUserLikes] = useState(0);
     const [totalRating, setTotalRating] = useState(0);
 
     const ratingFromUser = () => {
@@ -112,7 +111,7 @@ export default function CardReviewFull({ post }) {
             await axios
                 .get(`${URL}/api/review/likes/${post.id}`)
                 .then((response) => setTotalLike(response.data));
-            getUserLikes();
+            getUserLikes(post.userId);
         } catch (error) {
             console.log(error);
         }
@@ -136,18 +135,8 @@ export default function CardReviewFull({ post }) {
         }
     };
 
-    const getUserLikes = useCallback(async () => {
-        try {
-            await axios
-                .get(`${URL}/api/user/likes/${post.userId}`)
-                .then((response) => setCountUserLikes(response.data.count));
-        } catch (error) {
-            console.log(error);
-        }
-    }, [post]);
-
     useEffect(() => {
-        getUserLikes();
+        getUserLikes(post.userId);
         totalRatingPost();
     }, [getUserLikes, totalRatingPost]);
 

@@ -29,20 +29,33 @@ export default function UserPage() {
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState({});
     const [edit, setEdit] = useState(false);
-    const [userLikes, setUserLikes] = useState(0);
     const { id } = useParams();
+    const [countUserLikes, setCountUserLikes] = useState(0);
 
     const getUser = useCallback(async () => {
         try {
             await axios.get(`${URL}/api/user/profile/${id}`).then((response) => {
                 setUser(response.data.user);
                 setPosts(response.data.user.reviews);
-                setUserLikes(response.data.count);
+                setCountUserLikes(response.data.count);
             });
         } catch (error) {
             console.log(error);
         }
     }, [id]);
+
+    const getUserLikes = useCallback(
+        async (postId) => {
+            try {
+                await axios
+                    .get(`${URL}/api/user/likes/${postId}`)
+                    .then((response) => setCountUserLikes(response.data.count));
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        [posts]
+    );
 
     const editOpen = () => {
         setEdit(!edit);
@@ -151,7 +164,7 @@ export default function UserPage() {
                                                     flexDirection: "column",
                                                     alignItems: "center",
                                                 }}>
-                                                <strong className="strong">{userLikes}</strong>
+                                                <strong className="strong">{countUserLikes}</strong>
                                                 <CustomWidthTooltip
                                                     sx={{
                                                         maxWidth: { xs: "200px", md: "500px" },
@@ -213,7 +226,12 @@ export default function UserPage() {
                             <Container>
                                 {posts.length > 0 ? (
                                     posts.map((post) => (
-                                        <CardReviewFull key={post.id} post={post} />
+                                        <CardReviewFull
+                                            key={post.id}
+                                            post={post}
+                                            countUserLikes={countUserLikes}
+                                            getUserLikes={getUserLikes}
+                                        />
                                     ))
                                 ) : isUser ? (
                                     <Box sx={{ textAlign: "center" }}>

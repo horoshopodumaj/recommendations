@@ -24,7 +24,7 @@ const ContentPage = ({ category }) => {
     const [posts, setPosts] = useState([]);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    console.log(category);
+    const [countUserLikes, setCountUserLikes] = useState(0);
 
     const getPosts = useCallback(async () => {
         try {
@@ -35,6 +35,19 @@ const ContentPage = ({ category }) => {
             console.log(error);
         }
     }, [category]);
+
+    const getUserLikes = useCallback(
+        async (postId) => {
+            try {
+                await axios
+                    .get(`${URL}/api/user/likes/${postId}`)
+                    .then((response) => setCountUserLikes(response.data.count));
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        [posts]
+    );
 
     console.log(posts);
 
@@ -129,7 +142,12 @@ const ContentPage = ({ category }) => {
                 }}>
                 <Container>
                     {posts.map((post) => (
-                        <CardReviewFull key={post.id} post={post} />
+                        <CardReviewFull
+                            key={post.id}
+                            post={post}
+                            countUserLikes={countUserLikes}
+                            getUserLikes={getUserLikes}
+                        />
                     ))}
                 </Container>
             </section>
