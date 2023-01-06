@@ -88,6 +88,13 @@ Review.belongsTo(Group);
 Tag.belongsToMany(Review, { through: TagReview });
 Review.belongsToMany(Tag, { through: TagReview });
 
+// sequelize
+//     .sync({ alter: true })
+//     .then(() => {
+//         console.log("Tables have been created");
+//     })
+//     .catch((err) => console.log(err));
+
 module.exports = {
     User,
     Review,

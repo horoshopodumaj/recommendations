@@ -1,7 +1,7 @@
 const ApiError = require("../error/ApiError");
 const passport = require("passport");
 const errorLoginUrl = ` ${process.env.CLIENT_URL}`;
-const { User, Review, Group, Like, Star } = require("../models/models");
+const { User, Review, Group, Like, Star, TagReview, Tag } = require("../models/models");
 
 class UserController {
     async googleCallback(req, res) {
@@ -63,6 +63,7 @@ class UserController {
         console.log(id);
         const user = await User.findOne({
             where: { id },
+            order: [[Review, "createdAt", "ASC"]],
             include: [
                 {
                     model: Review,
@@ -86,6 +87,10 @@ class UserController {
                             model: Star,
                             required: false,
                             attributes: ["id", "value", "userId"],
+                        },
+                        {
+                            model: Tag,
+                            required: false,
                         },
                     ],
                 },

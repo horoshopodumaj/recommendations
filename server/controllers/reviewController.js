@@ -87,6 +87,7 @@ class ReviewController {
             const { id } = req.params;
             const reviews = await Review.findAll({
                 where: { groupId: id },
+                order: [["createdAt", "ASC"]],
                 include: [
                     {
                         model: User,
@@ -105,6 +106,10 @@ class ReviewController {
                     {
                         model: Star,
                         attributes: ["id", "value", "userId"],
+                        required: false,
+                    },
+                    {
+                        model: Tag,
                         required: false,
                     },
                 ],

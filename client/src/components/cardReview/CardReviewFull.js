@@ -29,42 +29,6 @@ import { URL } from "../../App";
 import GlobalContext from "../../contexts/GlobalContext";
 
 const userName = "VeryLongNameJed VeryLongSurnameDodds";
-//const totalRating = 3.7;
-
-const tags = [
-    "book",
-    "очень длинный тэг",
-    "Робинзон Крузо",
-    "Robinson Crusoe",
-    "book",
-    "очень длинный тэг",
-    "Робинзон Крузо",
-    "Robinson Crusoe",
-    "book",
-    "очень длинный тэг",
-    "Робинзон Крузо",
-    "Robinson Crusoe",
-    "book",
-    "очень длинный тэг",
-    "Робинзон Крузо",
-    "Robinson Crusoe",
-    "book",
-    "очень длинный тэг",
-    "Робинзон Крузо",
-    "Robinson Crusoe",
-    "book",
-    "очень длинный тэг",
-    "Робинзон Крузо",
-    "Robinson Crusoe",
-    "book",
-    "очень длинный тэг",
-    "Робинзон Крузо",
-    "Robinson Crusoe",
-    "book",
-    "очень длинный тэг",
-    "Робинзон Крузо",
-    "Robinson Crusoe",
-];
 
 export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     const { currentUser } = useContext(GlobalContext);
@@ -298,18 +262,20 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                         sx={{
                             flexDirection: "column",
                             px: "0",
+                            alignItems: "flex-start",
                         }}>
                         <Box sx={{ overflow: "hidden" }}>
-                            {tags.map((tag, index) => (
-                                <Link
-                                    key={index}
-                                    className={style.tagslink}
-                                    style={{ maxWidth: "80px", backgroundColor: grey[100] }}>
-                                    <Typography sx={{ fontSize: "0.9rem" }} noWrap>
-                                        {tag}
-                                    </Typography>
-                                </Link>
-                            ))}
+                            {post.tags.length > 0 &&
+                                post.tags.map((tag, index) => (
+                                    <Link
+                                        key={index}
+                                        className={style.tagslink}
+                                        style={{ maxWidth: "80px", backgroundColor: grey[100] }}>
+                                        <Typography sx={{ fontSize: "0.9rem" }} noWrap>
+                                            {tag.name}
+                                        </Typography>
+                                    </Link>
+                                ))}
                         </Box>
                         <Box
                             sx={{
