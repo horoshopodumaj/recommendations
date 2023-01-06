@@ -1,6 +1,6 @@
 const uuid = require("uuid");
 const cloudinary = require("../utils/cloudinary");
-const { Review, Tag, TagReview, User, Group, Like } = require("../models/models");
+const { Review, Tag, TagReview, User, Group, Like, Star } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const { Op } = require("sequelize");
 
@@ -102,6 +102,11 @@ class ReviewController {
                         attributes: ["id", "value", "userId"],
                         required: false,
                     },
+                    {
+                        model: Star,
+                        attributes: ["id", "value", "userId"],
+                        required: false,
+                    },
                 ],
             });
             return res.json(reviews);
@@ -120,6 +125,22 @@ class ReviewController {
 
         const reviews = await Review.findAll(queryParams);
         return res.json(reviews);
+    }
+
+    async getTotalLikes(req, res) {
+        const { id } = req.params;
+        const { count } = await Like.findAndCountAll({
+            where: { reviewId: id, value: true },
+        });
+        return res.json(count);
+    }
+    async getTotalRating(req, res) {
+        const { id } = req.params;
+        const { rows } = await Star.findAndCountAll({
+            where: { reviewId: id },
+            attributes: ["value"],
+        });
+        return res.json(rows);
     }
 }
 

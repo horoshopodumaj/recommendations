@@ -85,6 +85,7 @@ class UserController {
                         {
                             model: Star,
                             required: false,
+                            attributes: ["id", "value", "userId"],
                         },
                     ],
                 },

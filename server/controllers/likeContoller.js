@@ -9,14 +9,17 @@ class LikeController {
             });
             if (!like) {
                 const like = await Like.create({ value, userId, reviewId });
-                return res.json(like);
             } else {
                 const like = await Like.update(
                     { value: value },
                     { where: { userId: userId, reviewId: reviewId } }
                 );
-                return res.json(like);
             }
+
+            const updatedOrNewLike = await Like.findOne({
+                where: { userId: userId, reviewId: reviewId },
+            });
+            return res.json(updatedOrNewLike);
         } catch (error) {
             console.log(error);
         }

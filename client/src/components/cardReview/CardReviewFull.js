@@ -29,7 +29,7 @@ import { URL } from "../../App";
 import GlobalContext from "../../contexts/GlobalContext";
 
 const userName = "VeryLongNameJed VeryLongSurnameDodds";
-const totalRating = 3.7;
+//const totalRating = 3.7;
 
 const tags = [
     "book",
@@ -68,20 +68,37 @@ const tags = [
 
 export default function CardReviewFull({ post }) {
     const { currentUser } = useContext(GlobalContext);
-    const userLikePosts = currentUser
-        ? !!currentUser.likes.filter((like) => like.reviewId === post.id).length
-        : false;
-    const userRatePosts = currentUser
-        ? currentUser.stars.filter((star) => star.reviewId === post.id).length > 0
-            ? currentUser.stars.filter((star) => star.reviewId === post.id)[0].value
-            : 0
-        : 0;
 
-    const [rating, setRating] = useState(userRatePosts);
-    const [isLiked, setIsLiked] = useState(userLikePosts);
-    const [like, setLike] = useState(post.likes.length);
+    const [userRating, setUserRating] = useState(0);
+    const [isLiked, setIsLiked] = useState(false);
+    const [totalLike, setTotalLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
-    const [count, setCount] = useState(0);
+    const [countUserLikes, setCountUserLikes] = useState(0);
+    const [totalRating, setTotalRating] = useState(0);
+
+    const ratingFromUser = () => {
+        const userRatePosts = currentUser
+            ? currentUser.stars.filter((star) => star.reviewId === post.id).length > 0
+                ? currentUser.stars.filter((star) => star.reviewId === post.id)[0].value
+                : 0
+            : 0;
+        setUserRating(userRatePosts);
+    };
+
+    const isUserLikesPost = () => {
+        const userLikePosts = currentUser
+            ? !!currentUser.likes.filter((like) => like.reviewId === post.id).length
+            : false;
+        setIsLiked(userLikePosts);
+    };
+
+    const totalRatingPost = useCallback(() => {
+        const totalRating =
+            post.stars.length > 0
+                ? post.stars.reduce((acc, star) => acc + star.value, 0) / post.stars.length
+                : 0;
+        setTotalRating(totalRating);
+    }, [post.stars]);
 
     const likeHandler = async () => {
         try {
@@ -91,12 +108,14 @@ export default function CardReviewFull({ post }) {
                     userId: currentUser.id,
                     reviewId: post.id,
                 })
-                .then((response) => response.data);
+                .then((response) => setIsLiked(response.data.value));
+            await axios
+                .get(`${URL}/api/review/likes/${post.id}`)
+                .then((response) => setTotalLike(response.data));
+            getUserLikes();
         } catch (error) {
             console.log(error);
         }
-        setLike(isLiked ? like - 1 : like + 1);
-        setIsLiked(!isLiked);
     };
 
     const ratingHandler = async (newValue) => {
@@ -107,18 +126,21 @@ export default function CardReviewFull({ post }) {
                     userId: currentUser.id,
                     reviewId: post.id,
                 })
+                .then((response) => setUserRating(response.data.value));
+            const newRating = await axios
+                .get(`${URL}/api/review/stars/${post.id}`)
                 .then((response) => response.data);
+            setTotalRating(newRating.reduce((acc, rate) => acc + rate.value, 0) / newRating.length);
         } catch (error) {
             console.log(error);
         }
-        setRating(Number(newValue));
     };
 
     const getUserLikes = useCallback(async () => {
         try {
             await axios
                 .get(`${URL}/api/user/likes/${post.userId}`)
-                .then((response) => setCount(response.data.count));
+                .then((response) => setCountUserLikes(response.data.count));
         } catch (error) {
             console.log(error);
         }
@@ -126,7 +148,13 @@ export default function CardReviewFull({ post }) {
 
     useEffect(() => {
         getUserLikes();
-    }, [getUserLikes]);
+        totalRatingPost();
+    }, [getUserLikes, totalRatingPost]);
+
+    useEffect(() => {
+        isUserLikesPost();
+        ratingFromUser();
+    }, []);
 
     const commentHandler = () => {
         setExpanded(!expanded);
@@ -146,7 +174,7 @@ export default function CardReviewFull({ post }) {
                         }}>
                         <Badge
                             overlap="circular"
-                            badgeContent={count}
+                            badgeContent={countUserLikes}
                             color="secondary"
                             anchorOrigin={{
                                 vertical: "bottom",
@@ -219,7 +247,7 @@ export default function CardReviewFull({ post }) {
                             <Rating
                                 name="yourRating"
                                 onChange={(event) => ratingHandler(event.target.value)}
-                                value={rating}
+                                value={userRating}
                                 readOnly={currentUser ? false : true}
                             />
                         </Box>
@@ -317,7 +345,7 @@ export default function CardReviewFull({ post }) {
                                     mt: "7px",
                                     mr: "10px",
                                 }}>
-                                {like}
+                                {totalLike}
                             </Typography>
                             <IconButton
                                 sx={{

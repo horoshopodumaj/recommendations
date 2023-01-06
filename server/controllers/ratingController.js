@@ -9,14 +9,17 @@ class StarController {
             });
             if (!rate) {
                 const rate = await Star.create({ value, userId, reviewId });
-                return res.json(rate);
             } else {
                 const rate = await Star.update(
                     { value: value },
                     { where: { userId: userId, reviewId: reviewId } }
                 );
-                return res.json(rate);
             }
+
+            const updatedOrNewRating = await Star.findOne({
+                where: { userId: userId, reviewId: reviewId },
+            });
+            return res.json(updatedOrNewRating);
         } catch (error) {
             console.log(error);
         }
