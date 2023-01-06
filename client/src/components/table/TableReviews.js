@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import GlobalContext from "../../contexts/GlobalContext";
+import { Image } from "cloudinary-react";
 
 export default function TableReviews({ posts }) {
     const { categories } = useContext(GlobalContext);
@@ -28,7 +29,9 @@ export default function TableReviews({ posts }) {
                             <TableCell>{categories[post.groupId - 1].name}</TableCell>
                             <TableCell>{post.title}</TableCell>
                             <TableCell>{post.description}</TableCell>
-                            <TableCell>{post.image}</TableCell>
+                            <TableCell>
+                                <img src={post.image} style={{ width: "200px" }} alt={post.image} />
+                            </TableCell>
                             <TableCell>{post.rating}</TableCell>
                             <TableCell>Edit</TableCell>
                         </TableRow>
