@@ -9,9 +9,10 @@ import CardReviewFull from "../../components/cardReview";
 import { grey } from "@mui/material/colors";
 import Footer from "../../components/footer";
 import WriteReview from "../../components/writeReview/WriteReview";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { URL } from "../../App";
+import GlobalContext from "../../contexts/GlobalContext";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -20,6 +21,7 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 });
 
 const ContentPage = ({ category }) => {
+    const { currentUser } = useContext(GlobalContext);
     const [open, setOpen] = useState(false);
     const [posts, setPosts] = useState([]);
     const handleOpen = () => setOpen(true);
@@ -48,8 +50,6 @@ const ContentPage = ({ category }) => {
         },
         [posts]
     );
-
-    console.log(posts);
 
     useEffect(() => {
         getPosts();
@@ -127,9 +127,11 @@ const ContentPage = ({ category }) => {
                                 </List>
                             </Grid>
                         </Grid>
-                        <Button sx={{ float: "right", color: "white" }} onClick={handleOpen}>
-                            <FormattedMessage id="writeReview" />
-                        </Button>
+                        {currentUser && (
+                            <Button sx={{ float: "right", color: "white" }} onClick={handleOpen}>
+                                <FormattedMessage id="writeReview" />
+                            </Button>
+                        )}
                     </Container>
                 </div>
                 <WriteReview onClose={handleClose} open={open} />
