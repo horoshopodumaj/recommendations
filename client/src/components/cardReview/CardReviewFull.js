@@ -182,7 +182,7 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                         <CardMedia component="img" height="auto" image={post.image} alt="picture" />
                     )}
                 </Grid>
-                <Grid item xs={12} md={9} sm={12}>
+                <Grid item xs={12} md={9} sm={12} sx={{ display: "flex", flexDirection: "column" }}>
                     <Box
                         sx={{
                             display: "flex",
@@ -247,8 +247,8 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                             </Link>
                         </Typography>
                     </Box>
-
-                    <CardContent sx={{ px: "0" }}>
+                    <CardContent
+                        sx={{ px: "0", display: "flex", flexDirection: "column", flex: 1 }}>
                         <Typography
                             noWrap
                             mb="10px"
