@@ -71,7 +71,13 @@ export default function CardReviewFull({ post }) {
     const userLikePosts = currentUser
         ? !!currentUser.likes.filter((like) => like.reviewId === post.id).length
         : false;
-    const [rating, setRating] = useState(0);
+    const userRatePosts = currentUser
+        ? currentUser.stars.filter((star) => star.reviewId === post.id).length > 0
+            ? currentUser.stars.filter((star) => star.reviewId === post.id)[0].value
+            : 0
+        : 0;
+
+    const [rating, setRating] = useState(userRatePosts);
     const [isLiked, setIsLiked] = useState(userLikePosts);
     const [like, setLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
