@@ -133,6 +133,17 @@ class ReviewController {
             where: {},
             order: [["createdAt", "DESC"]],
             limit: limit || 4,
+            include: [
+                {
+                    model: User,
+                    attributes: ["id", "name", "role"],
+                },
+                {
+                    model: Star,
+                    attributes: ["id", "value", "userId"],
+                    required: false,
+                },
+            ],
         };
 
         const reviews = await Review.findAll(queryParams);

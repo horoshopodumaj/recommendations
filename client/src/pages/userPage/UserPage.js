@@ -149,16 +149,16 @@ export default function UserPage() {
                                                     mr: { xs: "0", md: "20px" },
                                                     mb: { xs: "20px", md: "0" },
                                                 }}>
-                                                {/* <UserAvatar
-                                        //width={"120px"}
-                                        //height={"120px"}
-                                        //name={"iiojllkkl"}
-                                        //fontSize={"2rem"}
-                                        /> */}
-                                                <Avatar
+                                                <UserAvatar
+                                                    width={"120px"}
+                                                    height={"120px"}
+                                                    name={user.name}
+                                                    fontSize={"2rem"}
+                                                />
+                                                {/* <Avatar
                                                     sx={{ width: "120px", height: "120px" }}
                                                     alt={user.name}
-                                                />
+                                                /> */}
                                             </Box>
                                             <Typography
                                                 component="h3"

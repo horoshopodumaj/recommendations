@@ -133,8 +133,8 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                                 vertical: "bottom",
                                 horizontal: "right",
                             }}>
-                            {/* <UserAvatar width={"50px"} height={"50px"} name={userName} /> */}
-                            <Avatar sx={{ width: "50px", height: "50px" }} alt={post.user.name} />
+                            <UserAvatar width={"50px"} height={"50px"} name={post.user.name} />
+                            {/* <Avatar sx={{ width: "50px", height: "50px" }} alt={post.user.name} /> */}
                         </Badge>
                     </Box>
                     <Link to={`/profile/${post.user.id}`}>

@@ -9,17 +9,31 @@ import {
     Rating,
     Typography,
 } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import React, { useCallback, useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
+import { URL } from "../../App";
 import UserAvatar from "../avatar/UserAvatar";
-
-const likes = 54;
-const userName = "Jed Dodds";
 
 export default function CardReview({ boxShadow, review }) {
     const date = Date.parse(review.createdAt);
     const desc = review.description.slice(0, 120);
+    const [countUserLikes, setCountUserLikes] = useState(0);
+
+    const getUserLikes = useCallback(async (userId) => {
+        try {
+            await axios
+                .get(`${URL}/api/user/likes/${userId}`)
+                .then((response) => setCountUserLikes(response.data.count));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    useEffect(() => {
+        getUserLikes(review.userId);
+    }, []);
 
     return (
         <Card
@@ -35,13 +49,13 @@ export default function CardReview({ boxShadow, review }) {
                 avatar={
                     <Badge
                         overlap="circular"
-                        badgeContent={likes}
+                        badgeContent={countUserLikes}
                         color="secondary"
                         anchorOrigin={{
                             vertical: "bottom",
                             horizontal: "right",
                         }}>
-                        <UserAvatar width={"40px"} height={"40px"} name={userName} />
+                        <UserAvatar width={"40px"} height={"40px"} name={review.user.name} />
                     </Badge>
                 }
                 title={
@@ -54,7 +68,7 @@ export default function CardReview({ boxShadow, review }) {
             />
             <CardContent sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
                 <Typography mb="5px">
-                    {review.userId} <FormattedMessage id="reviewed" /> {review.workName}
+                    {review.user.name} <FormattedMessage id="reviewed" /> {review.workName}
                 </Typography>
                 <Typography noWrap mb="10px" sx={{ fontWeight: 500, fontSize: "1.25rem" }}>
                     {review.title}
