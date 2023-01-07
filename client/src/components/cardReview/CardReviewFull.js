@@ -272,9 +272,9 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                         }}>
                         <Box sx={{ overflow: "hidden" }}>
                             {post.tags.length > 0 &&
-                                post.tags.map((tag, index) => (
+                                post.tags.map((tag) => (
                                     <Link
-                                        key={index}
+                                        key={tag.id}
                                         className={style.tagslink}
                                         style={{ maxWidth: "80px", backgroundColor: grey[100] }}>
                                         <Typography sx={{ fontSize: "0.9rem" }} noWrap>

@@ -172,14 +172,14 @@ export default function MainPage() {
                             </Typography>
                             <Box
                                 sx={{
-                                    // overflow: "hidden",
                                     height: hasScroll ? "300px" : "auto",
                                     minHeight: "300px",
                                 }}
                                 ref={tagsBox}>
-                                {tags.map((tag, index) => (
+                                {tags.map((tag) => (
                                     <Link
-                                        key={index}
+                                        to={`/tag/${tag.id}`}
+                                        key={tag.id}
                                         className={style.tagslink}
                                         style={{ maxWidth: "200px", backgroundColor: grey[100] }}>
                                         <Typography sx={{ fontSize: "0.9rem" }} noWrap>
@@ -188,14 +188,6 @@ export default function MainPage() {
                                     </Link>
                                 ))}
                             </Box>
-                            {/* <Link to="/tags" style={{ float: "right", marginTop: "10px" }}>
-                                <div className={style.link}>
-                                    <Typography sx={{ fontSize: "0.9rem" }} pr={"5px"}>
-                                        <FormattedMessage id="viewAll" />
-                                    </Typography>
-                                    <KeyboardArrowRightIcon />
-                                </div>
-                            </Link> */}
                         </Grid>
                     </Grid>
                 </Container>

@@ -71,6 +71,7 @@ export const messages = {
         noUser: "There is no such user, or he is lost(",
         recentReviews: "Here are all the reviews, starting with the most recent",
         recentReviewsDesc: "Rate the works, like the reviews, write comments",
+        tagReviews: "Here are the posts that use this tag",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -143,5 +144,6 @@ export const messages = {
         noUser: "Такого пользователя не существует, либо он потерялся(",
         recentReviews: "Здесь собраны все отзывы, начиная с самых свежих",
         recentReviewsDesc: "Оценивайте произведения, ставьте лайки отзывам, пишите комментарии",
+        tagReviews: "Здесь собраны посты в которых используется этот тег ",
     },
 };
