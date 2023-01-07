@@ -18,11 +18,6 @@ export default function ReviewPage() {
         try {
             await axios.get(`${URL}/api/review/${id}`).then((response) => {
                 setPost(response.data);
-                console.log(response.data);
-                // setPosts(response.data.reviews.rows);
-                // setCountUserLikes(response.data.count);
-                // setPostsCount(response.data.reviews.count);
-                // setCurrentPage(1);
             });
         } catch (error) {
             console.log(error);
@@ -30,17 +25,10 @@ export default function ReviewPage() {
     }, [id]);
 
     useEffect(() => {
-        console.log(1);
         const getPost = async () => {
-            console.log(2);
             try {
                 await axios.get(`${URL}/api/review/${id}`).then((response) => {
                     setPost(response.data);
-                    console.log(response.data);
-                    // setPosts(response.data.reviews.rows);
-                    // setCountUserLikes(response.data.count);
-                    // setPostsCount(response.data.reviews.count);
-                    // setCurrentPage(1);
                 });
             } catch (error) {
                 console.log(error);
@@ -55,7 +43,6 @@ export default function ReviewPage() {
     }, [getPost]);
 
     const getUserLikes = useCallback(async (userId) => {
-        console.log(userId);
         try {
             await axios
                 .get(`${URL}/api/user/likes/${userId}`)
@@ -65,7 +52,6 @@ export default function ReviewPage() {
         }
     }, []);
 
-    console.log(post);
     return (
         <>
             <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
