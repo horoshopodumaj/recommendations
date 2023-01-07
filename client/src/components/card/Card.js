@@ -68,7 +68,9 @@ export default function CardReview({ boxShadow, review }) {
                             vertical: "bottom",
                             horizontal: "right",
                         }}>
-                        <UserAvatar width={"40px"} height={"40px"} name={review.user.name} />
+                        <Link to={`/profile/${review.userId}`}>
+                            <UserAvatar width={"40px"} height={"40px"} name={review.user.name} />
+                        </Link>
                     </Badge>
                 }
                 title={
@@ -80,8 +82,20 @@ export default function CardReview({ boxShadow, review }) {
                 subheader={`Films`}
             />
             <CardContent sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                <Typography mb="5px">
-                    {review.user.name} <FormattedMessage id="reviewed" /> {review.workName}
+                <Box sx={{ marginBottom: "10px" }}>
+                    <Link>
+                        <Typography
+                            component="span"
+                            sx={{ fontWeight: 500, color: "black", marginRight: "8px" }}>
+                            {review.user.name}
+                        </Typography>
+                    </Link>
+                    <Typography component="span">
+                        <FormattedMessage id="reviewed" />
+                    </Typography>
+                </Box>
+                <Typography mb="5px" component="span">
+                    {review.workName}
                 </Typography>
                 <Typography noWrap mb="10px" sx={{ fontWeight: 500, fontSize: "1.25rem" }}>
                     {review.title}

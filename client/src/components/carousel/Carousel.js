@@ -38,49 +38,6 @@ export default function CarouselMainPage({ reviews }) {
                     <Card boxShadow={"none"} review={review} />
                 </div>
             ))}
-
-            {/* <div
-                style={{
-                    marginRight: "10px",
-                    overflow: "hidden",
-                }}>
-                <Card boxShadow={"none"} />
-            </div>
-            <div
-                style={{
-                    marginRight: "10px",
-                    overflow: "hidden",
-                }}>
-                <Card boxShadow={"none"} />
-            </div>
-            <div
-                style={{
-                    marginRight: "10px",
-                    overflow: "hidden",
-                }}>
-                <Card boxShadow={"none"} />
-            </div>
-            <div
-                style={{
-                    marginRight: "10px",
-                    overflow: "hidden",
-                }}>
-                <Card boxShadow={"none"} />
-            </div>
-            <div
-                style={{
-                    marginRight: "10px",
-                    overflow: "hidden",
-                }}>
-                <Card boxShadow={"none"} />
-            </div>
-            <div
-                style={{
-                    marginRight: "10px",
-                    overflow: "hidden",
-                }}>
-                <Card boxShadow={"none"} />
-            </div> */}
         </Carousel>
     );
 }
