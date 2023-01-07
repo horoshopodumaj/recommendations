@@ -44,6 +44,7 @@ const ContentPage = ({ category }) => {
 
     const pageHandler = (event, value) => {
         setCurrentPage(value);
+        window.scrollTo(0, 0);
     };
 
     const getPosts = useCallback(async () => {

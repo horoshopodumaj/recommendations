@@ -41,18 +41,60 @@ export default function UserPage() {
     const [edit, setEdit] = useState(false);
     const { id } = useParams();
     const [countUserLikes, setCountUserLikes] = useState(0);
+    const [postsCount, setPostsCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const limit = 5;
+
+    const pageCount = Math.ceil(postsCount / limit);
+
+    const pageHandler = (event, value) => {
+        setCurrentPage(value);
+        window.scrollTo(0, 0);
+    };
 
     const getUser = useCallback(async () => {
         try {
-            await axios.get(`${URL}/api/user/profile/${id}`).then((response) => {
-                setUser(response.data.user);
-                setPosts(response.data.user.reviews);
-                setCountUserLikes(response.data.count);
-            });
+            await axios
+                .get(`${URL}/api/user/profile/${id}`, {
+                    params: {
+                        limit: limit,
+                        page: currentPage,
+                    },
+                })
+                .then((response) => {
+                    setUser(response.data.user);
+                    setPosts(response.data.reviews.rows);
+                    setCountUserLikes(response.data.count);
+                    setPostsCount(response.data.reviews.count);
+                });
         } catch (error) {
             console.log(error);
         }
-    }, [id]);
+    }, [id, currentPage]);
+
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                await axios
+                    .get(`${URL}/api/user/profile/${id}`, {
+                        params: {
+                            limit: limit,
+                            page: currentPage,
+                        },
+                    })
+                    .then((response) => {
+                        setUser(response.data.user);
+                        setPosts(response.data.reviews.rows);
+                        setCountUserLikes(response.data.count);
+                        setPostsCount(response.data.reviews.count);
+                        setCurrentPage(1);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getUser();
+    }, []);
 
     const getUserLikes = useCallback(async (userId) => {
         try {
@@ -143,7 +185,7 @@ export default function UserPage() {
                                                     flexDirection: "column",
                                                     alignItems: "center",
                                                 }}>
-                                                <strong className="strong">{posts.length}</strong>
+                                                <strong className="strong">{postsCount}</strong>
                                                 <CustomWidthTooltip
                                                     sx={{
                                                         maxWidth: { xs: "200px", md: "500px" },
@@ -266,7 +308,13 @@ export default function UserPage() {
                                         </Typography>
                                     </Box>
                                 )}
-                                {posts.length > 5 && <Pagination count={10} />}
+                                {postsCount > 5 && (
+                                    <Pagination
+                                        count={pageCount}
+                                        page={currentPage}
+                                        onChange={pageHandler}
+                                    />
+                                )}
                             </Container>
                         )}
                     </section>
