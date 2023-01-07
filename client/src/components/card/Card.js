@@ -104,7 +104,7 @@ export default function CardReview({ boxShadow, review }) {
             </CardContent>
             <CardActions sx={{ justifyContent: "space-between" }}>
                 <Typography>{new Date(date).toLocaleDateString("ru-RU")}</Typography>
-                <Link to="/review/:id">
+                <Link to={`/review/${review.id}`}>
                     <Button>
                         <FormattedMessage id="readReview" />
                     </Button>

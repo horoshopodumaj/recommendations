@@ -62,7 +62,34 @@ class ReviewController {
 
     async getOne(req, res) {
         const { id } = req.params;
-        const review = await Review.findOne({ where: { id } });
+        const review = await Review.findOne({
+            where: { id },
+            include: [
+                {
+                    model: User,
+                    attributes: ["id", "name", "role"],
+                },
+                {
+                    model: Group,
+                    attributes: ["id", "name"],
+                },
+                {
+                    model: Like,
+                    where: { value: true },
+                    attributes: ["id", "value", "userId"],
+                    required: false,
+                },
+                {
+                    model: Star,
+                    attributes: ["id", "value", "userId"],
+                    required: false,
+                },
+                {
+                    model: Tag,
+                    required: false,
+                },
+            ],
+        });
         return res.json(review);
     }
     async getUserReviews(req, res) {

@@ -12,6 +12,7 @@ import WriteReview from "./components/writeReview";
 import { usersAPI } from "./api/api";
 import axios from "axios";
 import AllReviewPage from "./pages/allReviewPage";
+import ReviewPage from "./pages/reviewPage";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -77,6 +78,7 @@ function App() {
                         <Route path="/all" element={<AllReviewPage />} />
                         {/* <Route path="/writereview" element={<WriteReview />} /> */}
                         <Route path="/profile/:id" element={<UserPage />}></Route>
+                        <Route path="/review/:id" element={<ReviewPage />}></Route>
                         {categories.map((category) => (
                             <Route
                                 key={category.id}
