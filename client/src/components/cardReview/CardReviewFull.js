@@ -274,6 +274,7 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                             {post.tags.length > 0 &&
                                 post.tags.map((tag) => (
                                     <Link
+                                        to={`/tag/${tag.id}`}
                                         key={tag.id}
                                         className={style.tagslink}
                                         style={{ maxWidth: "80px", backgroundColor: grey[100] }}>

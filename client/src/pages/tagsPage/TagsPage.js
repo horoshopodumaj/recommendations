@@ -88,6 +88,7 @@ export default function TagsPage() {
 
     useEffect(() => {
         getTag();
+        window.scrollTo(0, 0);
     }, [getTag]);
 
     useEffect(() => {
