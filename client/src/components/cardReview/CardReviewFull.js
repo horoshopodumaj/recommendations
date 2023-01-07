@@ -249,16 +249,19 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                     </Box>
                     <CardContent
                         sx={{ px: "0", display: "flex", flexDirection: "column", flex: 1 }}>
-                        <Typography
-                            noWrap
-                            mb="10px"
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: "1.25rem",
-                                textAlign: { xs: "center", sm: "left" },
-                            }}>
-                            {post.title}
-                        </Typography>
+                        <Link style={{ color: "black" }} to={`/review/${post.id}`}>
+                            <Typography
+                                noWrap
+                                mb="10px"
+                                sx={{
+                                    fontWeight: 500,
+                                    fontSize: "1.25rem",
+                                    textAlign: { xs: "center", sm: "left" },
+                                }}>
+                                {post.title}
+                            </Typography>
+                        </Link>
+
                         <Typography sx={{ textAlign: "justify" }}>{post.description}</Typography>
                     </CardContent>
                     <CardActions
