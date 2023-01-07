@@ -69,6 +69,8 @@ export const messages = {
         firstReview: "Write your first review",
         noReview: "This user has no reviews yet",
         noUser: "There is no such user, or he is lost(",
+        recentReviews: "Here are all the reviews, starting with the most recent",
+        recentReviewsDesc: "Rate the works, like the reviews, write comments",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -139,5 +141,7 @@ export const messages = {
         firstReview: "Оставьте свой первый отзыв",
         noReview: "У этого пользователя пока нет отзывов",
         noUser: "Такого пользователя не существует, либо он потерялся(",
+        recentReviews: "Здесь собраны все отзывы, начиная с самых свежих",
+        recentReviewsDesc: "Оценивайте произведения, ставьте лайки отзывам, пишите комментарии",
     },
 };

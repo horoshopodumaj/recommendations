@@ -128,11 +128,16 @@ class ReviewController {
     }
 
     async getLatestReviews(req, res) {
-        let { limit, order } = req.query;
+        let { limit, order, page } = req.query;
+        page = page || 1;
+        limit = limit || null;
+        let offset = page * limit - limit;
         let queryParams = {
             where: {},
             order: [[order, "DESC"]],
-            limit: limit || null,
+            limit: limit,
+            offset,
+            distinct: "Review.id",
             include: [
                 {
                     model: User,
@@ -143,10 +148,24 @@ class ReviewController {
                     attributes: ["id", "value", "userId"],
                     required: false,
                 },
+                {
+                    model: Group,
+                    attributes: ["id", "name"],
+                },
+                {
+                    model: Like,
+                    where: { value: true },
+                    attributes: ["id", "value", "userId"],
+                    required: false,
+                },
+                {
+                    model: Tag,
+                    required: false,
+                },
             ],
         };
 
-        const reviews = await Review.findAll(queryParams);
+        const reviews = await Review.findAndCountAll(queryParams);
         return res.json(reviews);
     }
 

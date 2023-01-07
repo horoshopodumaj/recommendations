@@ -34,7 +34,7 @@ export default function MainPage() {
                         order: "createdAt",
                     },
                 })
-                .then((response) => setLatestReviews(response.data));
+                .then((response) => setLatestReviews(response.data.rows));
         } catch (error) {
             console.log(error);
         }
@@ -49,7 +49,7 @@ export default function MainPage() {
                         order: "rating",
                     },
                 })
-                .then((response) => setBiggestRateReviews(response.data));
+                .then((response) => setBiggestRateReviews(response.data.rows));
         } catch (error) {
             console.log(error);
         }
@@ -140,7 +140,7 @@ export default function MainPage() {
                                     </Grid>
                                 ))}
                             </Grid>
-                            <Link to="/reviews" style={{ float: "right", marginTop: "10px" }}>
+                            <Link to="/all" style={{ float: "right", marginTop: "10px" }}>
                                 <div className={style.link}>
                                     <Typography sx={{ fontSize: "0.9rem" }} pr={"5px"}>
                                         <FormattedMessage id="viewAll" />
