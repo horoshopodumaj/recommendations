@@ -102,7 +102,7 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     useEffect(() => {
         getUserLikes(post.userId);
         totalRatingPost();
-    }, [getUserLikes, totalRatingPost]);
+    }, [getUserLikes, totalRatingPost, post.userId]);
 
     useEffect(() => {
         isUserLikesPost();

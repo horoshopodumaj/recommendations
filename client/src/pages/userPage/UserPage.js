@@ -1,7 +1,17 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import style from "./User.module.scss";
 import Header from "../../components/header";
-import { Avatar, Box, Button, Container, Grid, List, ListItem, Typography } from "@mui/material";
+import {
+    Avatar,
+    Box,
+    Button,
+    Container,
+    Grid,
+    List,
+    ListItem,
+    Pagination,
+    Typography,
+} from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import StarIcon from "@mui/icons-material/Star";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -44,18 +54,15 @@ export default function UserPage() {
         }
     }, [id]);
 
-    const getUserLikes = useCallback(
-        async (postId) => {
-            try {
-                await axios
-                    .get(`${URL}/api/user/likes/${postId}`)
-                    .then((response) => setCountUserLikes(response.data.count));
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        [posts]
-    );
+    const getUserLikes = useCallback(async (userId) => {
+        try {
+            await axios
+                .get(`${URL}/api/user/likes/${userId}`)
+                .then((response) => setCountUserLikes(response.data.count));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
     const editOpen = () => {
         setEdit(!edit);
@@ -259,6 +266,7 @@ export default function UserPage() {
                                         </Typography>
                                     </Box>
                                 )}
+                                {posts.length > 5 && <Pagination count={10} />}
                             </Container>
                         )}
                     </section>

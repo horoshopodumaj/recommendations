@@ -2,7 +2,16 @@ import Header from "../../components/header";
 import style from "./Content.module.scss";
 import { styled } from "@mui/material/styles";
 import { FormattedMessage } from "react-intl";
-import { Box, Button, Container, Grid, List, ListItem, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Container,
+    Grid,
+    List,
+    ListItem,
+    Pagination,
+    Typography,
+} from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import StarIcon from "@mui/icons-material/Star";
 import CardReviewFull from "../../components/cardReview";
@@ -27,29 +36,65 @@ const ContentPage = ({ category }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [countUserLikes, setCountUserLikes] = useState(0);
+    const [postsCount, setPostsCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const limit = 5;
+
+    const pageCount = Math.ceil(postsCount / limit);
+
+    const pageHandler = (event, value) => {
+        setCurrentPage(value);
+    };
 
     const getPosts = useCallback(async () => {
         try {
             await axios
-                .get(`${URL}/api/review/category/${category.id}`)
-                .then((response) => setPosts(response.data));
+                .get(`${URL}/api/review/category/${category.id}`, {
+                    params: {
+                        limit: limit,
+                        page: currentPage,
+                    },
+                })
+                .then((response) => {
+                    setPosts(response.data.rows);
+                    setPostsCount(response.data.count);
+                });
         } catch (error) {
             console.log(error);
         }
-    }, [category]);
+    }, [category.id, currentPage]);
 
-    const getUserLikes = useCallback(
-        async (postId) => {
+    useEffect(() => {
+        const getPosts = async () => {
             try {
                 await axios
-                    .get(`${URL}/api/user/likes/${postId}`)
-                    .then((response) => setCountUserLikes(response.data.count));
+                    .get(`${URL}/api/review/category/${category.id}`, {
+                        params: {
+                            limit: 5,
+                            page: currentPage,
+                        },
+                    })
+                    .then((response) => {
+                        setPosts(response.data.rows);
+                        setPostsCount(response.data.count);
+                        setCurrentPage(1);
+                    });
             } catch (error) {
                 console.log(error);
             }
-        },
-        [posts]
-    );
+        };
+        getPosts();
+    }, []);
+
+    const getUserLikes = useCallback(async (userId) => {
+        try {
+            await axios
+                .get(`${URL}/api/user/likes/${userId}`)
+                .then((response) => setCountUserLikes(response.data.count));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
     useEffect(() => {
         getPosts();
@@ -57,6 +102,7 @@ const ContentPage = ({ category }) => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        setCurrentPage(1);
     }, [category]);
     return (
         <>
@@ -108,7 +154,7 @@ const ContentPage = ({ category }) => {
                                 <List sx={{ display: "flex", float: { xs: "center" } }}>
                                     <ListItem
                                         sx={{ flexDirection: "column", alignItems: "center" }}>
-                                        <strong className="strong">{posts.length}</strong>
+                                        <strong className="strong">{postsCount}</strong>
                                         <CustomWidthTooltip
                                             sx={{
                                                 maxWidth: { xs: "200px", md: "500px" },
@@ -151,6 +197,9 @@ const ContentPage = ({ category }) => {
                             getUserLikes={getUserLikes}
                         />
                     ))}
+                    {postsCount > 5 && (
+                        <Pagination count={pageCount} page={currentPage} onChange={pageHandler} />
+                    )}
                 </Container>
             </section>
 

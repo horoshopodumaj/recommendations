@@ -83,11 +83,18 @@ class ReviewController {
         return res.json(reviews);
     }
     async getCategoryReviews(req, res) {
+        let { limit, page } = req.query;
+        page = page || 1;
+        limit = limit || 3;
+        let offset = page * limit - limit;
         try {
             const { id } = req.params;
-            const reviews = await Review.findAll({
+            const reviews = await Review.findAndCountAll({
                 where: { groupId: id },
                 order: [["createdAt", "ASC"]],
+                limit,
+                offset,
+                distinct: "Review.id",
                 include: [
                     {
                         model: User,
