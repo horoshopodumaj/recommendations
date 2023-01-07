@@ -18,15 +18,38 @@ export default function MainPage() {
     const { tags } = useContext(GlobalContext);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
-    const [larestReviews, setLatestReviews] = useState([]);
+    const [latestReviews, setLatestReviews] = useState([]);
+    const [biggestRateReviews, setBiggestRateReviews] = useState([]);
+    const limitLatestReviews = 4;
+    const limitBiggestRateReviews = 5;
 
     useScrollbar(tagsBox, hasScroll);
 
     const getLatestReviews = useCallback(async () => {
         try {
             await axios
-                .get(`${URL}/api/review/latest`)
+                .get(`${URL}/api/review/latest`, {
+                    params: {
+                        limit: limitLatestReviews,
+                        order: "createdAt",
+                    },
+                })
                 .then((response) => setLatestReviews(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    const getBiggestRateReviews = useCallback(async () => {
+        try {
+            await axios
+                .get(`${URL}/api/review/latest`, {
+                    params: {
+                        limit: limitBiggestRateReviews,
+                        order: "rating",
+                    },
+                })
+                .then((response) => setBiggestRateReviews(response.data));
         } catch (error) {
             console.log(error);
         }
@@ -34,7 +57,8 @@ export default function MainPage() {
 
     useEffect(() => {
         getLatestReviews();
-    }, [getLatestReviews]);
+        getBiggestRateReviews();
+    }, [getLatestReviews, getBiggestRateReviews]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -105,7 +129,7 @@ export default function MainPage() {
                                 rowSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 columnSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 sx={{ gap: { xs: ".8rem", md: "0" } }}>
-                                {larestReviews.map((review) => (
+                                {latestReviews.map((review) => (
                                     <Grid
                                         key={review.id}
                                         item
@@ -115,16 +139,6 @@ export default function MainPage() {
                                         <Card review={review} />
                                     </Grid>
                                 ))}
-
-                                {/* <Grid item xs={12} md={6}>
-                                    <Card />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Card />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Card />
-                                </Grid> */}
                             </Grid>
                             <Link to="/reviews" style={{ float: "right", marginTop: "10px" }}>
                                 <div className={style.link}>
@@ -211,9 +225,9 @@ export default function MainPage() {
                                 mb: "1rem",
                                 textAlign: { xs: "center", sm: "left" },
                             }}>
-                            <FormattedMessage id="latestReviewsDesc" />
+                            <FormattedMessage id="highestReviewsDesc" />
                         </Typography>
-                        <Carousel larestReviews={larestReviews} />
+                        <Carousel reviews={biggestRateReviews} />
                     </Container>
                 </div>
             </section>

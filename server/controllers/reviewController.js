@@ -128,11 +128,11 @@ class ReviewController {
     }
 
     async getLatestReviews(req, res) {
-        let { limit } = req.query;
+        let { limit, order } = req.query;
         let queryParams = {
             where: {},
-            order: [["createdAt", "DESC"]],
-            limit: limit || 4,
+            order: [[order, "DESC"]],
+            limit: limit || null,
             include: [
                 {
                     model: User,

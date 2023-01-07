@@ -36,7 +36,8 @@ export const messages = {
         reviewed: "reviewed",
         readReview: "Read review",
         highestReviews: "The Highest Ratings of Reviews",
-        highestReviewsDesc: "Check out the reviews that have the highest ratings",
+        highestReviewsDesc:
+            "Check out the reviews, the authors of which gave them the highest ratings",
         likes: "The number of people who liked your reviews",
         reviews: "Reviews",
         review: "Review",
@@ -104,7 +105,8 @@ export const messages = {
         reviewed: "оценил(a)",
         readReview: "Читать отзыв",
         highestReviews: "Отзывы с самыми большими оценками",
-        highestReviewsDesc: "Ознакомьтесь с отзывами у которых самые высокие оценки",
+        highestReviewsDesc:
+            "Ознакомьтесь с отзывами, авторы которых, поставили им самые высокие оценки",
         likes: "Количество людей, которым понравились ваши отзывы",
         reviews: "Отзывы",
         review: "Отзыв",

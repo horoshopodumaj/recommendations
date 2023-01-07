@@ -23,10 +23,10 @@ const responsive = {
     },
 };
 
-export default function CarouselMainPage({ larestReviews }) {
+export default function CarouselMainPage({ reviews }) {
     return (
         <Carousel className={style.carousel} responsive={responsive} infinite={true}>
-            {larestReviews.map((review) => (
+            {reviews.map((review) => (
                 <div
                     key={review.id}
                     style={{
