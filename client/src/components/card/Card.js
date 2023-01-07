@@ -20,6 +20,19 @@ export default function CardReview({ boxShadow, review }) {
     const date = Date.parse(review.createdAt);
     const desc = review.description.slice(0, 120);
     const [countUserLikes, setCountUserLikes] = useState(0);
+    const [totalRating, setTotalRating] = useState(0);
+
+    const totalRatingPost = useCallback(() => {
+        const totalRating =
+            review.stars.length > 0
+                ? review.stars.reduce((acc, star) => acc + star.value, 0) / review.stars.length
+                : 0;
+        setTotalRating(totalRating);
+    }, [review.stars]);
+
+    useEffect(() => {
+        totalRatingPost();
+    }, [totalRatingPost, review.userId]);
 
     const getUserLikes = useCallback(async (userId) => {
         try {
@@ -60,8 +73,8 @@ export default function CardReview({ boxShadow, review }) {
                 }
                 title={
                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Rating readOnly name="read-only" value={3} />{" "}
-                        <Box ml={2}>{`3.7 / 5.0`}</Box>{" "}
+                        <Rating readOnly precision={0.1} name="totalRating" value={totalRating} />{" "}
+                        <Box ml={2}>{`${totalRating} / 5.0`}</Box>{" "}
                     </Box>
                 }
                 subheader={`Films`}

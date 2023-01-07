@@ -39,7 +39,7 @@ export default function MainPage() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-    console.log(larestReviews);
+
     return (
         <>
             <Header backgroundColor={"transparent"} color={true} />
