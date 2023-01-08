@@ -5,11 +5,11 @@ const instance = axios.create({
     //baseURL: URL,
     credentials: "include",
     mode: "cors",
-    withCredentials: true,
+    withCredentials: false,
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
+        //"Access-Control-Allow-Credentials": true,
     },
 });
 
