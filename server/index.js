@@ -13,6 +13,9 @@ const MemoryStore = require("memorystore")(session);
 const cookieParser = require("cookie-parser");
 
 require("./auth/passportGoogle");
+require("./auth/passportFacebook");
+require("./auth/passportGithub");
+require("./auth/passportTwitter");
 
 PORT = process.env.PORT || 8000;
 
