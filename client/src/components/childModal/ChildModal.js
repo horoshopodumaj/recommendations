@@ -222,6 +222,7 @@ export default function ChildModal({
                                         {tag.length > 0 &&
                                             tag.map((item) => (
                                                 <Box
+                                                    key={item.name}
                                                     sx={{
                                                         maxWidth: "80px",
                                                         backgroundColor: grey[100],
