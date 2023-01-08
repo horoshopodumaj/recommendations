@@ -17,3 +17,10 @@ module.exports.githubCallback = passport.authenticate("github", {
     failureRedirect: errorLoginUrl,
     successRedirect: successLoginUrl,
 });
+module.exports.facebookLogin = passport.authenticate("facebook", { scope: ["profile", "email"] });
+
+module.exports.facebookCallback = passport.authenticate("facebook", {
+    failureMessage: "Cannot login to Facebook, please try again later!",
+    failureRedirect: errorLoginUrl,
+    successRedirect: successLoginUrl,
+});
