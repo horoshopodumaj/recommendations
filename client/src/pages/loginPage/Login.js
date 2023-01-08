@@ -39,6 +39,9 @@ const Login = () => {
         if (socialMedia === "Google") {
             window.open(`${URL}/api/user/login/google`, "_self");
         }
+        if (socialMedia === "GitHub") {
+            window.open(`${URL}/api/user/login/github`, "_self");
+        }
     };
     return (
         <section className={style.container}>

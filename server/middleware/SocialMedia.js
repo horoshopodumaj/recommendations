@@ -10,3 +10,10 @@ module.exports.googleCallback = passport.authenticate("google", {
     failureRedirect: errorLoginUrl,
     successRedirect: successLoginUrl,
 });
+module.exports.githubLogin = passport.authenticate("github", { scope: ["profile", "email"] });
+
+module.exports.githubCallback = passport.authenticate("github", {
+    failureMessage: "Cannot login to GitHub, please try again later!",
+    failureRedirect: errorLoginUrl,
+    successRedirect: successLoginUrl,
+});

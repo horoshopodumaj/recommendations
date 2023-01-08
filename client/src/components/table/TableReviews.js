@@ -1,5 +1,13 @@
 import React, { useContext } from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import {
+    Button,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+} from "@mui/material";
 import GlobalContext from "../../contexts/GlobalContext";
 import { Image } from "cloudinary-react";
 
@@ -33,7 +41,9 @@ export default function TableReviews({ posts }) {
                                 <img src={post.image} style={{ width: "200px" }} alt={post.image} />
                             </TableCell>
                             <TableCell>{post.rating}</TableCell>
-                            <TableCell>Edit</TableCell>
+                            <TableCell>
+                                <Button>Edit</Button>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

@@ -22,6 +22,7 @@
         "jsonwebtoken": "^8.5.1",
         "memorystore": "^1.6.7",
         "passport": "^0.6.0",
+        "passport-github2": "^0.1.12",
         "passport-google-oauth20": "^2.0.0",
         "pg": "^8.8.0",
         "pg-hstore": "^2.3.4",
