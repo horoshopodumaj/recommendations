@@ -45,6 +45,9 @@ const Login = () => {
         if (socialMedia === "Facebook") {
             window.open(`${URL}/api/user/login/facebook`, "_self");
         }
+        if (socialMedia === "Twitter") {
+            window.open(`${URL}/api/user/login/twitter`, "_self");
+        }
     };
     return (
         <section className={style.container}>

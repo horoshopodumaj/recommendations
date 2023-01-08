@@ -24,3 +24,10 @@ module.exports.facebookCallback = passport.authenticate("facebook", {
     failureRedirect: errorLoginUrl,
     successRedirect: successLoginUrl,
 });
+module.exports.twitterLogin = passport.authenticate("twitter", { scope: ["profile", "email"] });
+
+module.exports.twitterCallback = passport.authenticate("twitter", {
+    failureMessage: "Cannot login to Twitter, please try again later!",
+    failureRedirect: errorLoginUrl,
+    successRedirect: successLoginUrl,
+});

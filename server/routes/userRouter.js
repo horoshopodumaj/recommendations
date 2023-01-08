@@ -9,6 +9,8 @@ const {
     githubCallback,
     facebookLogin,
     facebookCallback,
+    twitterLogin,
+    twitterCallback,
 } = require("../middleware/SocialMedia");
 const { isUserAuthenticated } = require("../middleware/auth");
 // const successLoginUrl = `${process.env.CLIENT_URL}/books`;
@@ -22,6 +24,8 @@ router.get("/login/github", githubLogin);
 router.get("/auth/github/callback", githubCallback, userController.googleCallback);
 router.get("/login/facebook", facebookLogin);
 router.get("/auth/facebook/callback", facebookCallback, userController.googleCallback);
+router.get("/login/twitter", twitterLogin);
+router.get("/auth/twitter/callback", twitterCallback, userController.googleCallback);
 router.get("/logout", userController.logoutUser);
 router.get("/auth", isUserAuthenticated, userController.check);
 router.get("/login/failed", userController.failed);
