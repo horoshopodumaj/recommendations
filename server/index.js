@@ -9,6 +9,7 @@ const errorHandler = require("./middleware/ErrorMiddleware");
 const path = require("path");
 const passport = require("passport");
 const session = require("express-session");
+const MemoryStore = require("memorystore")(session);
 const cookieParser = require("cookie-parser");
 
 require("./auth/passportGoogle");
@@ -27,7 +28,11 @@ app.use(
         secret: process.env.SECRET_KEY,
         cookie: {
             secure: false,
+            maxAge: 86400000,
         },
+        store: new MemoryStore({
+            checkPeriod: 86400000,
+        }),
         saveUninitialized: false,
         resave: false,
     })
