@@ -7,6 +7,7 @@ import { FormattedMessage } from "react-intl";
 import GlobalContext from "../../contexts/GlobalContext";
 import axios from "axios";
 import { URL } from "../../App";
+import ChildModal from "../childModal/ChildModal";
 
 const maxLength = 60;
 const maxLengthDescription = 2000;
@@ -102,7 +103,6 @@ export default function WriteReview({ open, onClose }) {
             setWorkName("");
             setTitle("");
             setDesc("");
-            setWorkName("");
             setTag([]);
             setRating(0);
             setPreviewSource();
@@ -111,7 +111,10 @@ export default function WriteReview({ open, onClose }) {
         }
     };
     return (
-        <Modal open={open}>
+        <Modal
+            open={open}
+            aria-labelledby="parent-modal-title"
+            aria-describedby="parent-modal-description">
             <form onSubmit={(event) => addReview(event)}>
                 <Box sx={style}>
                     <IconButton
@@ -364,6 +367,15 @@ export default function WriteReview({ open, onClose }) {
                     <Button type="submit" sx={{ float: "right" }} variant="contained">
                         <FormattedMessage id="submit" />
                     </Button>
+                    <ChildModal
+                        rating={rating}
+                        category={category}
+                        workName={workName}
+                        title={title}
+                        desc={desc}
+                        tag={tag}
+                        previewSource={previewSource}
+                    />
                 </Box>
             </form>
         </Modal>

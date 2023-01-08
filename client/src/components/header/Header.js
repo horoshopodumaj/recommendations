@@ -103,11 +103,9 @@ const Header = ({ backgroundColor, color }) => {
                     <UserAuth color={color} />
                 ) : (
                     <Box sx={{ display: "flex" }}>
-                        <Button sx={{ my: 2, display: "block" }}>
-                            <Link to="/login" className={style.chapter}>
-                                login
-                            </Link>
-                        </Button>
+                        <Link to="/login" className={style.chapter}>
+                            <Button sx={{ my: 2, display: "block" }}>login</Button>
+                        </Link>
                     </Box>
                 )}
             </Toolbar>
