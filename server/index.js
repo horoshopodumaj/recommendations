@@ -39,7 +39,7 @@ app.use(
             checkPeriod: 86400000,
         }),
         saveUninitialized: false,
-        resave: false,
+        resave: true,
     })
 );
 
