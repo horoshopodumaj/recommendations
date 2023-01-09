@@ -46,10 +46,11 @@ app.use(passport.session());
 
 app.use(
     cors({
-        origin: process.env.CLIENT_URL,
+        origin: ["https://recommendations-sggu.onrender.com", "http://localhost:3000"],
         credentials: true,
-        methods: "GET,POST,PUT,DELETE",
-        allowedHeaders: ["Origin", "Content-Type", "Accept"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        optionsSuccessStatus: 200,
+        //allowedHeaders: ["Origin", "Content-Type", "Accept"],
     })
 );
 
