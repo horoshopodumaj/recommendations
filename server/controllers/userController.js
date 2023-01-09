@@ -35,26 +35,30 @@ class UserController {
 
     async success(req, res) {
         console.log(req.user);
-        if (req.user) {
-            const user = await User.findOne({
-                where: { id: req.user.id },
-                include: [
-                    {
-                        model: Like,
-                        where: { value: true },
-                        required: false,
-                    },
-                    {
-                        model: Star,
-                        required: false,
-                    },
-                ],
-            });
-            res.status(200).json({
-                success: true,
-                message: "successfull",
-                user: user,
-            });
+        try {
+            if (req.user) {
+                const user = await User.findOne({
+                    where: { id: req.user.id },
+                    include: [
+                        {
+                            model: Like,
+                            where: { value: true },
+                            required: false,
+                        },
+                        {
+                            model: Star,
+                            required: false,
+                        },
+                    ],
+                });
+                res.status(200).json({
+                    success: true,
+                    message: "successfull",
+                    user: user,
+                });
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
