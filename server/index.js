@@ -46,21 +46,15 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-var whitelist = ["https://recommendations-sggu.onrender.com", "http://localhost:3000"];
-
-var corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    optionsSuccessStatus: 200,
-    credentials: true,
-};
-
-app.use(cors(corsOptions));
+app.use(
+    cors({
+        origin: "https://recommendations-sggu.onrender.com",
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        optionsSuccessStatus: 200,
+        //allowedHeaders: ["Origin", "Content-Type", "Accept"],
+    })
+);
 
 app.use("/api", router);
 
