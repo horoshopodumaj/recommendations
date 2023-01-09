@@ -45,10 +45,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(
-    cors()
-    //origin: process.env.CLIENT_URL,
-    //credentials: true,
-    //methods: "GET,POST,PUT,DELETE",
+    cors({
+        origin: process.env.CLIENT_URL,
+        credentials: true,
+        //methods: "GET,POST,PUT,DELETE",
+    })
 );
 
 app.use("/api", router);
