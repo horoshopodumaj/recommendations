@@ -8,7 +8,7 @@ passport.use(
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: `${process.env.SERVER_URL}/api/user/auth/google/callback`,
-            passReqToCallback: true,
+            //passReqToCallback: true,
         },
         async (req, accessToken, refreshToken, profile, cb) => {
             const defaultUser = {
