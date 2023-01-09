@@ -33,6 +33,7 @@ app.use(
             secure: true,
             maxAge: 86400000,
             httpOnly: true,
+            sameSite: "none",
         },
         store: new MemoryStore({
             checkPeriod: 86400000,
