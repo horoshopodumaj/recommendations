@@ -33,5 +33,6 @@ router.get("/login/success", userController.success);
 router.get("/profile/:id", userController.getOne);
 router.get("/likes/:id", userController.getUserLikes);
 router.get("/google/fake", userController.successGoogle);
+router.get("/github/fake", userController.successGithub);
 
 module.exports = router;
