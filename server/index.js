@@ -35,9 +35,9 @@ app.use(
             httpOnly: true,
             sameSite: "none",
         },
-        store: new MemoryStore({
-            checkPeriod: 86400000,
-        }),
+        // store: new MemoryStore({
+        //     checkPeriod: 86400000,
+        // }),
         saveUninitialized: false,
         resave: true,
     })
