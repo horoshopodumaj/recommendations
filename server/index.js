@@ -26,35 +26,37 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.static(path.resolve(__dirname, "static")));
 app.use(fileUpload({}));
 app.use(cookieParser());
+
+app.use(
+    cors({
+        origin: process.env.CLIENT_URL,
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        //optionsSuccessStatus: 200,
+        //allowedHeaders: ["Origin", "Content-Type", "Accept"],
+    })
+);
 app.use(
     session({
         secret: process.env.SECRET_KEY,
         cookie: {
-            secure: true,
+            //secure: true,
             maxAge: 86400000,
-            httpOnly: true,
-            sameSite: "none",
+            //httpOnly: true,
+            //sameSite: "none",
         },
         // store: new MemoryStore({
         //     checkPeriod: 86400000,
         // }),
+        resave: false,
         saveUninitialized: false,
-        resave: true,
+        // saveUninitialized: false,
+        // resave: true,
     })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(
-    cors({
-        origin: "https://recommendations-sggu.onrender.com",
-        credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        optionsSuccessStatus: 200,
-        //allowedHeaders: ["Origin", "Content-Type", "Accept"],
-    })
-);
 
 app.use("/api", router);
 

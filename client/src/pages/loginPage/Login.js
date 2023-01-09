@@ -34,13 +34,13 @@ const buttonsOptions = [
     },
 ];
 
-const Login = ({ getUser, getUserGit }) => {
+const Login = () => {
     const auth = (socialMedia) => {
         if (socialMedia === "Google") {
-            getUser();
+            window.open(`${URL}/api/user/login/google`, "_self");
         }
         if (socialMedia === "GitHub") {
-            getUserGit();
+            window.open(`${URL}/api/user/login/github`, "_self");
         }
         if (socialMedia === "Facebook") {
             window.open(`${URL}/api/user/login/facebook`, "_self");
