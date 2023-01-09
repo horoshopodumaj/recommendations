@@ -3,13 +3,13 @@ import { URL } from "../App";
 
 const instance = axios.create({
     //baseURL: URL,
-    credentials: "include",
+    //credentials: "include",
     //mode: "cors",
     withCredentials: true,
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        //"Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Credentials": true,
         //"Access-Control-Allow-Origin": "https://recommendations-sggu.onrender.com/",
     },
 });
