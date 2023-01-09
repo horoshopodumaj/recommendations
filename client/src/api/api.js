@@ -3,7 +3,7 @@ import { URL } from "../App";
 
 const instance = axios.create({
     //baseURL: URL,
-    //credentials: "include",
+    credentials: "include",
     //mode: "cors",
     withCredentials: true,
     headers: {
