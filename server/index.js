@@ -48,7 +48,7 @@ app.use(passport.session());
 
 app.use(
     cors({
-        origin: ["https://recommendations-sggu.onrender.com", "http://localhost:3000"],
+        origin: "https://recommendations-sggu.onrender.com",
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
         optionsSuccessStatus: 200,
