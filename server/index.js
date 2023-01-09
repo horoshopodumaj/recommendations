@@ -30,8 +30,9 @@ app.use(
     session({
         secret: process.env.SECRET_KEY,
         cookie: {
-            secure: false,
+            secure: true,
             maxAge: 86400000,
+            httpOnly: true,
         },
         store: new MemoryStore({
             checkPeriod: 86400000,
