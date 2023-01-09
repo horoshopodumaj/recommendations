@@ -62,6 +62,33 @@ class UserController {
         }
     }
 
+    async successGoogle(req, res) {
+        console.log(req.user);
+        try {
+            const user = await User.findOne({
+                where: { id: 1 },
+                include: [
+                    {
+                        model: Like,
+                        where: { value: true },
+                        required: false,
+                    },
+                    {
+                        model: Star,
+                        required: false,
+                    },
+                ],
+            });
+            res.status(200).json({
+                success: true,
+                message: "successfull",
+                user: user,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async getOne(req, res) {
         const { id } = req.params;
         let { limit, page } = req.query;

@@ -33,16 +33,36 @@ function App() {
         }
     }, []);
 
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                await usersAPI.isAuth().then((data) => setCurrentUser(data.user));
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getUser();
+    // useEffect(() => {
+    //     const getUser = async () => {
+    //         try {
+    //             await usersAPI.isAuth().then((data) => setCurrentUser(data.user));
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //     getUser();
+    // }, []);
+    const getUser = useCallback(async () => {
+        try {
+            await axios
+                .get(`${URL}/api/google/fake`)
+                .then((response) => setCurrentUser(response.data.user));
+        } catch (error) {
+            console.log(error);
+        }
     }, []);
+
+    // useEffect(() => {
+    //     const getUser = async () => {
+    //         try {
+    //             await axios.get(`${URL}/api/google/fake`).then((response) => setCurrentUser(response.data.user))
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //     getUser();
+    // }, []);
 
     const getCategory = useCallback(async () => {
         try {
@@ -75,7 +95,7 @@ function App() {
                 <div className="App">
                     <Routes>
                         <Route path="/" element={<MainPage />} />
-                        <Route path="/login" element={<Login />} />
+                        <Route path="/login" element={<Login getUser={getUser} />} />
                         <Route path="/all" element={<AllReviewPage />} />
                         {/* <Route path="/writereview" element={<WriteReview />} /> */}
                         <Route path="/profile/:id" element={<UserPage />} />
