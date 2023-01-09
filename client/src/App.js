@@ -46,7 +46,7 @@ function App() {
     const getUser = useCallback(async () => {
         try {
             await axios
-                .get(`${URL}/api/google/fake`)
+                .get(`${URL}/api/user/google/fake`)
                 .then((response) => setCurrentUser(response.data.user));
         } catch (error) {
             console.log(error);

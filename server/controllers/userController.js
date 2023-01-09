@@ -63,7 +63,6 @@ class UserController {
     }
 
     async successGoogle(req, res) {
-        console.log(req.user);
         try {
             const user = await User.findOne({
                 where: { id: 1 },
