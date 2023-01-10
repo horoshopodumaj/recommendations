@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./Login.module.scss";
-import { Box, Button, Divider, TextField, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Checkbox,
+    Divider,
+    FormControlLabel,
+    TextField,
+    Typography,
+} from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -36,6 +44,8 @@ const buttonsOptions = [
 
 const Login = () => {
     const [switcher, setSwitcher] = useState(false);
+    const [type, setType] = useState(false);
+    const [typeLogin, setTypeLogin] = useState(false);
 
     const handleSwitcher = () => {
         setSwitcher(!switcher);
@@ -173,7 +183,7 @@ const Login = () => {
                                 id="password"
                                 sx={{ width: "100%" }}
                                 required
-                                type="password"
+                                type={type ? "text" : "password"}
                                 label={<FormattedMessage id="password" />}></TextField>
                             <Typography
                                 sx={{
@@ -184,6 +194,13 @@ const Login = () => {
                                 }}>
                                 <FormattedMessage id="passwordHelp" />
                             </Typography>
+                            <FormControlLabel
+                                sx={{ color: "black", fontSize: "0.9rem" }}
+                                control={
+                                    <Checkbox checked={type} onChange={() => setType(!type)} />
+                                }
+                                label="Show password"
+                            />
                         </Box>
                         <Button
                             variant="contained"
@@ -226,7 +243,7 @@ const Login = () => {
                                 id="password"
                                 sx={{ width: "100%" }}
                                 required
-                                type="password"
+                                type={typeLogin ? "text" : "password"}
                                 label={<FormattedMessage id="password" />}></TextField>
                             <Typography
                                 sx={{
@@ -237,6 +254,16 @@ const Login = () => {
                                 }}>
                                 <FormattedMessage id="passwordHelpLogin" />
                             </Typography>
+                            <FormControlLabel
+                                sx={{ color: "black", fontSize: "0.9rem" }}
+                                control={
+                                    <Checkbox
+                                        checked={typeLogin}
+                                        onChange={() => setTypeLogin(!typeLogin)}
+                                    />
+                                }
+                                label={<FormattedMessage id="passwordShow" />}
+                            />
                         </Box>
                         <Button
                             variant="contained"
