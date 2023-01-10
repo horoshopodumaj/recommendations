@@ -104,7 +104,10 @@ const Header = ({ backgroundColor, color }) => {
                 ) : (
                     <Box sx={{ display: "flex" }}>
                         <Link to="/login" className={style.chapter}>
-                            <Button sx={{ my: 2, display: "block" }}>login</Button>
+                            <Button
+                                sx={{ my: 2, display: "block", color: color ? "white" : "black" }}>
+                                login
+                            </Button>
                         </Link>
                     </Box>
                 )}
