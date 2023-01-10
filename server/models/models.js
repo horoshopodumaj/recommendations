@@ -8,6 +8,12 @@ const User = sequelize.define("user", {
     name: { type: DataTypes.STRING, allowNull: true },
     googleId: { type: DataTypes.STRING, allowNull: true },
     role: { type: DataTypes.STRING, defaultValue: "USER" },
+    isActivated: { type: DataTypes.BOOLEAN, default: false, allowNull: true },
+    activationLink: { type: DataTypes.STRING, allowNull: true },
+});
+
+const Token = sequelize.define("token", {
+    refreshToken: { type: DataTypes.STRING, allowNull: false },
 });
 
 const Review = sequelize.define("review", {
@@ -58,6 +64,9 @@ const TagReview = sequelize.define("tag_review", {
 User.hasMany(Review);
 Review.belongsTo(User);
 
+User.hasOne(Token);
+Token.belongsTo(User);
+
 // User.hasMany(Rating);
 // Rating.belongsTo(User);
 
@@ -95,6 +104,9 @@ Review.belongsToMany(Tag, { through: TagReview });
 //     })
 //     .catch((err) => console.log(err));
 
+Token.sync();
+User.sync({ alter: true });
+
 module.exports = {
     User,
     Review,
@@ -104,4 +116,5 @@ module.exports = {
     Star,
     Like,
     TagReview,
+    Token,
 };
