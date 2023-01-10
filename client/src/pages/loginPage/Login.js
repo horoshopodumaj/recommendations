@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./Login.module.scss";
 import { Box, Button, Divider, TextField, Typography } from "@mui/material";
@@ -35,6 +35,12 @@ const buttonsOptions = [
 ];
 
 const Login = () => {
+    const [switcher, setSwitcher] = useState(false);
+
+    const handleSwitcher = () => {
+        setSwitcher(!switcher);
+    };
+
     const auth = (socialMedia) => {
         if (socialMedia === "Google") {
             window.open(`${URL}/api/user/login/google`, "_self");
@@ -55,7 +61,7 @@ const Login = () => {
                 className={style.wpapper}
                 sx={{
                     boxShadow: "3px 0 30px rgb(0 0 0 / 20%)",
-                    padding: "45px",
+                    padding: { xs: "20px", md: "45px" },
                     boxSizing: "border-box",
                     position: "absolute",
                     left: 0,
@@ -97,98 +103,162 @@ const Login = () => {
                         </Button>
                     ))}
                 </form>
-                <Divider sx={{ color: "black", fontFamily: "Roboto", textTransform: "uppercase" }}>
+                <Divider
+                    sx={{
+                        color: "black",
+                        fontFamily: "Roboto",
+                        textTransform: "uppercase",
+                        mt: { xs: "5px", md: "10px" },
+                        mb: { xs: "10px", md: "20px" },
+                        fontStyle: "oblique",
+                    }}>
                     <FormattedMessage id="or" />
                 </Divider>
-                <form>
-                    <Box>
-                        {/* <label htmlFor="name">
+                {switcher ? (
+                    <form>
+                        <Box sx={{ mt: "10px" }}>
+                            <TextField
+                                id="name"
+                                sx={{ width: "100%" }}
+                                required
+                                size="small"
+                                label={<FormattedMessage id="name" />}></TextField>
                             <Typography
                                 sx={{
-                                    mt: "10px",
+                                    fontSize: "0.75rem",
+                                    lineHeight: "1.66",
+                                    letterSpacing: "0.03333em",
                                     color: "rgba(0, 0, 0, 0.6)",
-                                    fontSize: "0.9rem",
                                 }}>
-                                <FormattedMessage id="name" />
+                                <FormattedMessage id="nameHelp" />
                             </Typography>
-                        </label> */}
-                        <TextField
-                            id="name"
-                            sx={{ width: "100%" }}
-                            required
-                            size="small"
-                            label={<FormattedMessage id="name" />}></TextField>
-                        <Typography
-                            sx={{
-                                fontSize: "0.75rem",
-                                lineHeight: "1.66",
-                                letterSpacing: "0.03333em",
-                                color: "rgba(0, 0, 0, 0.6)",
-                            }}>
-                            <FormattedMessage id="nameHelp" />
-                        </Typography>
-                    </Box>
-                    <Box>
-                        <TextField
-                            id="lastName"
-                            sx={{ width: "100%" }}
-                            required
-                            label={<FormattedMessage id="lastName" />}></TextField>
-                        <Typography
-                            sx={{
-                                fontSize: "0.75rem",
-                                lineHeight: "1.66",
-                                letterSpacing: "0.03333em",
-                                color: "rgba(0, 0, 0, 0.6)",
-                            }}>
-                            <FormattedMessage id="lastNameHelp" />
-                        </Typography>
-                    </Box>
-                    <Box>
-                        <TextField
-                            id="email"
-                            sx={{ width: "100%" }}
-                            required
-                            label="Email"></TextField>
-                        <Typography
-                            sx={{
-                                fontSize: "0.75rem",
-                                lineHeight: "1.66",
-                                letterSpacing: "0.03333em",
-                                color: "rgba(0, 0, 0, 0.6)",
-                            }}>
-                            <FormattedMessage id="emailHelp" />
-                        </Typography>
-                        <TextField
-                            id="password"
-                            sx={{ width: "100%" }}
-                            required
-                            label={<FormattedMessage id="password" />}></TextField>
-                        <Typography
-                            sx={{
-                                fontSize: "0.75rem",
-                                lineHeight: "1.66",
-                                letterSpacing: "0.03333em",
-                                color: "rgba(0, 0, 0, 0.6)",
-                            }}>
-                            <FormattedMessage id="passwordHelp" />
-                        </Typography>
-                    </Box>
-                    <Button variant="contained" sx={{ width: "100%" }} type="submit">
-                        <FormattedMessage id="register" />
-                    </Button>
-                    <Box sx={{ textAlign: "center" }}>
-                        <Typography sx={{ color: "black", display: "inline" }}>
-                            <FormattedMessage id="signInDesc" />
-                        </Typography>
-                        <Button sx={{ color: "primary.main" }}>
-                            <FormattedMessage id="signIn" />
+                        </Box>
+                        <Box sx={{ mt: "10px" }}>
+                            <TextField
+                                id="lastName"
+                                size="small"
+                                sx={{ width: "100%" }}
+                                required
+                                label={<FormattedMessage id="lastName" />}></TextField>
+                            <Typography
+                                sx={{
+                                    fontSize: "0.75rem",
+                                    lineHeight: "1.66",
+                                    letterSpacing: "0.03333em",
+                                    color: "rgba(0, 0, 0, 0.6)",
+                                }}>
+                                <FormattedMessage id="lastNameHelp" />
+                            </Typography>
+                        </Box>
+                        <Box sx={{ mt: "10px" }}>
+                            <TextField
+                                id="email"
+                                size="small"
+                                sx={{ width: "100%" }}
+                                required
+                                label="Email"></TextField>
+                            <Typography
+                                sx={{
+                                    fontSize: "0.75rem",
+                                    lineHeight: "1.66",
+                                    letterSpacing: "0.03333em",
+                                    color: "rgba(0, 0, 0, 0.6)",
+                                }}>
+                                <FormattedMessage id="emailHelp" />
+                            </Typography>
+                        </Box>
+                        <Box sx={{ mt: "10px" }}>
+                            <TextField
+                                size="small"
+                                id="password"
+                                sx={{ width: "100%" }}
+                                required
+                                type="password"
+                                label={<FormattedMessage id="password" />}></TextField>
+                            <Typography
+                                sx={{
+                                    fontSize: "0.75rem",
+                                    lineHeight: "1.66",
+                                    letterSpacing: "0.03333em",
+                                    color: "rgba(0, 0, 0, 0.6)",
+                                }}>
+                                <FormattedMessage id="passwordHelp" />
+                            </Typography>
+                        </Box>
+                        <Button
+                            variant="contained"
+                            sx={{ width: "100%", mt: { xs: "10px", md: "20px" } }}
+                            type="submit">
+                            <FormattedMessage id="register" />
                         </Button>
-                    </Box>
-                </form>
+                        <Box sx={{ textAlign: "center", mt: "8px" }}>
+                            <Typography
+                                sx={{ color: "black", display: "inline", fontSize: "0.9rem" }}>
+                                <FormattedMessage id="signInDesc" />
+                            </Typography>
+                            <Button sx={{ color: "primary.main" }} onClick={handleSwitcher}>
+                                <FormattedMessage id="signIn" />
+                            </Button>
+                        </Box>
+                    </form>
+                ) : (
+                    <form>
+                        <Box sx={{ mt: "10px" }}>
+                            <TextField
+                                id="email"
+                                size="small"
+                                sx={{ width: "100%" }}
+                                required
+                                label="Email"></TextField>
+                            <Typography
+                                sx={{
+                                    fontSize: "0.75rem",
+                                    lineHeight: "1.66",
+                                    letterSpacing: "0.03333em",
+                                    color: "rgba(0, 0, 0, 0.6)",
+                                }}>
+                                <FormattedMessage id="emailHelp" />
+                            </Typography>
+                        </Box>
+                        <Box sx={{ mt: "10px" }}>
+                            <TextField
+                                size="small"
+                                id="password"
+                                sx={{ width: "100%" }}
+                                required
+                                type="password"
+                                label={<FormattedMessage id="password" />}></TextField>
+                            <Typography
+                                sx={{
+                                    fontSize: "0.75rem",
+                                    lineHeight: "1.66",
+                                    letterSpacing: "0.03333em",
+                                    color: "rgba(0, 0, 0, 0.6)",
+                                }}>
+                                <FormattedMessage id="passwordHelpLogin" />
+                            </Typography>
+                        </Box>
+                        <Button
+                            variant="contained"
+                            sx={{ width: "100%", mt: { xs: "10px", md: "20px" } }}
+                            type="submit">
+                            <FormattedMessage id="loginToLogo" />
+                        </Button>
+                        <Box sx={{ textAlign: "center", mt: "8px" }}>
+                            <Typography
+                                sx={{ color: "black", display: "inline", fontSize: "0.9rem" }}>
+                                <FormattedMessage id="signUpDesc" />
+                            </Typography>
+                            <Button sx={{ color: "primary.main" }} onClick={handleSwitcher}>
+                                <FormattedMessage id="signUp" />
+                            </Button>
+                        </Box>
+                    </form>
+                )}
+
                 <div className={style.copyContainer}>
                     <div className={style.copy}>
-                        <CopyrightIcon sx={{ pr: "5px" }} />
+                        <CopyrightIcon sx={{ pr: "5px", fontSize: "1.2rem" }} />
                         2022
                     </div>
                 </div>
