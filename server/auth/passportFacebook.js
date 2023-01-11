@@ -13,7 +13,7 @@ passport.use(
         async (req, accessToken, refreshToken, profile, cb) => {
             const defaultUser = {
                 name: `${profile.name.givenName} ${profile.name.familyName}`,
-                email: profile.email,
+                email: profile.emails,
                 googleId: profile.id,
             };
 
