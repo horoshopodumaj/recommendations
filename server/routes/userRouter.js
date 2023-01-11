@@ -28,7 +28,7 @@ router.get("/login/facebook", facebookLogin);
 router.get("/auth/facebook/callback", facebookCallback, userController.googleCallback);
 router.get("/login/twitter", twitterLogin);
 router.get("/auth/twitter/callback", twitterCallback, userController.googleCallback);
-//router.get("/logout", userController.logoutUser);
+router.get("/logout", userController.logoutUser);
 router.get("/auth", isUserAuthenticated, userController.check);
 router.get("/login/failed", userController.failed);
 router.get("/login/success", userController.success);
@@ -37,15 +37,15 @@ router.get("/likes/:id", userController.getUserLikes);
 //router.get("/google/fake", userController.successGoogle);
 //router.get("/github/fake", userController.successGithub);
 
-router.post(
-    "/registration",
-    body("email").isEmail(),
-    body("password").isLength({ min: 3, max: 16 }),
-    userController.registration
-);
-router.post("/login", userController.login);
-router.post("/logout", userController.logout);
-router.get("/activate/:link", userController.activate);
-router.get("/refresh", userController.refresh);
+// router.post(
+//     "/registration",
+//     body("email").isEmail(),
+//     body("password").isLength({ min: 3, max: 16 }),
+//     userController.registration
+// );
+// router.post("/login", userController.login);
+// router.post("/logout", userController.logout);
+// router.get("/activate/:link", userController.activate);
+// router.get("/refresh", userController.refresh);
 
 module.exports = router;

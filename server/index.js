@@ -27,6 +27,8 @@ app.use(express.static(path.resolve(__dirname, "static")));
 app.use(fileUpload({}));
 app.use(cookieParser());
 
+app.set("trust proxy", 1);
+
 app.use(
     cors({
         origin: process.env.CLIENT_URL,
