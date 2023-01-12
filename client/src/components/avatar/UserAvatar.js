@@ -19,11 +19,17 @@ function stringToColor(string) {
 }
 
 function stringAvatar(name) {
+    let nameUser;
+    if (name.split(" ").length > 1) {
+        nameUser = name.split(" ")[0][0] + name.split(" ")[1][0];
+    } else {
+        nameUser = name[0] + name[1];
+    }
     return {
         sx: {
             bgcolor: stringToColor(name),
         },
-        children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+        children: nameUser,
     };
 }
 
@@ -37,7 +43,7 @@ export default function UserAvatar({ width, height, name, fontSize }) {
                 backgroundColor: userInfo.sx.bgcolor,
                 fontSize: fontSize,
             }}>
-            {userInfo.children}
+            {userInfo.children.toUpperCase()}
         </Avatar>
     );
 }
