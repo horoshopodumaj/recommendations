@@ -104,7 +104,7 @@ const Login = () => {
                         </Button>
                     ))}
                 </form>
-                <Divider
+                {/* <Divider
                     sx={{
                         color: "black",
                         fontFamily: "Roboto",
@@ -272,7 +272,7 @@ const Login = () => {
                             </Button>
                         </Box>
                     </form>
-                )}
+                )} */}
 
                 <div className={style.copyContainer}>
                     <div className={style.copy}>
