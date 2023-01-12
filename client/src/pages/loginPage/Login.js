@@ -10,7 +10,6 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -24,11 +23,6 @@ const buttonsOptions = [
         socialMedia: "Google",
         bg: "#dc4e41",
         icon: <GoogleIcon sx={{ marginTop: "-3.6px", color: "white" }} />,
-    },
-    {
-        socialMedia: "Facebook",
-        bg: "#385898",
-        icon: <FacebookIcon sx={{ marginTop: "-3.6px", color: "white" }} />,
     },
     {
         socialMedia: "Twitter",
@@ -57,9 +51,6 @@ const Login = () => {
         }
         if (socialMedia === "GitHub") {
             window.open(`${URL}/api/user/login/github`, "_self");
-        }
-        if (socialMedia === "Facebook") {
-            window.open(`${URL}/api/user/login/facebook`, "_self");
         }
         if (socialMedia === "Twitter") {
             window.open(`${URL}/api/user/login/twitter`, "_self");

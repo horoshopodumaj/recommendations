@@ -104,8 +104,8 @@ Review.belongsToMany(Tag, { through: TagReview });
 //     })
 //     .catch((err) => console.log(err));
 
-Token.sync();
-User.sync({ alter: true });
+// Token.sync();
+// User.sync({ alter: true });
 
 module.exports = {
     User,

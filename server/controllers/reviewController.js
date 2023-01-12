@@ -9,7 +9,7 @@ class ReviewController {
         try {
             let { title, workName, description, groupId, rating, userId, tag, image } = req.body;
             let uploadResponse;
-            if (!!!image) {
+            if (!!image) {
                 uploadResponse = await cloudinary.uploader.upload(image, {
                     folder: "recommend",
                 });

@@ -194,6 +194,7 @@ class UserController {
 
         const reviews = await Review.findAndCountAll({
             where: { userId: user.id },
+            order: [["createdAt", "DESC"]],
             limit,
             offset,
             distinct: "Review.id",
