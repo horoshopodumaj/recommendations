@@ -15,6 +15,7 @@ import ReviewPage from "./pages/reviewPage";
 import TagsPage from "./pages/tagsPage";
 import { getCurrentUser } from "./store/slices/currentUserSlice";
 import { getCategories, selectCategories } from "./store/slices/groupSlice";
+import { getTags } from "./store/slices/tagsSlice";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -23,16 +24,11 @@ function App() {
         localStorage.getItem("language") || LOCALES.EN
     );
     const categories = useSelector(selectCategories);
-    const [tags, setTags] = useState([]);
     const dispatch = useDispatch();
 
-    const getTags = useCallback(async () => {
-        try {
-            await axios.get(`${URL}/api/tag`).then((response) => setTags(response.data));
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
+    const getTheTags = async () => {
+        dispatch(getTags());
+    };
 
     const getTheCurrentUser = async () => {
         dispatch(getCurrentUser());
@@ -45,14 +41,15 @@ function App() {
     useEffect(() => {
         getTheCurrentUser();
         getTheCategories();
+        getTheTags();
     }, []);
 
-    useEffect(() => {
-        getTags();
-    }, [getTags]);
+    // useEffect(() => {
+    //     getTags();
+    // }, [getTags]);
 
     return (
-        <GlobalContext.Provider value={{ currentLocale, setCurrentLocale, categories, tags }}>
+        <GlobalContext.Provider value={{ currentLocale, setCurrentLocale, categories }}>
             <IntlProvider
                 onError={(err) => {
                     if (err.code === "MISSING_TRANSLATION") {

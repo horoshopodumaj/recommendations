@@ -13,9 +13,11 @@ import Carousel from "../../components/carousel";
 import GlobalContext from "../../contexts/GlobalContext";
 import axios from "axios";
 import { URL } from "../../App";
+import { useSelector } from "react-redux";
+import { selectTags } from "../../store/slices/tagsSlice";
 
 export default function MainPage() {
-    const { tags } = useContext(GlobalContext);
+    const tags = useSelector(selectTags);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
     const [latestReviews, setLatestReviews] = useState([]);
