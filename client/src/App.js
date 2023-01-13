@@ -44,31 +44,6 @@ function App() {
         getUser();
     }, []);
 
-    // useEffect(() => {
-    //     const getUser = () => {
-    //         fetch(`${URL}/api/user/login/success`, {
-    //             method: "GET",
-    //             credentials: "include",
-    //             headers: {
-    //                 Accept: "application/json",
-    //                 "Content-Type": "application/json",
-    //                 "Access-Control-Allow-Credentials": true,
-    //             },
-    //         })
-    //             .then((response) => {
-    //                 if (response.status === 200) return response.json();
-    //                 throw new Error("authentication has been failed!");
-    //             })
-    //             .then((resObject) => {
-    //                 setCurrentUser(resObject.user);
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //             });
-    //     };
-    //     getUser();
-    // }, []);
-
     const getCategory = useCallback(async () => {
         try {
             await axios.get(`${URL}/api/group`).then((response) => setCategories(response.data));
