@@ -14,7 +14,7 @@ import AllReviewPage from "./pages/allReviewPage";
 import ReviewPage from "./pages/reviewPage";
 import TagsPage from "./pages/tagsPage";
 import { getCurrentUser } from "./store/slices/currentUserSlice";
-import { getCategories } from "./store/slices/groupSlice";
+import { getCategories, selectCategories } from "./store/slices/groupSlice";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -22,7 +22,7 @@ function App() {
     const [currentLocale, setCurrentLocale] = useState(
         localStorage.getItem("language") || LOCALES.EN
     );
-    const [categories, setCategories] = useState([]);
+    const categories = useSelector(selectCategories);
     const [tags, setTags] = useState([]);
     const dispatch = useDispatch();
 
@@ -47,16 +47,7 @@ function App() {
         getTheCategories();
     }, []);
 
-    const getCategory = useCallback(async () => {
-        try {
-            await axios.get(`${URL}/api/group`).then((response) => setCategories(response.data));
-        } catch (error) {
-            console.log(error);
-        }
-    }, [categories]);
-
     useEffect(() => {
-        getCategory();
         getTags();
     }, [getTags]);
 
