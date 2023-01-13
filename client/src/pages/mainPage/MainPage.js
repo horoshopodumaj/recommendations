@@ -11,7 +11,7 @@ import { grey } from "@mui/material/colors";
 import Card from "../../components/card";
 import Carousel from "../../components/carousel";
 import { useSelector } from "react-redux";
-import { selectTags } from "../../store/slices/tagsSlice";
+import { selectTags, selectTagsStatus } from "../../store/slices/tagsSlice";
 import {
     selectBiggestRateReviews,
     selectLatestReviews,
@@ -19,6 +19,7 @@ import {
     selectStatusLatestReviews,
 } from "../../store/slices/reviewsSlice";
 import Skeleton from "./Skeleton";
+import SkeletonTag from "./SkeletonTag";
 
 export default function MainPage() {
     const tags = useSelector(selectTags);
@@ -26,6 +27,7 @@ export default function MainPage() {
     const biggestRateReviews = useSelector(selectBiggestRateReviews);
     const statusLatest = useSelector(selectStatusLatestReviews);
     const statusBiggest = useSelector(selectStatusBiggestReviews);
+    const tagsStatus = useSelector(selectTagsStatus);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
 
@@ -167,17 +169,30 @@ export default function MainPage() {
                                     minHeight: "300px",
                                 }}
                                 ref={tagsBox}>
-                                {tags.map((tag) => (
-                                    <Link
-                                        to={`/tag/${tag.id}`}
-                                        key={tag.id}
-                                        className={style.tagslink}
-                                        style={{ maxWidth: "200px", backgroundColor: grey[100] }}>
-                                        <Typography sx={{ fontSize: "0.9rem" }} noWrap>
-                                            {tag.name}
-                                        </Typography>
-                                    </Link>
-                                ))}
+                                {tagsStatus === "error" ? (
+                                    <div style={{ textAlign: "center" }}>
+                                        <FormattedMessage id="error" />
+                                    </div>
+                                ) : tagsStatus === "loading" ? (
+                                    [...new Array(10)].map((_, index) => (
+                                        <SkeletonTag key={index} />
+                                    ))
+                                ) : (
+                                    tags.map((tag) => (
+                                        <Link
+                                            to={`/tag/${tag.id}`}
+                                            key={tag.id}
+                                            className={style.tagslink}
+                                            style={{
+                                                maxWidth: "200px",
+                                                backgroundColor: grey[100],
+                                            }}>
+                                            <Typography sx={{ fontSize: "0.9rem" }} noWrap>
+                                                {tag.name}
+                                            </Typography>
+                                        </Link>
+                                    ))
+                                )}
                             </Box>
                         </Grid>
                     </Grid>
