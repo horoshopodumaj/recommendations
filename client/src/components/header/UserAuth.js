@@ -4,10 +4,11 @@ import { Box, Tooltip, IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { FormattedMessage } from "react-intl";
 import { URL } from "../../App";
-import GlobalContext from "../../contexts/GlobalContext";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 export default function UserAuth({ color }) {
-    const { currentUser } = useContext(GlobalContext);
+    const currentUser = useSelector(selectCurrentUser);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenUserMenu = (event) => {

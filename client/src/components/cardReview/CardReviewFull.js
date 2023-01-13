@@ -26,12 +26,13 @@ import SendIcon from "@mui/icons-material/Send";
 import UserAvatar from "../avatar/UserAvatar";
 import axios from "axios";
 import { URL } from "../../App";
-import GlobalContext from "../../contexts/GlobalContext";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 const userName = "VeryLongNameJed VeryLongSurnameDodds";
 
 export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
-    const { currentUser } = useContext(GlobalContext);
+    const currentUser = useSelector(selectCurrentUser);
 
     const [userRating, setUserRating] = useState(0);
     const [isLiked, setIsLiked] = useState(false);

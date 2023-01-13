@@ -8,10 +8,11 @@ import Search from "./Search";
 import UserAuth from "./UserAuth";
 import DrawerMenu from "./DrawerMenu";
 import Chapters from "./Chapters";
-import GlobalContext from "../../contexts/GlobalContext";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 const Header = ({ backgroundColor, color }) => {
-    const { currentUser } = useContext(GlobalContext);
+    const currentUser = useSelector(selectCurrentUser);
     const isAuth = currentUser;
     const [scrolled, setScrolled] = useState(false);
 

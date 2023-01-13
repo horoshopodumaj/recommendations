@@ -1,7 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { URL } from "../../App";
+
+export const getCurrentUser = createAsyncThunk("currentuser/getCurrentUser", async () => {
+    const { data } = await axios.get(`${URL}/api/user/login/success`, { withCredentials: true });
+    return data;
+});
 
 const initialState = {
-    user: {},
+    user: null,
 };
 
 export const currentUserSlice = createSlice({
@@ -12,8 +19,14 @@ export const currentUserSlice = createSlice({
             state.user = action.payload;
         },
     },
+    extraReducers: {
+        [getCurrentUser.fulfilled]: (state, action) => {
+            state.user = action.payload.user;
+        },
+    },
 });
 
+export const selectCurrentUser = (state) => state.currentUser.user;
 export const { getUser } = currentUserSlice.actions;
 
 export default currentUserSlice.reducer;
