@@ -6,10 +6,13 @@ import { FormattedMessage } from "react-intl";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import style from "./Header.module.scss";
 import { useSelector } from "react-redux";
-import { selectCategories } from "../../store/slices/groupSlice";
+import { selectCategories, selectCategoriesStatus } from "../../store/slices/groupSlice";
+import SkeletonTag from "../skeletons/SkeletonTag";
+import SkeletonCategories from "../skeletons/SkeletonCategories";
 
 export default function Chapters({ color }) {
     const pages = useSelector(selectCategories);
+    const status = useSelector(selectCategoriesStatus);
 
     return (
         <Box
@@ -19,13 +22,24 @@ export default function Chapters({ color }) {
                 justifyContent: "flex-end",
                 gap: "20px",
             }}>
-            {pages.map((page) => (
-                <Link key={page.id} to={`/${page.name.toLowerCase()}`} className={style.chapter}>
-                    <Button sx={{ my: 2, display: "block", color: color ? "white" : "black" }}>
-                        {<FormattedMessage id={`${page.name}`} />}
-                    </Button>
-                </Link>
-            ))}
+            {status === "error" ? (
+                <div style={{ marginTop: "16px" }}>
+                    <FormattedMessage id="error" />
+                </div>
+            ) : status === "loading" ? (
+                <SkeletonCategories />
+            ) : (
+                pages.map((page) => (
+                    <Link
+                        key={page.id}
+                        to={`/${page.name.toLowerCase()}`}
+                        className={style.chapter}>
+                        <Button sx={{ my: 2, display: "block", color: color ? "white" : "black" }}>
+                            {<FormattedMessage id={`${page.name}`} />}
+                        </Button>
+                    </Link>
+                ))
+            )}
             <IconButton sx={{ mb: "3px", mx: "5px", color: color ? "white" : "black" }}>
                 <LightModeIcon />
             </IconButton>

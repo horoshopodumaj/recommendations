@@ -18,8 +18,8 @@ import {
     selectStatusBiggestReviews,
     selectStatusLatestReviews,
 } from "../../store/slices/reviewsSlice";
-import Skeleton from "./Skeleton";
-import SkeletonTag from "./SkeletonTag";
+import Skeleton from "../../components/skeletons/Skeleton";
+import SkeletonTag from "../../components/skeletons/SkeletonTag";
 
 export default function MainPage() {
     const tags = useSelector(selectTags);
