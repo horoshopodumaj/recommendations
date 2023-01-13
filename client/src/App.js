@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { IntlProvider } from "react-intl";
 import Login from "./pages/loginPage";
@@ -14,6 +14,7 @@ import AllReviewPage from "./pages/allReviewPage";
 import ReviewPage from "./pages/reviewPage";
 import TagsPage from "./pages/tagsPage";
 import { getCurrentUser } from "./store/slices/currentUserSlice";
+import { getCategories } from "./store/slices/groupSlice";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -33,11 +34,17 @@ function App() {
         }
     }, []);
 
+    const getTheCurrentUser = async () => {
+        dispatch(getCurrentUser());
+    };
+
+    const getTheCategories = async () => {
+        dispatch(getCategories());
+    };
+
     useEffect(() => {
-        const getTheCurrentUser = async () => {
-            dispatch(getCurrentUser());
-        };
         getTheCurrentUser();
+        getTheCategories();
     }, []);
 
     const getCategory = useCallback(async () => {

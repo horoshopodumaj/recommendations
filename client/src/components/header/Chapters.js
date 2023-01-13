@@ -5,10 +5,12 @@ import LocalePicker from "./LocalePicker";
 import { FormattedMessage } from "react-intl";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import style from "./Header.module.scss";
-
-const pages = ["films", "books", "games"];
+import { useSelector } from "react-redux";
+import { selectCategories } from "../../store/slices/groupSlice";
 
 export default function Chapters({ color }) {
+    const pages = useSelector(selectCategories);
+
     return (
         <Box
             sx={{
@@ -18,9 +20,9 @@ export default function Chapters({ color }) {
                 gap: "20px",
             }}>
             {pages.map((page) => (
-                <Link key={page} to={`/${page.toLowerCase()}`} className={style.chapter}>
+                <Link key={page.id} to={`/${page.name.toLowerCase()}`} className={style.chapter}>
                     <Button sx={{ my: 2, display: "block", color: color ? "white" : "black" }}>
-                        {<FormattedMessage id={`${page}`} />}
+                        {<FormattedMessage id={`${page.name}`} />}
                     </Button>
                 </Link>
             ))}
