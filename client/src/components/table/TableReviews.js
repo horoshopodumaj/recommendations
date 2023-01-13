@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import {
     Button,
     Table,
@@ -8,11 +7,11 @@ import {
     TableHead,
     TableRow,
 } from "@mui/material";
-import GlobalContext from "../../contexts/GlobalContext";
-import { Image } from "cloudinary-react";
+import { useSelector } from "react-redux";
+import { selectCategories } from "../../store/slices/groupSlice";
 
 export default function TableReviews({ posts }) {
-    const { categories } = useContext(GlobalContext);
+    const categories = useSelector(selectCategories);
 
     return (
         <TableContainer>

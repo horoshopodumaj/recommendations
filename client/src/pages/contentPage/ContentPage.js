@@ -18,10 +18,11 @@ import CardReviewFull from "../../components/cardReview";
 import { grey } from "@mui/material/colors";
 import Footer from "../../components/footer";
 import WriteReview from "../../components/writeReview/WriteReview";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { URL } from "../../App";
-import GlobalContext from "../../contexts/GlobalContext";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -30,7 +31,7 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 });
 
 const ContentPage = ({ category }) => {
-    const { currentUser } = useContext(GlobalContext);
+    const currentUser = useSelector(selectCurrentUser);
     const [open, setOpen] = useState(false);
     const [posts, setPosts] = useState([]);
     const handleOpen = () => setOpen(true);

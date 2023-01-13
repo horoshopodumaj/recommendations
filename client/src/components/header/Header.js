@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./Header.module.scss";
 import { AppBar, Toolbar, Typography, Box, Button, IconButton } from "@mui/material";
