@@ -23,6 +23,7 @@ export const getBiggestRateReviews = createAsyncThunk("reviews/biggestRateReview
 
 const initialState = {
     latestReviews: [],
+    statusLatest: "loading",
     biggestRateReviews: [],
 };
 
@@ -30,8 +31,17 @@ export const reviews = createSlice({
     name: "reviews",
     initialState,
     extraReducers: {
+        [getLatestReviews.pending]: (state) => {
+            state.latestReviews = [];
+            state.statusLatest = "loading";
+        },
         [getLatestReviews.fulfilled]: (state, action) => {
             state.latestReviews = action.payload.rows;
+            state.statusLatest = "success";
+        },
+        [getLatestReviews.rejected]: (state) => {
+            state.latestReviews = [];
+            state.statusLatest = "error";
         },
         [getBiggestRateReviews.fulfilled]: (state, action) => {
             state.biggestRateReviews = action.payload.rows;
@@ -40,6 +50,7 @@ export const reviews = createSlice({
 });
 
 export const selectLatestReviews = (state) => state.reviews.latestReviews;
+export const selectStatusLatestReviews = (state) => state.reviews.statusLatest;
 export const selectBiggestRateReviews = (state) => state.reviews.biggestRateReviews;
 
 export default reviews.reducer;

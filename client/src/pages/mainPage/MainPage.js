@@ -12,12 +12,18 @@ import Card from "../../components/card";
 import Carousel from "../../components/carousel";
 import { useSelector } from "react-redux";
 import { selectTags } from "../../store/slices/tagsSlice";
-import { selectBiggestRateReviews, selectLatestReviews } from "../../store/slices/reviewsSlice";
+import {
+    selectBiggestRateReviews,
+    selectLatestReviews,
+    selectStatusLatestReviews,
+} from "../../store/slices/reviewsSlice";
+import Skeleton from "./Skeleton";
 
 export default function MainPage() {
     const tags = useSelector(selectTags);
     const latestReviews = useSelector(selectLatestReviews);
     const biggestRateReviews = useSelector(selectBiggestRateReviews);
+    const statusLatest = useSelector(selectStatusLatestReviews);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
 
@@ -92,7 +98,30 @@ export default function MainPage() {
                                 rowSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 columnSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 sx={{ gap: { xs: ".8rem", md: "0" } }}>
-                                {latestReviews.map((review) => (
+                                {statusLatest === "error" ? (
+                                    <Grid item xs={12} sx={{ display: "flex" }}>
+                                        <div className="content__error-info">
+                                            <h2>
+                                                Произошла ошибка <icon>😕</icon>
+                                            </h2>
+                                            <p>Приносим свои извинения, мы скоро всё починим.</p>
+                                        </div>
+                                    </Grid>
+                                ) : statusLatest === "loading" ? (
+                                    [...new Array(4)].map((_, index) => <Skeleton key={index} />)
+                                ) : (
+                                    latestReviews.map((review) => (
+                                        <Grid
+                                            key={review.id}
+                                            item
+                                            xs={12}
+                                            md={6}
+                                            sx={{ display: "flex" }}>
+                                            <Card review={review} />
+                                        </Grid>
+                                    ))
+                                )}
+                                {/* {latestReviews.map((review) => (
                                     <Grid
                                         key={review.id}
                                         item
@@ -101,7 +130,7 @@ export default function MainPage() {
                                         sx={{ display: "flex" }}>
                                         <Card review={review} />
                                     </Grid>
-                                ))}
+                                ))} */}
                             </Grid>
                             <Link to="/all" style={{ float: "right", marginTop: "10px" }}>
                                 <div className={style.link}>
