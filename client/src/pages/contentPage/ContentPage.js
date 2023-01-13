@@ -1,5 +1,4 @@
 import Header from "../../components/header";
-import style from "./Content.module.scss";
 import { styled } from "@mui/material/styles";
 import { FormattedMessage } from "react-intl";
 import {

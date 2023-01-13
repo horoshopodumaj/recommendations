@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import style from "./User.module.scss";
 import Header from "../../components/header";
 import {
-    Avatar,
     Box,
     Button,
     Container,

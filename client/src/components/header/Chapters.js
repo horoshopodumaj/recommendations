@@ -7,7 +7,6 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import style from "./Header.module.scss";
 import { useSelector } from "react-redux";
 import { selectCategories, selectCategoriesStatus } from "../../store/slices/groupSlice";
-import SkeletonTag from "../skeletons/SkeletonTag";
 import SkeletonCategories from "../skeletons/SkeletonCategories";
 
 export default function Chapters({ color }) {

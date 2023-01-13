@@ -42,9 +42,9 @@ app.use(
     session({
         secret: process.env.SECRET_KEY,
         cookie: {
-            secure: true,
+            // secure: true,
             maxAge: 86400000,
-            sameSite: "none",
+            //sameSite: "none",
         },
         resave: false,
         saveUninitialized: false,
