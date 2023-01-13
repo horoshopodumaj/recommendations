@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import style from "./MainPage.module.scss";
 import { useScrollbar } from "../../hooks/useScrollbar";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
@@ -10,56 +10,18 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { grey } from "@mui/material/colors";
 import Card from "../../components/card";
 import Carousel from "../../components/carousel";
-import axios from "axios";
-import { URL } from "../../App";
 import { useSelector } from "react-redux";
 import { selectTags } from "../../store/slices/tagsSlice";
+import { selectBiggestRateReviews, selectLatestReviews } from "../../store/slices/reviewsSlice";
 
 export default function MainPage() {
     const tags = useSelector(selectTags);
+    const latestReviews = useSelector(selectLatestReviews);
+    const biggestRateReviews = useSelector(selectBiggestRateReviews);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
-    const [latestReviews, setLatestReviews] = useState([]);
-    const [biggestRateReviews, setBiggestRateReviews] = useState([]);
-    const limitLatestReviews = 4;
-    const limitBiggestRateReviews = 5;
 
     useScrollbar(tagsBox, hasScroll);
-
-    const getLatestReviews = useCallback(async () => {
-        try {
-            await axios
-                .get(`${URL}/api/review/latest`, {
-                    params: {
-                        limit: limitLatestReviews,
-                        order: "createdAt",
-                    },
-                })
-                .then((response) => setLatestReviews(response.data.rows));
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
-
-    const getBiggestRateReviews = useCallback(async () => {
-        try {
-            await axios
-                .get(`${URL}/api/review/latest`, {
-                    params: {
-                        limit: limitBiggestRateReviews,
-                        order: "rating",
-                    },
-                })
-                .then((response) => setBiggestRateReviews(response.data.rows));
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
-
-    useEffect(() => {
-        getLatestReviews();
-        getBiggestRateReviews();
-    }, [getLatestReviews, getBiggestRateReviews]);
 
     useEffect(() => {
         window.scrollTo(0, 0);

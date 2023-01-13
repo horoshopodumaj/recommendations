@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { IntlProvider } from "react-intl";
 import Login from "./pages/loginPage";
 import MainPage from "./pages/mainPage";
@@ -16,6 +15,7 @@ import TagsPage from "./pages/tagsPage";
 import { getCurrentUser } from "./store/slices/currentUserSlice";
 import { getCategories, selectCategories } from "./store/slices/groupSlice";
 import { getTags } from "./store/slices/tagsSlice";
+import { getBiggestRateReviews, getLatestReviews } from "./store/slices/reviewsSlice";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -38,15 +38,21 @@ function App() {
         dispatch(getCategories());
     };
 
+    const getTheLatestReviews = async () => {
+        dispatch(getLatestReviews());
+    };
+
+    const getTheBiggestRateReviews = async () => {
+        dispatch(getBiggestRateReviews());
+    };
+
     useEffect(() => {
         getTheCurrentUser();
         getTheCategories();
         getTheTags();
+        getTheLatestReviews();
+        getTheBiggestRateReviews();
     }, []);
-
-    // useEffect(() => {
-    //     getTags();
-    // }, [getTags]);
 
     return (
         <GlobalContext.Provider value={{ currentLocale, setCurrentLocale, categories }}>
