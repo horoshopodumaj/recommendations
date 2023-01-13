@@ -15,6 +15,7 @@ import { selectTags } from "../../store/slices/tagsSlice";
 import {
     selectBiggestRateReviews,
     selectLatestReviews,
+    selectStatusBiggestReviews,
     selectStatusLatestReviews,
 } from "../../store/slices/reviewsSlice";
 import Skeleton from "./Skeleton";
@@ -24,6 +25,7 @@ export default function MainPage() {
     const latestReviews = useSelector(selectLatestReviews);
     const biggestRateReviews = useSelector(selectBiggestRateReviews);
     const statusLatest = useSelector(selectStatusLatestReviews);
+    const statusBiggest = useSelector(selectStatusBiggestReviews);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
 
@@ -98,39 +100,36 @@ export default function MainPage() {
                                 rowSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 columnSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 sx={{ gap: { xs: ".8rem", md: "0" } }}>
-                                {statusLatest === "error" ? (
-                                    <Grid item xs={12} sx={{ display: "flex" }}>
-                                        <div className="content__error-info">
-                                            <h2>
-                                                Произошла ошибка <icon>😕</icon>
-                                            </h2>
-                                            <p>Приносим свои извинения, мы скоро всё починим.</p>
-                                        </div>
-                                    </Grid>
-                                ) : statusLatest === "loading" ? (
-                                    [...new Array(4)].map((_, index) => <Skeleton key={index} />)
-                                ) : (
-                                    latestReviews.map((review) => (
-                                        <Grid
-                                            key={review.id}
-                                            item
-                                            xs={12}
-                                            md={6}
-                                            sx={{ display: "flex" }}>
-                                            <Card review={review} />
-                                        </Grid>
-                                    ))
-                                )}
-                                {/* {latestReviews.map((review) => (
-                                    <Grid
-                                        key={review.id}
-                                        item
-                                        xs={12}
-                                        md={6}
-                                        sx={{ display: "flex" }}>
-                                        <Card review={review} />
-                                    </Grid>
-                                ))} */}
+                                {statusLatest === "error"
+                                    ? [...new Array(4)].map((_, index) => (
+                                          <Grid
+                                              item
+                                              key={index}
+                                              xs={12}
+                                              md={6}
+                                              sx={{ display: "flex" }}>
+                                              <div className="content__error-info">
+                                                  <h2>
+                                                      Произошла ошибка <icon>😕</icon>
+                                                  </h2>
+                                                  <p>
+                                                      Приносим свои извинения, мы скоро всё починим.
+                                                  </p>
+                                              </div>
+                                          </Grid>
+                                      ))
+                                    : statusLatest === "loading"
+                                    ? [...new Array(4)].map((_, index) => <Skeleton key={index} />)
+                                    : latestReviews.map((review) => (
+                                          <Grid
+                                              key={review.id}
+                                              item
+                                              xs={12}
+                                              md={6}
+                                              sx={{ display: "flex" }}>
+                                              <Card review={review} />
+                                          </Grid>
+                                      ))}
                             </Grid>
                             <Link to="/all" style={{ float: "right", marginTop: "10px" }}>
                                 <div className={style.link}>
@@ -211,7 +210,18 @@ export default function MainPage() {
                             }}>
                             <FormattedMessage id="highestReviewsDesc" />
                         </Typography>
-                        <Carousel reviews={biggestRateReviews} />
+                        {statusBiggest === "error" ? (
+                            <div className="content__error-info">
+                                <h2>
+                                    Произошла ошибка <icon>😕</icon>
+                                </h2>
+                                <p>Приносим свои извинения, мы скоро всё починим.</p>
+                            </div>
+                        ) : statusBiggest === "loading" ? (
+                            [...new Array(2)].map((_, index) => <Skeleton key={index} />)
+                        ) : (
+                            <Carousel reviews={biggestRateReviews} />
+                        )}
                     </Container>
                 </div>
             </section>

@@ -25,6 +25,7 @@ const initialState = {
     latestReviews: [],
     statusLatest: "loading",
     biggestRateReviews: [],
+    statusBiggest: "loading",
 };
 
 export const reviews = createSlice({
@@ -43,8 +44,17 @@ export const reviews = createSlice({
             state.latestReviews = [];
             state.statusLatest = "error";
         },
+        [getBiggestRateReviews.pending]: (state) => {
+            state.biggestRateReviews = [];
+            state.statusBiggest = "loading";
+        },
         [getBiggestRateReviews.fulfilled]: (state, action) => {
             state.biggestRateReviews = action.payload.rows;
+            state.statusBiggest = "success";
+        },
+        [getBiggestRateReviews.rejected]: (state) => {
+            state.biggestRateReviews = [];
+            state.statusBiggest = "error";
         },
     },
 });
@@ -52,5 +62,6 @@ export const reviews = createSlice({
 export const selectLatestReviews = (state) => state.reviews.latestReviews;
 export const selectStatusLatestReviews = (state) => state.reviews.statusLatest;
 export const selectBiggestRateReviews = (state) => state.reviews.biggestRateReviews;
+export const selectStatusBiggestReviews = (state) => state.reviews.statusBiggest;
 
 export default reviews.reducer;

@@ -47,11 +47,11 @@ function App() {
     };
 
     useEffect(() => {
-        getTheCurrentUser();
         getTheCategories();
-        getTheTags();
         getTheLatestReviews();
         getTheBiggestRateReviews();
+        getTheTags();
+        getTheCurrentUser();
     }, []);
 
     return (
