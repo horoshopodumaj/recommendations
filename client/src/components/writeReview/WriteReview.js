@@ -2,12 +2,15 @@ import { Box, Rating, TextField, Typography, Modal, Button, IconButton } from "@
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "./WriteReview.module.scss";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import GlobalContext from "../../contexts/GlobalContext";
 import axios from "axios";
 import { URL } from "../../App";
 import ChildModal from "../childModal/ChildModal";
+import { useSelector } from "react-redux";
+import { selectCategories } from "../../store/slices/groupSlice";
+import { selectTags } from "../../store/slices/tagsSlice";
+import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 const maxLength = 60;
 const maxLengthDescription = 2000;
@@ -30,7 +33,10 @@ const style = {
 };
 
 export default function WriteReview({ open, onClose }) {
-    const { categories, tags, currentUser } = useContext(GlobalContext);
+    const categories = useSelector(selectCategories);
+    const tags = useSelector(selectTags);
+    const currentUser = useSelector(selectCurrentUser);
+
     const [rating, setRating] = useState(5);
     const [category, setCategory] = useState({});
     const [workName, setWorkName] = useState("");

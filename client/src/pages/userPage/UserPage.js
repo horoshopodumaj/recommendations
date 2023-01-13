@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import style from "./User.module.scss";
 import Header from "../../components/header";
 import {
@@ -22,11 +22,12 @@ import Footer from "../../components/footer";
 import CardReviewFull from "../../components/cardReview";
 import WriteReview from "../../components/writeReview/WriteReview";
 import UserAvatar from "../../components/avatar/UserAvatar";
-import GlobalContext from "../../contexts/GlobalContext";
 import axios from "axios";
 import { URL } from "../../App";
 import { useParams } from "react-router-dom";
 import TableReviews from "../../components/table/TableReviews";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -35,7 +36,7 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 });
 
 export default function UserPage() {
-    const { currentUser } = useContext(GlobalContext);
+    const currentUser = useSelector(selectCurrentUser);
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState({});
     const [edit, setEdit] = useState(false);

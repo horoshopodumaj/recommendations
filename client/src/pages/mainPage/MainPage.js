@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import style from "./MainPage.module.scss";
 import { useScrollbar } from "../../hooks/useScrollbar";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
@@ -10,7 +10,6 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { grey } from "@mui/material/colors";
 import Card from "../../components/card";
 import Carousel from "../../components/carousel";
-import GlobalContext from "../../contexts/GlobalContext";
 import axios from "axios";
 import { URL } from "../../App";
 import { useSelector } from "react-redux";

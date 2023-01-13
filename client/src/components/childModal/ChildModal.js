@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
     Box,
     Card,
@@ -12,10 +12,11 @@ import {
     Modal,
     Button,
 } from "@mui/material";
-import GlobalContext from "../../contexts/GlobalContext";
 import { FormattedMessage } from "react-intl";
 import UserAvatar from "../avatar/UserAvatar";
 import { grey } from "@mui/material/colors";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 const styleChild = {
     bgcolor: "background.paper",
@@ -40,7 +41,7 @@ export default function ChildModal({
     tag,
     previewSource,
 }) {
-    const { currentUser } = useContext(GlobalContext);
+    const currentUser = useSelector(selectCurrentUser);
     const [openChild, setOpenChild] = useState(false);
 
     const handleOpen = () => {
