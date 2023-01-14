@@ -19,11 +19,10 @@ import {
 } from "../../store/slices/reviewsSlice";
 import Skeleton from "../../components/skeletons/Skeleton";
 import SkeletonTag from "../../components/skeletons/SkeletonTag";
-import { useGetTagsQuery } from "../..//store/api/tagsApi";
+import { useGetTagsQuery } from "../../store/api/tagsApi";
 
 export default function MainPage() {
-    const { data = [], isLoading, error } = useGetTagsQuery();
-    const tags = data;
+    const { data: tags = [], isLoading, error } = useGetTagsQuery();
     const latestReviews = useSelector(selectLatestReviews);
     const biggestRateReviews = useSelector(selectBiggestRateReviews);
     const statusLatest = useSelector(selectStatusLatestReviews);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { IntlProvider } from "react-intl";
 import Login from "./pages/loginPage";
 import MainPage from "./pages/mainPage";
@@ -13,9 +13,8 @@ import AllReviewPage from "./pages/allReviewPage";
 import ReviewPage from "./pages/reviewPage";
 import TagsPage from "./pages/tagsPage";
 import { getCurrentUser } from "./store/slices/currentUserSlice";
-import { getCategories, selectCategories } from "./store/slices/groupSlice";
-import { getTags } from "./store/slices/tagsSlice";
 import { getBiggestRateReviews, getLatestReviews } from "./store/slices/reviewsSlice";
+import { useGetGroupsQuery } from "./store/api/groupsApi";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -23,19 +22,11 @@ function App() {
     const [currentLocale, setCurrentLocale] = useState(
         localStorage.getItem("language") || LOCALES.EN
     );
-    const categories = useSelector(selectCategories);
     const dispatch = useDispatch();
-
-    const getTheTags = async () => {
-        dispatch(getTags());
-    };
+    const { data: categories = [] } = useGetGroupsQuery();
 
     const getTheCurrentUser = async () => {
         dispatch(getCurrentUser());
-    };
-
-    const getTheCategories = async () => {
-        dispatch(getCategories());
     };
 
     const getTheLatestReviews = async () => {
@@ -47,10 +38,8 @@ function App() {
     };
 
     useEffect(() => {
-        getTheCategories();
         getTheLatestReviews();
         getTheBiggestRateReviews();
-        getTheTags();
         getTheCurrentUser();
     }, []);
 
