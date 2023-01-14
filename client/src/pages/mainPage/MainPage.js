@@ -13,19 +13,23 @@ import Carousel from "../../components/carousel";
 import { useSelector } from "react-redux";
 import {
     selectBiggestRateReviews,
-    selectLatestReviews,
     selectStatusBiggestReviews,
-    selectStatusLatestReviews,
 } from "../../store/slices/reviewsSlice";
 import Skeleton from "../../components/skeletons/Skeleton";
 import SkeletonTag from "../../components/skeletons/SkeletonTag";
 import { useGetTagsQuery } from "../../store/api/tagsApi";
+import { useGetLatestReviewsQuery } from "../../store/api/reviewsApi";
 
 export default function MainPage() {
     const { data: tags = [], isLoading, error } = useGetTagsQuery();
-    const latestReviews = useSelector(selectLatestReviews);
+    const {
+        data: reviewsLatest = [],
+        isLoading: isLoadingRev,
+        error: errorRev,
+    } = useGetLatestReviewsQuery({ limit: 4, order: "createdAt" });
+    const latestReviews = reviewsLatest.rows;
     const biggestRateReviews = useSelector(selectBiggestRateReviews);
-    const statusLatest = useSelector(selectStatusLatestReviews);
+
     const statusBiggest = useSelector(selectStatusBiggestReviews);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
@@ -101,7 +105,7 @@ export default function MainPage() {
                                 rowSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 columnSpacing={{ sm: 2, md: 3, sx: 1 }}
                                 sx={{ gap: { xs: ".8rem", md: "0" } }}>
-                                {statusLatest === "error"
+                                {errorRev
                                     ? [...new Array(4)].map((_, index) => (
                                           <Grid
                                               item
@@ -119,7 +123,7 @@ export default function MainPage() {
                                               </div>
                                           </Grid>
                                       ))
-                                    : statusLatest === "loading"
+                                    : isLoadingRev
                                     ? [...new Array(4)].map((_, index) => <Skeleton key={index} />)
                                     : latestReviews.map((review) => (
                                           <Grid

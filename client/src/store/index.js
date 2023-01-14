@@ -5,6 +5,7 @@ import tagsReducer from "./slices/tagsSlice";
 import reviewsReducer from "./slices/reviewsSlice";
 import { tagsApi } from "./api/tagsApi";
 import { groupsApi } from "./api/groupsApi";
+import { reviewsApi } from "./api/reviewsApi";
 
 export default configureStore({
     reducer: {
@@ -14,7 +15,12 @@ export default configureStore({
         reviews: reviewsReducer,
         [tagsApi.reducerPath]: tagsApi.reducer,
         [groupsApi.reducerPath]: groupsApi.reducer,
+        [reviewsApi.reducerPath]: reviewsApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([tagsApi.middleware, groupsApi.middleware]),
+        getDefaultMiddleware().concat([
+            tagsApi.middleware,
+            groupsApi.middleware,
+            reviewsApi.middleware,
+        ]),
 });

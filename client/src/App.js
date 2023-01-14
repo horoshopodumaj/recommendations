@@ -13,7 +13,7 @@ import AllReviewPage from "./pages/allReviewPage";
 import ReviewPage from "./pages/reviewPage";
 import TagsPage from "./pages/tagsPage";
 import { getCurrentUser } from "./store/slices/currentUserSlice";
-import { getBiggestRateReviews, getLatestReviews } from "./store/slices/reviewsSlice";
+import { getBiggestRateReviews } from "./store/slices/reviewsSlice";
 import { useGetGroupsQuery } from "./store/api/groupsApi";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
@@ -29,16 +29,11 @@ function App() {
         dispatch(getCurrentUser());
     };
 
-    const getTheLatestReviews = async () => {
-        dispatch(getLatestReviews());
-    };
-
     const getTheBiggestRateReviews = async () => {
         dispatch(getBiggestRateReviews());
     };
 
     useEffect(() => {
-        getTheLatestReviews();
         getTheBiggestRateReviews();
         getTheCurrentUser();
     }, []);
