@@ -14,6 +14,7 @@ import ReviewPage from "./pages/reviewPage";
 import TagsPage from "./pages/tagsPage";
 import { getCurrentUser } from "./store/slices/currentUserSlice";
 import { useGetGroupsQuery } from "./store/api/groupsApi";
+import { getCategories } from "./store/slices/groupSlice";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -28,8 +29,13 @@ function App() {
         dispatch(getCurrentUser());
     };
 
+    const getTheCategories = async () => {
+        dispatch(getCategories());
+    };
+
     useEffect(() => {
         getTheCurrentUser();
+        getTheCategories();
     }, []);
 
     return (

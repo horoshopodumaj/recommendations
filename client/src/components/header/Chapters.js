@@ -6,10 +6,12 @@ import { FormattedMessage } from "react-intl";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import style from "./Header.module.scss";
 import SkeletonCategories from "../skeletons/SkeletonCategories";
-import { useGetGroupsQuery } from "../../store/api/groupsApi";
+import { useSelector } from "react-redux";
+import { selectCategories, selectCategoriesStatus } from "../../store/slices/groupSlice";
 
 export default function Chapters({ color }) {
-    const { data: pages = [], isLoading, error } = useGetGroupsQuery();
+    const pages = useSelector(selectCategories);
+    const status = useSelector(selectCategoriesStatus);
 
     return (
         <Box
@@ -19,11 +21,11 @@ export default function Chapters({ color }) {
                 justifyContent: "flex-end",
                 gap: "20px",
             }}>
-            {error ? (
+            {status === "error" ? (
                 <div style={{ marginTop: "16px" }}>
                     <FormattedMessage id="error" />
                 </div>
-            ) : isLoading ? (
+            ) : status === "loading" ? (
                 <SkeletonCategories />
             ) : (
                 pages.map((page) => (
