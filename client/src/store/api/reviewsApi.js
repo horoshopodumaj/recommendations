@@ -6,7 +6,7 @@ export const reviewsApi = createApi({
     reducerPath: "reviewsApi",
     baseQuery: fetchBaseQuery({ baseUrl: URL }),
     endpoints: (build) => ({
-        getLatestReviews: build.query({
+        getMainPageReviews: build.query({
             query: (args) => {
                 const { limit, order } = args;
                 return {
@@ -18,4 +18,4 @@ export const reviewsApi = createApi({
     }),
 });
 
-export const { useGetLatestReviewsQuery } = reviewsApi;
+export const { useGetMainPageReviewsQuery } = reviewsApi;

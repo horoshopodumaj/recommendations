@@ -10,15 +10,10 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { grey } from "@mui/material/colors";
 import Card from "../../components/card";
 import Carousel from "../../components/carousel";
-import { useSelector } from "react-redux";
-import {
-    selectBiggestRateReviews,
-    selectStatusBiggestReviews,
-} from "../../store/slices/reviewsSlice";
 import Skeleton from "../../components/skeletons/Skeleton";
 import SkeletonTag from "../../components/skeletons/SkeletonTag";
 import { useGetTagsQuery } from "../../store/api/tagsApi";
-import { useGetLatestReviewsQuery } from "../../store/api/reviewsApi";
+import { useGetMainPageReviewsQuery } from "../../store/api/reviewsApi";
 
 export default function MainPage() {
     const { data: tags = [], isLoading, error } = useGetTagsQuery();
@@ -26,11 +21,15 @@ export default function MainPage() {
         data: reviewsLatest = [],
         isLoading: isLoadingRev,
         error: errorRev,
-    } = useGetLatestReviewsQuery({ limit: 4, order: "createdAt" });
+    } = useGetMainPageReviewsQuery({ limit: 4, order: "createdAt" });
+    const {
+        data: reviewsBigRate = [],
+        isLoading: isLoadingRevBR,
+        error: errorRevBR,
+    } = useGetMainPageReviewsQuery({ limit: 5, order: "rating" });
     const latestReviews = reviewsLatest.rows;
-    const biggestRateReviews = useSelector(selectBiggestRateReviews);
+    const biggestRateReviews = reviewsBigRate.rows;
 
-    const statusBiggest = useSelector(selectStatusBiggestReviews);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
 
@@ -228,14 +227,14 @@ export default function MainPage() {
                             }}>
                             <FormattedMessage id="highestReviewsDesc" />
                         </Typography>
-                        {statusBiggest === "error" ? (
+                        {errorRevBR ? (
                             <div className="content__error-info">
                                 <h2>
                                     Произошла ошибка <icon>😕</icon>
                                 </h2>
                                 <p>Приносим свои извинения, мы скоро всё починим.</p>
                             </div>
-                        ) : statusBiggest === "loading" ? (
+                        ) : isLoadingRevBR ? (
                             [...new Array(2)].map((_, index) => <Skeleton key={index} />)
                         ) : (
                             <Carousel reviews={biggestRateReviews} />
