@@ -34,17 +34,15 @@ app.use(
         origin: process.env.CLIENT_URL,
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
-        //optionsSuccessStatus: 200,
-        //allowedHeaders: ["Origin", "Content-Type", "Accept"],
     })
 );
 app.use(
     session({
         secret: process.env.SECRET_KEY,
         cookie: {
-            // secure: true,
+            secure: true,
             maxAge: 86400000,
-            //sameSite: "none",
+            sameSite: "none",
         },
         resave: false,
         saveUninitialized: false,

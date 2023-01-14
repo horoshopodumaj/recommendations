@@ -11,7 +11,6 @@ import { grey } from "@mui/material/colors";
 import Card from "../../components/card";
 import Carousel from "../../components/carousel";
 import { useSelector } from "react-redux";
-import { selectTags, selectTagsStatus } from "../../store/slices/tagsSlice";
 import {
     selectBiggestRateReviews,
     selectLatestReviews,
@@ -20,14 +19,15 @@ import {
 } from "../../store/slices/reviewsSlice";
 import Skeleton from "../../components/skeletons/Skeleton";
 import SkeletonTag from "../../components/skeletons/SkeletonTag";
+import { useGetTagsQuery } from "../..//store/api/tagsApi";
 
 export default function MainPage() {
-    const tags = useSelector(selectTags);
+    const { data = [], isLoading, error } = useGetTagsQuery();
+    const tags = data;
     const latestReviews = useSelector(selectLatestReviews);
     const biggestRateReviews = useSelector(selectBiggestRateReviews);
     const statusLatest = useSelector(selectStatusLatestReviews);
     const statusBiggest = useSelector(selectStatusBiggestReviews);
-    const tagsStatus = useSelector(selectTagsStatus);
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
 
@@ -169,11 +169,11 @@ export default function MainPage() {
                                     minHeight: "300px",
                                 }}
                                 ref={tagsBox}>
-                                {tagsStatus === "error" ? (
+                                {error ? (
                                     <div style={{ textAlign: "center" }}>
                                         <FormattedMessage id="error" />
                                     </div>
-                                ) : tagsStatus === "loading" ? (
+                                ) : isLoading ? (
                                     [...new Array(10)].map((_, index) => (
                                         <SkeletonTag key={index} />
                                     ))

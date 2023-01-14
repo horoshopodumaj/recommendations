@@ -2,9 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { URL } from "../../App";
 
-export const getTags = createAsyncThunk("tags/getTags", async () => {
-    const { data } = await axios.get(`${URL}/api/tag`);
-    return data;
+export const getTags = createAsyncThunk("tags/getTags", async (_, { rejectWithValue }) => {
+    try {
+        const { data } = await axios.get(`${URL}/api/tag`);
+        return data;
+    } catch (error) {
+        console.log(error.message);
+        return rejectWithValue(error.message);
+    }
 });
 
 const initialState = {
