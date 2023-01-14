@@ -3,6 +3,7 @@ import currentUserReducer from "./slices/currentUserSlice";
 import groupReducer from "./slices/groupSlice";
 import tagsReducer from "./slices/tagsSlice";
 import reviewsReducer from "./slices/reviewsSlice";
+import userInfoReducer from "./slices/usersSlice";
 import { tagsApi } from "./api/tagsApi";
 import { groupsApi } from "./api/groupsApi";
 import { reviewsApi } from "./api/reviewsApi";
@@ -13,6 +14,7 @@ export default configureStore({
         categories: groupReducer,
         tags: tagsReducer,
         reviews: reviewsReducer,
+        userInfo: userInfoReducer,
         [tagsApi.reducerPath]: tagsApi.reducer,
         [groupsApi.reducerPath]: groupsApi.reducer,
         [reviewsApi.reducerPath]: reviewsApi.reducer,

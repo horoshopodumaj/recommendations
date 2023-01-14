@@ -20,12 +20,18 @@ import Footer from "../../components/footer";
 import CardReviewFull from "../../components/cardReview";
 import WriteReview from "../../components/writeReview/WriteReview";
 import UserAvatar from "../../components/avatar/UserAvatar";
-import axios from "axios";
-import { URL } from "../../App";
 import { useParams } from "react-router-dom";
 import TableReviews from "../../components/table/TableReviews";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
+import {
+    getUserInfo,
+    selectPosts,
+    selectUser,
+    selectUserLikes,
+    selectPostsCount,
+    selectStatus,
+} from "../../store/slices/usersSlice";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -35,15 +41,16 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 
 export default function UserPage() {
     const currentUser = useSelector(selectCurrentUser);
-    const [posts, setPosts] = useState([]);
-    const [user, setUser] = useState({});
+    const user = useSelector(selectUser);
+    const posts = useSelector(selectPosts);
+    const countUserLikes = useSelector(selectUserLikes);
+    const postsCount = useSelector(selectPostsCount);
+    const status = useSelector(selectStatus);
     const [edit, setEdit] = useState(false);
     const { id } = useParams();
-    const [countUserLikes, setCountUserLikes] = useState(0);
-    const [postsCount, setPostsCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 5;
-
+    const dispatch = useDispatch();
     const pageCount = Math.ceil(postsCount / limit);
 
     const pageHandler = (event, value) => {
@@ -51,58 +58,23 @@ export default function UserPage() {
         window.scrollTo(0, 0);
     };
 
-    const getUser = useCallback(async () => {
-        try {
-            await axios
-                .get(`${URL}/api/user/profile/${id}`, {
-                    params: {
-                        limit: limit,
-                        page: currentPage,
-                    },
-                })
-                .then((response) => {
-                    setUser(response.data.user);
-                    setPosts(response.data.reviews.rows);
-                    setCountUserLikes(response.data.count);
-                    setPostsCount(response.data.reviews.count);
-                });
-        } catch (error) {
-            console.log(error);
-        }
-    }, [id, currentPage]);
+    const getUserInfoTest = async () => {
+        dispatch(getUserInfo({ id, limit, page: currentPage }));
+    };
 
     useEffect(() => {
-        const getUser = async () => {
-            try {
-                await axios
-                    .get(`${URL}/api/user/profile/${id}`, {
-                        params: {
-                            limit: limit,
-                            page: currentPage,
-                        },
-                    })
-                    .then((response) => {
-                        setUser(response.data.user);
-                        setPosts(response.data.reviews.rows);
-                        setCountUserLikes(response.data.count);
-                        setPostsCount(response.data.reviews.count);
-                        setCurrentPage(1);
-                    });
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getUser();
+        getUserInfoTest();
     }, []);
 
     const getUserLikes = useCallback(async (userId) => {
-        try {
-            await axios
-                .get(`${URL}/api/user/likes/${userId}`)
-                .then((response) => setCountUserLikes(response.data.count));
-        } catch (error) {
-            console.log(error);
-        }
+        // try {
+        //     await axios
+        //         .get(`${URL}/api/user/likes/${userId}`)
+        //         .then((response) => setCountUserLikes(response.data.count));
+        // } catch (error) {
+        //     console.log(error);
+        // }
+        console.log(userId);
     }, []);
 
     const editOpen = () => {
@@ -110,8 +82,8 @@ export default function UserPage() {
     };
 
     useEffect(() => {
-        getUser();
-    }, [getUser]);
+        getUserInfoTest();
+    }, [currentPage]);
 
     const isUser =
         user && currentUser ? currentUser.id === user.id || currentUser.role === "ADMIN" : false;
@@ -154,10 +126,6 @@ export default function UserPage() {
                                                     name={user.name}
                                                     fontSize={"2rem"}
                                                 />
-                                                {/* <Avatar
-                                                    sx={{ width: "120px", height: "120px" }}
-                                                    alt={user.name}
-                                                /> */}
                                             </Box>
                                             <Typography
                                                 component="h3"
