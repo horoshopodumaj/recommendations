@@ -83,7 +83,7 @@ export default function UserPage() {
 
     useEffect(() => {
         getUserInfoTest();
-    }, [currentPage]);
+    }, [currentPage, id]);
 
     const isUser =
         user && currentUser ? currentUser.id === user.id || currentUser.role === "ADMIN" : false;

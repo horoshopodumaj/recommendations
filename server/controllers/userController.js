@@ -183,56 +183,63 @@ class UserController {
     }
 
     async getOne(req, res) {
-        const { id } = req.params;
-        let { limit, page } = req.query;
-        page = page || 1;
-        limit = limit || 3;
-        let offset = page * limit - limit;
-        const user = await User.findOne({
-            where: { id },
-        });
-
-        const reviews = await Review.findAndCountAll({
-            where: { userId: user.id },
-            order: [["createdAt", "DESC"]],
-            limit,
-            offset,
-            distinct: "Review.id",
-            include: [
-                {
-                    model: Group,
-                    attributes: ["id", "name"],
-                },
-                {
-                    model: User,
-                    attributes: ["id", "name"],
-                },
-                {
-                    model: Like,
-                    where: { value: true },
-                    required: false,
-                },
-                {
-                    model: Star,
-                    required: false,
-                    attributes: ["id", "value", "userId"],
-                },
-                {
-                    model: Tag,
-                    required: false,
-                },
-            ],
-        });
-        const { count } = await Review.findAndCountAll({
-            where: { userId: user.id },
-            include: [
-                {
-                    model: Like,
-                    where: { value: true },
-                },
-            ],
-        });
-        return res.json({ user, reviews, count });
+        try {
+            const { id } = req.params;
+            let { limit, page } = req.query;
+            page = page || 1;
+            limit = limit || 3;
+            let offset = page * limit - limit;
+            const user = await User.findOne({
+                where: { id },
+            });
+            if (user) {
+                const reviews = await Review.findAndCountAll({
+                    where: { userId: user.id },
+                    order: [["createdAt", "DESC"]],
+                    limit,
+                    offset,
+                    distinct: "Review.id",
+                    include: [
+                        {
+                            model: Group,
+                            attributes: ["id", "name"],
+                        },
+                        {
+                            model: User,
+                            attributes: ["id", "name"],
+                        },
+                        {
+                            model: Like,
+                            where: { value: true },
+                            required: false,
+                        },
+                        {
+                            model: Star,
+                            required: false,
+                            attributes: ["id", "value", "userId"],
+                        },
+                        {
+                            model: Tag,
+                            required: false,
+                        },
+                    ],
+                });
+                const { count } = await Review.findAndCountAll({
+                    where: { userId: user.id },
+                    include: [
+                        {
+                            model: Like,
+                            where: { value: true },
+                        },
+                    ],
+                });
+                return res.json({ user, reviews, count });
+            } else {
+                return res.json({ user: {}, reviews: "null", count: 0 });
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     async getUserLikes(req, res) {
