@@ -1,0 +1,97 @@
+:root {
+    --size: 5rem;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(1080deg);
+    }
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 80vh;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    height: var(--size);
+    width: var(--size);
+
+    > .dot {
+        position: absolute;
+        height: calc(var(--size) * 0.8);
+        width: calc(var(--size) * 0.8);
+        border-radius: 50%;
+
+        &:after {
+            content: "";
+            position: absolute;
+            height: calc(var(--size) * 0.1);
+            width: calc(var(--size) * 0.1);
+            border-radius: 50%;
+        }
+
+        &:nth-of-type(1) {
+            top: 0;
+            left: 0;
+            animation: rotate 4s cubic-bezier(0.17, 0.67, 0.83, 0.67) infinite;
+
+            &:after {
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+                background: #00a6a6;
+            }
+        }
+
+        &:nth-of-type(2) {
+            top: 0;
+            right: 0;
+            animation: rotate 3.8s cubic-bezier(0.17, 0.67, 0.83, 0.67) infinite;
+
+            &:after {
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #ffc914;
+            }
+        }
+
+        &:nth-of-type(3) {
+            bottom: 0;
+            right: 0;
+            animation: rotate 4.1s cubic-bezier(0.17, 0.67, 0.83, 0.67) infinite;
+
+            &:after {
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                background: #76b041;
+            }
+        }
+
+        &:nth-of-type(4) {
+            bottom: 0;
+            left: 0;
+            animation: rotate 3.9s cubic-bezier(0.17, 0.67, 0.83, 0.67) infinite;
+
+            &:after {
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #e4572e;
+            }
+        }
+    }
+}

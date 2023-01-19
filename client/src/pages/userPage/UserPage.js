@@ -33,6 +33,7 @@ import {
     selectStatus,
 } from "../../store/slices/usersSlice";
 import NoUser from "./NoUser";
+import Spinner from "../../components/spiner/Spiner";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -100,7 +101,17 @@ export default function UserPage() {
     return (
         <>
             <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
-            {user.id ? (
+            {status === "error" ? (
+                <div style={{ marginTop: "16px" }}>
+                    <FormattedMessage id="error" />
+                </div>
+            ) : status === "loading" ? (
+                <section className="user_summary">
+                    <div className="wrapper">
+                        <Spinner />
+                    </div>
+                </section>
+            ) : user.id ? (
                 <>
                     <section className="user_summary">
                         <div className="wrapper">
@@ -224,7 +235,6 @@ export default function UserPage() {
                                     </Box>
                                 )}
                             </Container>
-                            {id}
                         </div>
                         <WriteReview onClose={handleClose} open={open} />
                     </section>
