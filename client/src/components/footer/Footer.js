@@ -18,8 +18,12 @@ import {
     ListItemIcon,
     ListItemText,
 } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 export default function Footer() {
+    const currentUser = useSelector(selectCurrentUser);
+    const id = currentUser && currentUser.id;
     return (
         <footer className={style.footer}>
             <Container>
@@ -43,17 +47,33 @@ export default function Footer() {
                             </ListItem>
                             <Link to="/login">
                                 <ListItem>
-                                    <ListItemText primary={<FormattedMessage id="aboutUs" />} />
-                                </ListItem>
-                            </Link>
-                            <Link to="/profile">
-                                <ListItem>
                                     <ListItemText
-                                        primary={
-                                            <FormattedMessage id="my_account" />
-                                        }></ListItemText>
+                                        sx={{ color: "black" }}
+                                        primary={<FormattedMessage id="aboutUs" />}
+                                    />
                                 </ListItem>
                             </Link>
+                            {currentUser ? (
+                                <Link to={`/profile/${id}`}>
+                                    <ListItem>
+                                        <ListItemText
+                                            sx={{ color: "black" }}
+                                            primary={
+                                                <FormattedMessage id="my_account" />
+                                            }></ListItemText>
+                                    </ListItem>
+                                </Link>
+                            ) : (
+                                <Link to={`/login`}>
+                                    <ListItem>
+                                        <ListItemText
+                                            sx={{ color: "black", textTransform: "capitalize" }}
+                                            primary={
+                                                <FormattedMessage id="login" />
+                                            }></ListItemText>
+                                    </ListItem>
+                                </Link>
+                            )}
                         </List>
                     </Grid>
                     <Grid item xs={12} md={3} sm={6}>
@@ -70,7 +90,7 @@ export default function Footer() {
                                 <FormattedMessage id="categories" />
                             </ListItem>
                             <Link to="/films">
-                                <ListItem sx={{ textTransform: "capitalize" }}>
+                                <ListItem sx={{ textTransform: "capitalize", color: "black" }}>
                                     <ListItemText
                                         primary={<FormattedMessage id="films" />}></ListItemText>
                                 </ListItem>
@@ -82,7 +102,7 @@ export default function Footer() {
                                 </ListItem>
                             </Link>
                             <Link to="/games">
-                                <ListItem sx={{ textTransform: "capitalize" }}>
+                                <ListItem sx={{ textTransform: "capitalize", color: "black" }}>
                                     <ListItemText
                                         primary={<FormattedMessage id="games" />}></ListItemText>
                                 </ListItem>
@@ -117,9 +137,23 @@ export default function Footer() {
                             <Link>
                                 <ListItem>
                                     <ListItemIcon>
-                                        <EmailIcon />
+                                        <EmailIcon
+                                            sx={{
+                                                "&.MuiSvgIcon-root:hover": {
+                                                    color: "#1877F2",
+                                                },
+                                            }}
+                                        />
                                     </ListItemIcon>
-                                    <ListItemText primary={`info@domain.com`} />
+                                    <ListItemText
+                                        sx={{
+                                            "&:hover": {
+                                                color: "#1877F2",
+                                            },
+                                            color: "black",
+                                        }}
+                                        primary={`info@domain.com`}
+                                    />
                                 </ListItem>
                             </Link>
                         </List>
@@ -141,21 +175,39 @@ export default function Footer() {
                                 <Link to="/">
                                     <ListItem>
                                         <ListItemIcon>
-                                            <FacebookIcon />
+                                            <FacebookIcon
+                                                sx={{
+                                                    "&.MuiSvgIcon-root:hover": {
+                                                        color: "#1877F2",
+                                                    },
+                                                }}
+                                            />
                                         </ListItemIcon>
                                     </ListItem>
                                 </Link>
                                 <Link to="/">
                                     <ListItem>
                                         <ListItemIcon>
-                                            <TwitterIcon />
+                                            <TwitterIcon
+                                                sx={{
+                                                    "&.MuiSvgIcon-root:hover": {
+                                                        color: "#1D9BF0",
+                                                    },
+                                                }}
+                                            />
                                         </ListItemIcon>
                                     </ListItem>
                                 </Link>
                                 <Link to="/">
                                     <ListItem>
                                         <ListItemIcon>
-                                            <InstagramIcon />
+                                            <InstagramIcon
+                                                sx={{
+                                                    "&.MuiSvgIcon-root:hover": {
+                                                        color: "#FE4EDA",
+                                                    },
+                                                }}
+                                            />
                                         </ListItemIcon>
                                     </ListItem>
                                 </Link>
