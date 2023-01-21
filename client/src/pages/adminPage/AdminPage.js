@@ -1,12 +1,16 @@
 import {
     Box,
     Container,
+    Grid,
+    IconButton,
     List,
     ListItem,
     ListItemText,
     Pagination,
+    TextField,
     Typography,
 } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import React, { useEffect, useState } from "react";
@@ -55,42 +59,63 @@ export default function AdminPage() {
             </section>
             <section style={{ flex: 1, display: "flex" }}>
                 <Container sx={{ display: "flex", flexDirection: "column" }}>
-                    <Box sx={{ my: "15px" }}>
-                        <Typography variant="h6" sx={{ textAlign: "center" }}>
-                            <FormattedMessage id="allUsers" />
-                        </Typography>
-                    </Box>
-                    <Box sx={{ flex: 1 }}>
-                        <List>
-                            {allUsers.map((user) => (
-                                <ListItem key={user.id}>
-                                    <Link to={`/profile/${user.id}`}>
-                                        <CustomWidthTooltip
-                                            sx={{
-                                                maxWidth: { xs: "200px", md: "500px" },
-                                                textAlign: "center",
-                                            }}
-                                            title={`${URL}/profile/${user.id}`}
-                                            placement="top">
-                                            <ListItemText
-                                                sx={{
-                                                    "&.MuiListItemText-root:hover": {
-                                                        color: "#1877F2",
-                                                    },
-                                                    color: "black",
-                                                    textTransform: "capitalize",
-                                                }}
-                                                primary={user.name}
-                                            />
-                                        </CustomWidthTooltip>
-                                    </Link>
-                                </ListItem>
-                            ))}
-                        </List>
-                    </Box>
-                    {allUsersCount > 2 && (
-                        <Pagination count={pageCount} page={currentPage} onChange={pageHandler} />
-                    )}
+                    <Grid container>
+                        <Grid item xs={12} md={6} sm={12}>
+                            <Box sx={{ my: "15px" }}>
+                                <Typography variant="h6">
+                                    <FormattedMessage id="Add a category" />
+                                </Typography>
+                            </Box>
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                                <TextField size="small" />
+                                <IconButton>
+                                    <SendIcon color="primary" />
+                                </IconButton>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} md={6} sm={12}>
+                            <Box sx={{ my: "15px" }}>
+                                <Typography variant="h6" sx={{ textAlign: "center" }}>
+                                    <FormattedMessage id="allUsers" />
+                                </Typography>
+                            </Box>
+                            <Box sx={{ flex: 1 }}>
+                                <List>
+                                    {allUsers.map((user) => (
+                                        <ListItem key={user.id}>
+                                            <Link to={`/profile/${user.id}`}>
+                                                <CustomWidthTooltip
+                                                    sx={{
+                                                        maxWidth: { xs: "200px", md: "500px" },
+                                                        textAlign: "center",
+                                                    }}
+                                                    title={`${URL}/profile/${user.id}`}
+                                                    placement="top">
+                                                    <ListItemText
+                                                        sx={{
+                                                            "&.MuiListItemText-root:hover": {
+                                                                color: "#1877F2",
+                                                            },
+                                                            color: "black",
+                                                            textTransform: "capitalize",
+                                                        }}
+                                                        primary={user.name}
+                                                    />
+                                                </CustomWidthTooltip>
+                                            </Link>
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </Box>
+                            {allUsersCount > 2 && (
+                                <Pagination
+                                    count={pageCount}
+                                    page={currentPage}
+                                    onChange={pageHandler}
+                                />
+                            )}
+                        </Grid>
+                    </Grid>
                 </Container>
             </section>
         </>

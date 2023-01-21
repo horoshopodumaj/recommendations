@@ -94,6 +94,7 @@ export const messages = {
         pageNotFound: "Page not found",
         welcomeAdmin: "Welcome, admin",
         allUsers: "All users",
+        addCategory: "Add a category",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -189,5 +190,6 @@ export const messages = {
         pageNotFound: "Страница не найдена",
         welcomeAdmin: "Добро пожаловать, админ",
         allUsers: "Все пользователи",
+        addCategory: "Добавить категорию",
     },
 };
