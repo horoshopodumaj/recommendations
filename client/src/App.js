@@ -15,6 +15,7 @@ import TagsPage from "./pages/tagsPage";
 import { getCurrentUser, selectCurrentUser } from "./store/slices/currentUserSlice";
 import { getCategories, selectCategories } from "./store/slices/groupSlice";
 import AdminPage from "./pages/adminPage/AdminPage";
+import NotFound from "./pages/notFound/NotFound";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -68,9 +69,12 @@ function App() {
                                 element={<ContentPage category={category} />}
                             />
                         ))}
-                        {currentUser && currentUser.role === "ADMIN" && (
+                        {currentUser && currentUser.role === "ADMIN" ? (
                             <Route path="/admin" element={<AdminPage />} />
+                        ) : (
+                            <Route path="/admin" element={<NotFound />} />
                         )}
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>
             </IntlProvider>

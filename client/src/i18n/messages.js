@@ -90,6 +90,8 @@ export const messages = {
         or: "or",
         error: "An error has occurred",
         admin: "Admin",
+        backHome: "Back home",
+        pageNotFound: "Page not found",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -181,5 +183,7 @@ export const messages = {
         or: "или",
         error: "Произошла ошибка",
         admin: "Администратор",
+        backHome: "На главную",
+        pageNotFound: "Страница не найдена",
     },
 };
