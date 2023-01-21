@@ -28,6 +28,8 @@ export const userInfo = createSlice({
             state.status = "loading";
             state.user = {};
             state.posts = [];
+            state.countUserLikes = 0;
+            state.postsCount = 0;
         },
         [getUserInfo.fulfilled]: (state, action) => {
             state.status = "success";
@@ -38,6 +40,10 @@ export const userInfo = createSlice({
         },
         [getUserInfo.rejected]: (state) => {
             state.status = "error";
+            state.user = {};
+            state.posts = [];
+            state.countUserLikes = 0;
+            state.postsCount = 0;
         },
     },
 });

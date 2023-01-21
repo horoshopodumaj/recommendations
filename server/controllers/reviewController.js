@@ -118,7 +118,7 @@ class ReviewController {
             const { id } = req.params;
             const reviews = await Review.findAndCountAll({
                 where: { groupId: id },
-                order: [["createdAt", "ASC"]],
+                order: [["createdAt", "DESC"]],
                 limit,
                 offset,
                 distinct: "Review.id",

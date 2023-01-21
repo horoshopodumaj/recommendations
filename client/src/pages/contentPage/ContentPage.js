@@ -20,8 +20,9 @@ import WriteReview from "../../components/writeReview/WriteReview";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { URL } from "../../App";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
+import { getGroupPosts, selectPosts, selectPostsCount } from "../../store/slices/groupPostsSlice";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -32,13 +33,20 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 const ContentPage = ({ category }) => {
     const currentUser = useSelector(selectCurrentUser);
     const [open, setOpen] = useState(false);
-    const [posts, setPosts] = useState([]);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [countUserLikes, setCountUserLikes] = useState(0);
-    const [postsCount, setPostsCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 5;
+
+    const posts = useSelector(selectPosts);
+    const postsCount = useSelector(selectPostsCount);
+
+    const dispatch = useDispatch();
+
+    const getGroupPostsTest = async () => {
+        dispatch(getGroupPosts({ id: category.id, limit, page: currentPage }));
+    };
 
     const pageCount = Math.ceil(postsCount / limit);
 
@@ -47,44 +55,8 @@ const ContentPage = ({ category }) => {
         window.scrollTo(0, 0);
     };
 
-    const getPosts = useCallback(async () => {
-        try {
-            await axios
-                .get(`${URL}/api/review/category/${category.id}`, {
-                    params: {
-                        limit: limit,
-                        page: currentPage,
-                    },
-                })
-                .then((response) => {
-                    setPosts(response.data.rows);
-                    setPostsCount(response.data.count);
-                });
-        } catch (error) {
-            console.log(error);
-        }
-    }, [category.id, currentPage]);
-
     useEffect(() => {
-        const getPosts = async () => {
-            try {
-                await axios
-                    .get(`${URL}/api/review/category/${category.id}`, {
-                        params: {
-                            limit: 5,
-                            page: currentPage,
-                        },
-                    })
-                    .then((response) => {
-                        setPosts(response.data.rows);
-                        setPostsCount(response.data.count);
-                        setCurrentPage(1);
-                    });
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getPosts();
+        getGroupPostsTest();
     }, []);
 
     const getUserLikes = useCallback(async (userId) => {
@@ -98,8 +70,8 @@ const ContentPage = ({ category }) => {
     }, []);
 
     useEffect(() => {
-        getPosts();
-    }, [getPosts]);
+        getGroupPostsTest();
+    }, [currentPage, category.id]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
