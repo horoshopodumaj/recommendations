@@ -55,6 +55,16 @@ export default function UserAuth({ color }) {
                         <FormattedMessage id="my_account" />
                     </MenuItem>
                 </Link>
+                {currentUser.role === "ADMIN" && (
+                    <Link
+                        onClick={handleCloseUserMenu}
+                        to={`/admin`}
+                        style={{ textDecoration: "none", color: "black" }}>
+                        <MenuItem>
+                            <FormattedMessage id="admin" />
+                        </MenuItem>
+                    </Link>
+                )}
                 <Link onClick={logout} style={{ textDecoration: "none", color: "black" }}>
                     <MenuItem>
                         <FormattedMessage id="Logout" />

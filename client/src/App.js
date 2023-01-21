@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IntlProvider } from "react-intl";
 import Login from "./pages/loginPage";
 import MainPage from "./pages/mainPage";
@@ -12,9 +12,9 @@ import ContentPage from "./pages/contentPage";
 import AllReviewPage from "./pages/allReviewPage";
 import ReviewPage from "./pages/reviewPage";
 import TagsPage from "./pages/tagsPage";
-import { getCurrentUser } from "./store/slices/currentUserSlice";
-import { useGetGroupsQuery } from "./store/api/groupsApi";
-import { getCategories } from "./store/slices/groupSlice";
+import { getCurrentUser, selectCurrentUser } from "./store/slices/currentUserSlice";
+import { getCategories, selectCategories } from "./store/slices/groupSlice";
+import AdminPage from "./pages/adminPage/AdminPage";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -23,7 +23,9 @@ function App() {
         localStorage.getItem("language") || LOCALES.EN
     );
     const dispatch = useDispatch();
-    const { data: categories = [] } = useGetGroupsQuery();
+
+    const categories = useSelector(selectCategories);
+    const currentUser = useSelector(selectCurrentUser);
 
     const getTheCurrentUser = async () => {
         dispatch(getCurrentUser());
@@ -66,6 +68,9 @@ function App() {
                                 element={<ContentPage category={category} />}
                             />
                         ))}
+                        {currentUser && currentUser.role === "ADMIN" && (
+                            <Route path="/admin" element={<AdminPage />} />
+                        )}
                     </Routes>
                 </div>
             </IntlProvider>

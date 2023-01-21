@@ -89,6 +89,7 @@ export const messages = {
         signInDesc: "Already have an acccount?",
         or: "or",
         error: "An error has occurred",
+        admin: "Admin",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -179,5 +180,6 @@ export const messages = {
         signInDesc: "Есть учетная запись?",
         or: "или",
         error: "Произошла ошибка",
+        admin: "Администратор",
     },
 };
