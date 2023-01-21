@@ -131,57 +131,6 @@ class UserController {
         }
     }
 
-    async successGoogle(req, res) {
-        try {
-            const user = await User.findOne({
-                where: { id: 1 },
-                include: [
-                    {
-                        model: Like,
-                        where: { value: true },
-                        required: false,
-                    },
-                    {
-                        model: Star,
-                        required: false,
-                    },
-                ],
-            });
-            res.status(200).json({
-                success: true,
-                message: "successfull",
-                user: user,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    async successGithub(req, res) {
-        try {
-            const user = await User.findOne({
-                where: { id: 2 },
-                include: [
-                    {
-                        model: Like,
-                        where: { value: true },
-                        required: false,
-                    },
-                    {
-                        model: Star,
-                        required: false,
-                    },
-                ],
-            });
-            res.status(200).json({
-                success: true,
-                message: "successfull",
-                user: user,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     async getOne(req, res) {
         try {
             const { id } = req.params;
@@ -258,6 +207,11 @@ class UserController {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    async getAll(req, res) {
+        const users = await User.findAll();
+        return res.json(users);
     }
 }
 
