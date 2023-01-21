@@ -210,8 +210,19 @@ class UserController {
     }
 
     async getAll(req, res) {
-        const users = await User.findAll();
-        return res.json(users);
+        try {
+            let { limit, page } = req.query;
+            page = page || 1;
+            limit = limit || 5;
+            let offset = page * limit - limit;
+            const users = await User.findAll({
+                limit,
+                offset,
+            });
+            return res.json(users);
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
