@@ -15,7 +15,6 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import StarIcon from "@mui/icons-material/Star";
 import CardReviewFull from "../../components/cardReview";
 import { grey } from "@mui/material/colors";
-import Footer from "../../components/footer";
 import WriteReview from "../../components/writeReview/WriteReview";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
@@ -192,8 +191,6 @@ export default function TagsPage() {
                     )}
                 </Container>
             </section>
-
-            <Footer />
         </>
     );
 }

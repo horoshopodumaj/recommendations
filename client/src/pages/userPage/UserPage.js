@@ -16,7 +16,6 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { styled } from "@mui/material/styles";
 import { FormattedMessage } from "react-intl";
 import { grey } from "@mui/material/colors";
-import Footer from "../../components/footer";
 import CardReviewFull from "../../components/cardReview";
 import WriteReview from "../../components/writeReview/WriteReview";
 import UserAvatar from "../../components/avatar/UserAvatar";
@@ -300,8 +299,6 @@ export default function UserPage() {
             ) : (
                 <NoUser />
             )}
-
-            <Footer />
         </>
     );
 }

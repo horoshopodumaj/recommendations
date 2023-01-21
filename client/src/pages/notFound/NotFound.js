@@ -2,7 +2,6 @@ import { Button, Container, Typography } from "@mui/material";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import Footer from "../../components/footer";
 import Header from "../../components/header";
 
 export default function NotFound() {
@@ -42,7 +41,6 @@ export default function NotFound() {
                     </Container>
                 </div>
             </section>
-            <Footer />
         </>
     );
 }

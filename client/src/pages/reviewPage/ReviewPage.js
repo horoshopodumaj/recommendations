@@ -5,7 +5,6 @@ import CardReviewFull from "../../components/cardReview";
 import Header from "../../components/header";
 import axios from "axios";
 import { URL } from "../../App";
-import Footer from "../../components/footer";
 
 export default function ReviewPage() {
     const [post, setPost] = useState([]);
@@ -68,8 +67,6 @@ export default function ReviewPage() {
                     </Container>
                 </div>
             </section>
-
-            <Footer />
         </>
     );
 }

@@ -16,6 +16,7 @@ import { getCurrentUser, selectCurrentUser } from "./store/slices/currentUserSli
 import { getCategories, selectCategories } from "./store/slices/groupSlice";
 import AdminPage from "./pages/adminPage/AdminPage";
 import NotFound from "./pages/notFound/NotFound";
+import Footer from "./components/footer";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -76,6 +77,7 @@ function App() {
                         )}
                         <Route path="*" element={<NotFound />} />
                     </Routes>
+                    <Footer />
                 </div>
             </IntlProvider>
         </GlobalContext.Provider>

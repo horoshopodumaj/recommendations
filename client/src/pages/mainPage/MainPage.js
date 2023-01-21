@@ -5,7 +5,6 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import Header from "../../components/header";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import Footer from "../../components/footer/Footer";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { grey } from "@mui/material/colors";
 import Card from "../../components/card";
@@ -279,7 +278,6 @@ export default function MainPage() {
                     </Container>
                 </div>
             </section>
-            <Footer />
         </>
     );
 }
