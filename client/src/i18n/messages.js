@@ -93,6 +93,7 @@ export const messages = {
         backHome: "Back home",
         pageNotFound: "Page not found",
         welcomeAdmin: "Welcome, admin",
+        allUsers: "All users",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -187,5 +188,6 @@ export const messages = {
         backHome: "На главную",
         pageNotFound: "Страница не найдена",
         welcomeAdmin: "Добро пожаловать, админ",
+        allUsers: "Все пользователи",
     },
 };

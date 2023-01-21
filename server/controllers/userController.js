@@ -215,7 +215,7 @@ class UserController {
             page = page || 1;
             limit = limit || 5;
             let offset = page * limit - limit;
-            const users = await User.findAll({
+            const users = await User.findAndCountAll({
                 limit,
                 offset,
             });

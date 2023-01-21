@@ -12,12 +12,24 @@ export const getUserInfo = createAsyncThunk("userInfo/getUserInfo", async ({ id,
     return data;
 });
 
+export const getAllUsers = createAsyncThunk("userInfo/getAllUsers", async ({ limit, page }) => {
+    const { data } = await axios.get(`${URL}/api/user/all`, {
+        params: {
+            limit,
+            page,
+        },
+    });
+    return data;
+});
+
 const initialState = {
     user: {},
     posts: [],
     countUserLikes: 0,
     postsCount: 0,
     status: "loading",
+    allUsers: [],
+    allUsersCount: 0,
 };
 
 export const userInfo = createSlice({
@@ -45,6 +57,18 @@ export const userInfo = createSlice({
             state.countUserLikes = 0;
             state.postsCount = 0;
         },
+        [getAllUsers.pending]: (state) => {
+            state.allUsers = [];
+            state.allUsersCount = 0;
+        },
+        [getAllUsers.fulfilled]: (state, action) => {
+            state.allUsers = action.payload.rows;
+            state.allUsersCount = action.payload.count;
+        },
+        [getAllUsers.rejected]: (state) => {
+            state.allUsers = [];
+            state.allUsersCount = 0;
+        },
     },
 });
 
@@ -53,5 +77,7 @@ export const selectPosts = (state) => state.userInfo.posts;
 export const selectUserLikes = (state) => state.userInfo.countUserLikes;
 export const selectPostsCount = (state) => state.userInfo.postsCount;
 export const selectStatus = (state) => state.userInfo.status;
+export const selectAllUsers = (state) => state.userInfo.allUsers;
+export const selectAllUsersCount = (state) => state.userInfo.allUsersCount;
 
 export default userInfo.reducer;
