@@ -25,7 +25,7 @@ export default function UserAuth({ color }) {
     };
     return (
         <Box sx={{ mb: "4px", ml: "5px" }}>
-            <Tooltip title="Open settings">
+            <Tooltip title={<FormattedMessage id="openSettings" />}>
                 <IconButton
                     onClick={handleOpenUserMenu}
                     sx={{ p: 0, color: color ? "white" : "black" }}>
