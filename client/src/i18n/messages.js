@@ -95,6 +95,7 @@ export const messages = {
         welcomeAdmin: "Welcome, admin",
         allUsers: "All users",
         addCategory: "Add a category",
+        beFirst: "Be the first, write the first review",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -191,5 +192,6 @@ export const messages = {
         welcomeAdmin: "Добро пожаловать, админ",
         allUsers: "Все пользователи",
         addCategory: "Добавить категорию",
+        beFirst: "Будьте первой(-ым), напишите отзыв",
     },
 };

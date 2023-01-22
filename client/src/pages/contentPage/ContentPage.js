@@ -22,6 +22,7 @@ import { URL } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 import { getGroupPosts, selectPosts, selectPostsCount } from "../../store/slices/groupPostsSlice";
+import { Link } from "react-router-dom";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -161,14 +162,48 @@ const ContentPage = ({ category }) => {
                     paddingBottom: "35px",
                 }}>
                 <Container>
-                    {posts.map((post) => (
-                        <CardReviewFull
-                            key={post.id}
-                            post={post}
-                            countUserLikes={countUserLikes}
-                            getUserLikes={getUserLikes}
-                        />
-                    ))}
+                    {postsCount > 0 ? (
+                        posts.map((post) => (
+                            <CardReviewFull
+                                key={post.id}
+                                post={post}
+                                countUserLikes={countUserLikes}
+                                getUserLikes={getUserLikes}
+                            />
+                        ))
+                    ) : (
+                        <Box
+                            sx={{
+                                color: "white",
+                                fontSize: { xs: "1.3rem", sm: "2rem" },
+                                fontWeight: 500,
+                                textAlign: "center",
+                            }}>
+                            <Typography
+                                sx={{
+                                    fontSize: { xs: "1.3rem", sm: "2rem" },
+                                    fontWeight: 500,
+                                    mb: { xs: "20px", sm: "30px" },
+                                    color: "#051d4d",
+                                }}>
+                                <FormattedMessage id="beFirst" />
+                            </Typography>
+                            {currentUser ? (
+                                <Button
+                                    variant="outlined"
+                                    sx={{ color: "#3578fa" }}
+                                    onClick={handleOpen}>
+                                    <FormattedMessage id="writeReview" />
+                                </Button>
+                            ) : (
+                                <Link to="/login">
+                                    <Button variant="outlined" sx={{ color: "#3578fa" }}>
+                                        <FormattedMessage id="login" />
+                                    </Button>
+                                </Link>
+                            )}
+                        </Box>
+                    )}
                     {postsCount > 5 && (
                         <Pagination count={pageCount} page={currentPage} onChange={pageHandler} />
                     )}
