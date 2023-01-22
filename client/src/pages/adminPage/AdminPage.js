@@ -119,7 +119,12 @@ export default function AdminPage() {
                                 </List>
                             </Box>
                         </Grid>
-                        <Grid item xs={12} md={6} sm={12}>
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            sm={12}
+                            sx={{ display: "flex", flexDirection: "column" }}>
                             <Box sx={{ my: "15px" }}>
                                 <Typography variant="h6" sx={{ textAlign: "center" }}>
                                     <FormattedMessage id="allUsers" />
