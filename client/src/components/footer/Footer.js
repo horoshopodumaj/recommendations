@@ -20,9 +20,13 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
+import { selectCategories, selectCategoriesStatus } from "../../store/slices/groupSlice";
+import SkeletonTag from "../skeletons/SkeletonTag";
 
 export default function Footer() {
     const currentUser = useSelector(selectCurrentUser);
+    const categories = useSelector(selectCategories);
+    const status = useSelector(selectCategoriesStatus);
     const id = currentUser && currentUser.id;
     return (
         <footer className={style.footer}>
@@ -48,7 +52,12 @@ export default function Footer() {
                             <Link to="/login">
                                 <ListItem>
                                     <ListItemText
-                                        sx={{ color: "black" }}
+                                        sx={{
+                                            "&:hover": {
+                                                color: "#1877F2",
+                                            },
+                                            color: "black",
+                                        }}
                                         primary={<FormattedMessage id="aboutUs" />}
                                     />
                                 </ListItem>
@@ -57,7 +66,12 @@ export default function Footer() {
                                 <Link to={`/profile/${id}`}>
                                     <ListItem>
                                         <ListItemText
-                                            sx={{ color: "black" }}
+                                            sx={{
+                                                "&:hover": {
+                                                    color: "#1877F2",
+                                                },
+                                                color: "black",
+                                            }}
                                             primary={
                                                 <FormattedMessage id="my_account" />
                                             }></ListItemText>
@@ -67,7 +81,13 @@ export default function Footer() {
                                 <Link to={`/login`}>
                                     <ListItem>
                                         <ListItemText
-                                            sx={{ color: "black", textTransform: "capitalize" }}
+                                            sx={{
+                                                "&:hover": {
+                                                    color: "#1877F2",
+                                                },
+                                                color: "black",
+                                                textTransform: "capitalize",
+                                            }}
                                             primary={
                                                 <FormattedMessage id="login" />
                                             }></ListItemText>
@@ -89,24 +109,31 @@ export default function Footer() {
                                 }}>
                                 <FormattedMessage id="categories" />
                             </ListItem>
-                            <Link to="/films">
-                                <ListItem sx={{ textTransform: "capitalize", color: "black" }}>
-                                    <ListItemText
-                                        primary={<FormattedMessage id="films" />}></ListItemText>
-                                </ListItem>
-                            </Link>
-                            <Link to="/books">
-                                <ListItem sx={{ textTransform: "capitalize", color: "black" }}>
-                                    <ListItemText
-                                        primary={<FormattedMessage id="books" />}></ListItemText>
-                                </ListItem>
-                            </Link>
-                            <Link to="/games">
-                                <ListItem sx={{ textTransform: "capitalize", color: "black" }}>
-                                    <ListItemText
-                                        primary={<FormattedMessage id="games" />}></ListItemText>
-                                </ListItem>
-                            </Link>
+                            {status === "error" ? (
+                                <div style={{ marginTop: "16px" }}>
+                                    <FormattedMessage id="error" />
+                                </div>
+                            ) : status === "loading" ? (
+                                <SkeletonTag />
+                            ) : (
+                                categories.map((category) => (
+                                    <Link key={category.id} to={`/${category.name}`}>
+                                        <ListItem
+                                            sx={{
+                                                "&:hover": {
+                                                    color: "#1877F2",
+                                                },
+                                                textTransform: "capitalize",
+                                                color: "black",
+                                            }}>
+                                            <ListItemText
+                                                primary={
+                                                    <FormattedMessage id={`${category.name}`} />
+                                                }></ListItemText>
+                                        </ListItem>
+                                    </Link>
+                                ))
+                            )}
                         </List>
                     </Grid>
                     <Grid item xs={12} md={3} sm={6}>
