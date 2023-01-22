@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import { URL } from "../../App";
 import Header from "../../components/header/Header";
 import { getAllUsers, selectAllUsers, selectAllUsersCount } from "../../store/slices/usersSlice";
+import { selectCategories } from "../../store/slices/groupSlice";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -30,6 +31,7 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 export default function AdminPage() {
     const allUsers = useSelector(selectAllUsers);
     const allUsersCount = useSelector(selectAllUsersCount);
+    const categories = useSelector(selectCategories);
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 3;
@@ -71,6 +73,30 @@ export default function AdminPage() {
                                 <IconButton>
                                     <SendIcon color="primary" />
                                 </IconButton>
+                            </Box>
+                            <Box>
+                                <List>
+                                    {categories.map((category) => (
+                                        <ListItem
+                                            key={category.id}
+                                            sx={{
+                                                paddingLeft: "0",
+                                            }}>
+                                            <Link to={`/${category.name}`}>
+                                                <ListItemText
+                                                    sx={{
+                                                        "&.MuiListItemText-root:hover": {
+                                                            color: "#1877F2",
+                                                        },
+                                                        color: "black",
+                                                        textTransform: "capitalize",
+                                                    }}
+                                                    primary={category.name}
+                                                />
+                                            </Link>
+                                        </ListItem>
+                                    ))}
+                                </List>
                             </Box>
                         </Grid>
                         <Grid item xs={12} md={6} sm={12}>
