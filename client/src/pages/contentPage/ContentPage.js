@@ -21,8 +21,14 @@ import axios from "axios";
 import { URL } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
-import { getGroupPosts, selectPosts, selectPostsCount } from "../../store/slices/groupPostsSlice";
+import {
+    getGroupPosts,
+    selectPosts,
+    selectPostsCount,
+    selectStatus,
+} from "../../store/slices/groupPostsSlice";
 import { Link } from "react-router-dom";
+import Spinner from "../../components/spiner/Spiner";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -41,6 +47,7 @@ const ContentPage = ({ category }) => {
 
     const posts = useSelector(selectPosts);
     const postsCount = useSelector(selectPostsCount);
+    const status = useSelector(selectStatus);
 
     const dispatch = useDispatch();
 
@@ -80,135 +87,167 @@ const ContentPage = ({ category }) => {
     return (
         <>
             <Header />
-            <section className="user_summary">
-                <div className="wrapper">
-                    <Container>
-                        <Grid container>
-                            <Grid
-                                item
-                                xs={12}
-                                md={6}
-                                sm={12}
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                }}>
-                                <Typography
-                                    component="h3"
-                                    sx={{
-                                        fontSize: {
-                                            xs: "1.5rem",
-                                            sm: "2rem",
-                                        },
-                                        textAlign: "center",
-                                        color: "white",
-                                        textTransform: "capitalize",
-                                    }}>
-                                    <FormattedMessage id={`${category.name}`} />
-                                </Typography>
-                                <Typography
-                                    component="p"
-                                    sx={{
-                                        fontSize: {
-                                            xs: "1rem",
-                                            sm: "1.25rem",
-                                        },
-                                        textAlign: "center",
-                                        color: "white",
-                                        textTransform: "capitalize",
-                                    }}>
-                                    <FormattedMessage id="hereAreReviewsOf" />{" "}
-                                    <FormattedMessage id={`${category.name}`} />
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} md={6} sm={12}>
-                                <List sx={{ display: "flex", float: { xs: "center" } }}>
-                                    <ListItem
-                                        sx={{ flexDirection: "column", alignItems: "center" }}>
-                                        <strong className="strong">{postsCount}</strong>
-                                        <CustomWidthTooltip
-                                            sx={{
-                                                maxWidth: { xs: "200px", md: "500px" },
-                                                textAlign: "center",
-                                            }}
-                                            title={<FormattedMessage id="countAllReviews" />}
-                                            placement="top">
-                                            <Box sx={{ display: "flex", justifyContent: "center" }}>
-                                                <StarIcon sx={{ color: "white", mr: "5px" }} />
-                                                <Typography sx={{ color: "white", mt: "3px" }}>
-                                                    <FormattedMessage id="reviews" />
-                                                </Typography>
-                                            </Box>
-                                        </CustomWidthTooltip>
-                                    </ListItem>
-                                </List>
-                            </Grid>
-                        </Grid>
-                        {currentUser && (
-                            <Button sx={{ float: "right", color: "white" }} onClick={handleOpen}>
-                                <FormattedMessage id="writeReview" />
-                            </Button>
-                        )}
-                    </Container>
+            {status === "error" ? (
+                <div style={{ marginTop: "16px" }}>
+                    <FormattedMessage id="error" />
                 </div>
-                <WriteReview onClose={handleClose} open={open} />
-            </section>
-            <section
-                style={{
-                    backgroundColor: grey[200],
-                    paddingTop: "60px",
-                    paddingBottom: "35px",
-                }}>
-                <Container>
-                    {postsCount > 0 ? (
-                        posts.map((post) => (
-                            <CardReviewFull
-                                key={post.id}
-                                post={post}
-                                countUserLikes={countUserLikes}
-                                getUserLikes={getUserLikes}
-                            />
-                        ))
-                    ) : (
-                        <Box
-                            sx={{
-                                color: "white",
-                                fontSize: { xs: "1.3rem", sm: "2rem" },
-                                fontWeight: 500,
-                                textAlign: "center",
-                            }}>
-                            <Typography
-                                sx={{
-                                    fontSize: { xs: "1.3rem", sm: "2rem" },
-                                    fontWeight: 500,
-                                    mb: { xs: "20px", sm: "30px" },
-                                    color: "#051d4d",
-                                }}>
-                                <FormattedMessage id="beFirst" />
-                            </Typography>
-                            {currentUser ? (
-                                <Button
-                                    variant="outlined"
-                                    sx={{ color: "#3578fa" }}
-                                    onClick={handleOpen}>
-                                    <FormattedMessage id="writeReview" />
-                                </Button>
-                            ) : (
-                                <Link to="/login">
-                                    <Button variant="outlined" sx={{ color: "#3578fa" }}>
-                                        <FormattedMessage id="login" />
+            ) : status === "loading" ? (
+                <section className="user_summary">
+                    <div className="wrapper">
+                        <Spinner />
+                    </div>
+                </section>
+            ) : (
+                <>
+                    <section className="user_summary">
+                        <div className="wrapper">
+                            <Container>
+                                <Grid container>
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        md={6}
+                                        sm={12}
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                        }}>
+                                        <Typography
+                                            component="h3"
+                                            sx={{
+                                                fontSize: {
+                                                    xs: "1.5rem",
+                                                    sm: "2rem",
+                                                },
+                                                textAlign: "center",
+                                                color: "white",
+                                                textTransform: "capitalize",
+                                            }}>
+                                            <FormattedMessage id={`${category.name}`} />
+                                        </Typography>
+                                        <Typography
+                                            component="p"
+                                            sx={{
+                                                fontSize: {
+                                                    xs: "1rem",
+                                                    sm: "1.25rem",
+                                                },
+                                                textAlign: "center",
+                                                color: "white",
+                                                textTransform: "capitalize",
+                                            }}>
+                                            <FormattedMessage id="hereAreReviewsOf" />{" "}
+                                            <FormattedMessage id={`${category.name}`} />
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12} md={6} sm={12}>
+                                        <List sx={{ display: "flex", float: { xs: "center" } }}>
+                                            <ListItem
+                                                sx={{
+                                                    flexDirection: "column",
+                                                    alignItems: "center",
+                                                }}>
+                                                <strong className="strong">{postsCount}</strong>
+                                                <CustomWidthTooltip
+                                                    sx={{
+                                                        maxWidth: { xs: "200px", md: "500px" },
+                                                        textAlign: "center",
+                                                    }}
+                                                    title={
+                                                        <FormattedMessage id="countAllReviews" />
+                                                    }
+                                                    placement="top">
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            justifyContent: "center",
+                                                        }}>
+                                                        <StarIcon
+                                                            sx={{ color: "white", mr: "5px" }}
+                                                        />
+                                                        <Typography
+                                                            sx={{ color: "white", mt: "3px" }}>
+                                                            <FormattedMessage id="reviews" />
+                                                        </Typography>
+                                                    </Box>
+                                                </CustomWidthTooltip>
+                                            </ListItem>
+                                        </List>
+                                    </Grid>
+                                </Grid>
+                                {currentUser && (
+                                    <Button
+                                        sx={{ float: "right", color: "white" }}
+                                        onClick={handleOpen}>
+                                        <FormattedMessage id="writeReview" />
                                     </Button>
-                                </Link>
+                                )}
+                            </Container>
+                        </div>
+                        <WriteReview onClose={handleClose} open={open} />
+                    </section>
+                    <section
+                        style={{
+                            backgroundColor: grey[200],
+                            paddingTop: "60px",
+                            paddingBottom: "35px",
+                        }}>
+                        <Container>
+                            {postsCount > 0 ? (
+                                posts.map((post) => (
+                                    <CardReviewFull
+                                        key={post.id}
+                                        post={post}
+                                        countUserLikes={countUserLikes}
+                                        getUserLikes={getUserLikes}
+                                    />
+                                ))
+                            ) : (
+                                <Box
+                                    sx={{
+                                        color: "white",
+                                        fontSize: { xs: "1.3rem", sm: "2rem" },
+                                        fontWeight: 500,
+                                        textAlign: "center",
+                                    }}>
+                                    <Typography
+                                        sx={{
+                                            fontSize: { xs: "1.3rem", sm: "2rem" },
+                                            fontWeight: 500,
+                                            mb: { xs: "20px", sm: "30px" },
+                                            color: "#051d4d",
+                                        }}>
+                                        <FormattedMessage id="beFirst" />
+                                    </Typography>
+                                    {currentUser ? (
+                                        <Button
+                                            variant="outlined"
+                                            sx={{ color: "#3578fa" }}
+                                            onClick={handleOpen}>
+                                            <FormattedMessage id="writeReview" />
+                                        </Button>
+                                    ) : (
+                                        <Link to="/login">
+                                            <Button variant="outlined" sx={{ color: "#3578fa" }}>
+                                                <FormattedMessage id="login" />
+                                            </Button>
+                                        </Link>
+                                    )}
+                                </Box>
                             )}
-                        </Box>
-                    )}
-                    {postsCount > 5 && (
-                        <Pagination count={pageCount} page={currentPage} onChange={pageHandler} />
-                    )}
-                </Container>
-            </section>
+                            {postsCount > 5 && (
+                                <Pagination
+                                    count={pageCount}
+                                    page={currentPage}
+                                    onChange={pageHandler}
+                                />
+                            )}
+                        </Container>
+                    </section>
+                </>
+            )}
         </>
     );
 };
