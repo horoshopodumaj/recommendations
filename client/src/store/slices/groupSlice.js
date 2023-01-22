@@ -7,6 +7,20 @@ export const getCategories = createAsyncThunk("categories/getCategories", async 
     return data;
 });
 
+export const createCategory = createAsyncThunk(
+    "categories/createCategory",
+    async (name, { rejectWithValue, dispatch }) => {
+        try {
+            const { data } = await axios.post(`${URL}/api/group`, {
+                name,
+            });
+            dispatch(getCategories());
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 const initialState = {
     categories: [],
     status: "loading",

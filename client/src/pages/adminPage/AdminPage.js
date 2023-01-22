@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import { URL } from "../../App";
 import Header from "../../components/header/Header";
 import { getAllUsers, selectAllUsers, selectAllUsersCount } from "../../store/slices/usersSlice";
-import { selectCategories } from "../../store/slices/groupSlice";
+import { createCategory, selectCategories } from "../../store/slices/groupSlice";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -34,6 +34,7 @@ export default function AdminPage() {
     const categories = useSelector(selectCategories);
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
+    const [name, setName] = useState("");
     const limit = 3;
 
     const getAllUsersFunc = () => {
@@ -44,6 +45,20 @@ export default function AdminPage() {
     const pageHandler = (event, value) => {
         setCurrentPage(value);
         window.scrollTo(0, 0);
+    };
+
+    const createCategoryHandler = () => {
+        if (name.trim().length) {
+            dispatch(createCategory(name));
+            setName("");
+        }
+    };
+
+    const onKeyDown = (event) => {
+        if (event.keyCode === 13 && name.trim().length) {
+            dispatch(createCategory(name));
+            setName("");
+        }
     };
 
     useEffect(() => {
@@ -69,8 +84,13 @@ export default function AdminPage() {
                                 </Typography>
                             </Box>
                             <Box sx={{ display: "flex", alignItems: "center" }}>
-                                <TextField size="small" />
-                                <IconButton>
+                                <TextField
+                                    size="small"
+                                    value={name}
+                                    onChange={(event) => setName(event.target.value)}
+                                    onKeyDown={onKeyDown}
+                                />
+                                <IconButton onClick={createCategoryHandler}>
                                     <SendIcon color="primary" />
                                 </IconButton>
                             </Box>
