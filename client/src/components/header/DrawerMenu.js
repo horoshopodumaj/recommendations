@@ -4,9 +4,11 @@ import LocalePicker from "./LocalePicker";
 import { Drawer, List, ListItem, ListItemButton, Box, IconButton } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { FormattedMessage } from "react-intl";
+import { useSelector } from "react-redux";
+import { selectCategories } from "../../store/slices/groupSlice";
 
 export default function DrawerMenu({ state, setState, toggleDrawer }) {
-    const pages = ["films", "books", "games"];
+    const pages = useSelector(selectCategories);
 
     return (
         <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
@@ -27,18 +29,18 @@ export default function DrawerMenu({ state, setState, toggleDrawer }) {
                 </Box>
                 <List>
                     {pages.map((page) => (
-                        <ListItem key={page}>
-                            <ListItemButton>
-                                <Link
-                                    to={`/${page.toLowerCase()}`}
-                                    style={{
-                                        textDecoration: "none",
-                                        textTransform: "uppercase",
-                                    }}>
-                                    <FormattedMessage id={`${page}`} />
-                                </Link>
-                            </ListItemButton>
-                        </ListItem>
+                        <Link key={page.id} to={`/${page.name.toLowerCase()}`}>
+                            <ListItem
+                                sx={{
+                                    "&:hover": {
+                                        color: "#1877F2",
+                                    },
+                                    textTransform: "uppercase",
+                                    color: "black",
+                                }}>
+                                <FormattedMessage id={`${page.name}`} />
+                            </ListItem>
+                        </Link>
                     ))}
                 </List>
             </Box>
