@@ -13,6 +13,8 @@ import Skeleton from "../../components/skeletons/Skeleton";
 import SkeletonTag from "../../components/skeletons/SkeletonTag";
 import { useGetTagsQuery } from "../../store/api/tagsApi";
 import { useGetMainPageReviewsQuery } from "../../store/api/reviewsApi";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 export default function MainPage() {
     const { data: tags = [], isLoading, error } = useGetTagsQuery();
@@ -28,6 +30,7 @@ export default function MainPage() {
     } = useGetMainPageReviewsQuery({ limit: 5, order: "rating" });
     const latestReviews = reviewsLatest.rows;
     const biggestRateReviews = reviewsBigRate.rows;
+    const currentUser = useSelector(selectCurrentUser);
 
     const tagsBox = useRef(null);
     const hasScroll = tags.length > 5;
@@ -269,11 +272,13 @@ export default function MainPage() {
                                 }}>
                                 <FormattedMessage id="LetHelpYouParagraph" />
                             </Typography>
-                            <Link to="/login">
-                                <Button className={style.button} variant="contained">
-                                    <FormattedMessage id="joinNow" />
-                                </Button>
-                            </Link>
+                            {!currentUser && (
+                                <Link to="/login">
+                                    <Button className={style.button} variant="contained">
+                                        <FormattedMessage id="joinNow" />
+                                    </Button>
+                                </Link>
+                            )}
                         </Box>
                     </Container>
                 </div>
