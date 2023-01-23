@@ -11,8 +11,6 @@ export default function ReviewPage() {
     const [countUserLikes, setCountUserLikes] = useState(0);
     const { id } = useParams();
 
-    console.log(id);
-
     const getPost = useCallback(async () => {
         try {
             await axios.get(`${URL}/api/review/${id}`).then((response) => {
