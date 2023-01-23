@@ -155,45 +155,49 @@ class ReviewController {
     }
 
     async getLatestReviews(req, res) {
-        let { limit, order, page } = req.query;
-        page = page || 1;
-        limit = limit || null;
-        let offset = page * limit - limit;
-        let queryParams = {
-            where: {},
-            order: [[order, "DESC"]],
-            limit: limit,
-            offset,
-            distinct: "Review.id",
-            include: [
-                {
-                    model: User,
-                    attributes: ["id", "name", "role"],
-                },
-                {
-                    model: Star,
-                    attributes: ["id", "value", "userId"],
-                    required: false,
-                },
-                {
-                    model: Group,
-                    attributes: ["id", "name"],
-                },
-                {
-                    model: Like,
-                    where: { value: true },
-                    attributes: ["id", "value", "userId"],
-                    required: false,
-                },
-                {
-                    model: Tag,
-                    required: false,
-                },
-            ],
-        };
+        try {
+            let { limit, order, page } = req.query;
+            page = page || 1;
+            limit = limit || null;
+            let offset = page * limit - limit;
+            let queryParams = {
+                where: {},
+                order: [[order, "DESC"]],
+                limit: limit,
+                offset,
+                distinct: "Review.id",
+                include: [
+                    {
+                        model: User,
+                        attributes: ["id", "name", "role"],
+                    },
+                    {
+                        model: Star,
+                        attributes: ["id", "value", "userId"],
+                        required: false,
+                    },
+                    {
+                        model: Group,
+                        attributes: ["id", "name"],
+                    },
+                    {
+                        model: Like,
+                        where: { value: true },
+                        attributes: ["id", "value", "userId"],
+                        required: false,
+                    },
+                    {
+                        model: Tag,
+                        required: false,
+                    },
+                ],
+            };
 
-        const reviews = await Review.findAndCountAll(queryParams);
-        return res.json(reviews);
+            const reviews = await Review.findAndCountAll(queryParams);
+            return res.json(reviews);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async getTotalLikes(req, res) {
