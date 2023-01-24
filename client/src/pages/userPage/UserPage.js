@@ -59,12 +59,12 @@ export default function UserPage() {
         window.scrollTo(0, 0);
     };
 
-    const getUserInfoTest = async () => {
+    const getUserInfoFunc = async () => {
         dispatch(getUserInfo({ id, limit, page: currentPage }));
     };
 
     useEffect(() => {
-        getUserInfoTest();
+        getUserInfoFunc();
     }, []);
 
     const getUserLikes = useCallback(async (userId) => {
@@ -83,7 +83,7 @@ export default function UserPage() {
     };
 
     useEffect(() => {
-        getUserInfoTest();
+        getUserInfoFunc();
     }, [currentPage, id]);
 
     const isUser =

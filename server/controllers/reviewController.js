@@ -1,6 +1,6 @@
 const uuid = require("uuid");
 const cloudinary = require("../utils/cloudinary");
-const { Review, Tag, TagReview, User, Group, Like, Star } = require("../models/models");
+const { Review, Tag, TagReview, User, Group, Like, Star, Comment } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const { Op } = require("sequelize");
 
@@ -88,6 +88,10 @@ class ReviewController {
                     model: Tag,
                     required: false,
                 },
+                {
+                    model: Comment,
+                    required: false,
+                },
             ],
         });
         return res.json(review);
@@ -146,6 +150,10 @@ class ReviewController {
                         model: Tag,
                         required: false,
                     },
+                    {
+                        model: Comment,
+                        required: false,
+                    },
                 ],
             });
             return res.json(reviews);
@@ -188,6 +196,10 @@ class ReviewController {
                     },
                     {
                         model: Tag,
+                        required: false,
+                    },
+                    {
+                        model: Comment,
                         required: false,
                     },
                 ],
