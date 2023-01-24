@@ -26,6 +26,7 @@ import axios from "axios";
 import { URL } from "../../App";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
+import Comment from "../comment/Comment";
 
 export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     const currentUser = useSelector(selectCurrentUser);
@@ -362,32 +363,21 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                 )}
                 {post.comments.length > 0 ? (
                     post.comments.map((comment) => (
-                        <Grid key={comment.id} container sx={{ paddingTop: "20px" }}>
-                            <Grid item xs={0} md={3} sx={{ display: { xs: "none", md: "block" } }}>
-                                Avatar
-                            </Grid>
-                            <Grid item xs={12} md={9}>
-                                <Link to={`/profile/${comment.userId}`} style={{ color: "black" }}>
-                                    <Typography
-                                        variant="h6"
-                                        sx={{
-                                            fontWeight: 400,
-                                            fontSize: "18px",
-                                            paddingBottom: "5px",
-                                        }}>
-                                        {post.user.name}
-                                    </Typography>
-                                </Link>
-
-                                <Typography>{comment.description}</Typography>
-                                <Typography sx={{ fontSize: "14px", opacity: 0.5 }}>
-                                    {comment.date}
-                                </Typography>
-                            </Grid>
-                        </Grid>
+                        <Comment key={comment.id} comment={comment} name={post.user.name} />
                     ))
                 ) : (
-                    <div>No comments</div>
+                    <Grid container sx={{ paddingTop: "20px" }}>
+                        <Grid
+                            item
+                            xs={0}
+                            md={3}
+                            sx={{ display: { xs: "none", md: "block" } }}></Grid>
+                        <Grid item xs={12} md={9}>
+                            <Typography>
+                                <FormattedMessage id="noComments" />
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 )}
             </Collapse>
         </Card>

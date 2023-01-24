@@ -97,6 +97,7 @@ export const messages = {
         addCategory: "Add a category",
         beFirst: "Be the first, write the first review",
         openSettings: "Open settings",
+        noComments: "No comments",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -141,7 +142,7 @@ export const messages = {
         published: "Опубликовано",
         authorAssessment: "Оценка автора ",
         yourRating: "Ваша оценка",
-        overallRating: "Общий рейтинг",
+        overallRati113ng: "Общий рейтинг",
         rateReview: "Оцените отзыв",
         hereAreReviewsOf: "здесь собраны отзывы на",
         countAllReviews: "Общее количество отзывов",
@@ -195,5 +196,6 @@ export const messages = {
         addCategory: "Добавить категорию",
         beFirst: "Будьте первой(-ым), напишите отзыв",
         openSettings: "Настройки",
+        noComments: "Нет комментариев",
     },
 };
