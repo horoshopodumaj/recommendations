@@ -28,8 +28,6 @@ import { URL } from "../../App";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
-const userName = "VeryLongNameJed VeryLongSurnameDodds";
-
 export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     const currentUser = useSelector(selectCurrentUser);
 
@@ -336,62 +334,35 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                 sx={{ padding: { xs: "20px 12px 0", sm: "0 25px" }, marginBottom: "30px" }}>
                 <Divider sx={{ mb: "15px", mx: "-25px" }} />
                 {/* <Typography>Comments</Typography> */}
-                <Grid container sx={{ flexDirection: { xs: "row" }, alignItems: "center" }}>
-                    <Grid item xs={2} md={3} sx={{ display: { xs: "none", sm: "block" } }}>
-                        <Box sx={{ mr: { xs: "0", md: "20px" }, mb: { xs: "10px" } }}>
-                            <UserAvatar width={"40px"} height={"40px"} name={userName} />
-                        </Box>
 
-                        <Box sx={{ display: { xs: "none", md: "inline-block" } }}>
-                            <Link to="/profile">
-                                <Typography
-                                    sx={{
-                                        mb: "10px",
-                                        textAlign: { xs: "left" },
-                                        fontSize: { xs: "0.9rem", sm: "1rem" },
-                                    }}>
-                                    {userName}
-                                </Typography>
-                            </Link>
-                        </Box>
-                    </Grid>
-                    <Grid
-                        item
-                        xs={10}
-                        md={9}
-                        sx={{
-                            display: "flex",
-                            //alignItems: "center",
-                            flexDirection: { xs: "column" },
-                            justifyContent: "center",
-                        }}>
-                        <Box sx={{ display: { xs: "inline-block", md: "none" } }}>
-                            <Link to="/profile">
-                                <Typography
-                                    sx={{
-                                        mb: "10px",
-                                        textAlign: { xs: "left" },
-                                        fontSize: { xs: "0.9rem", sm: "1rem" },
-                                    }}>
-                                    {userName}
-                                </Typography>
-                            </Link>
-                        </Box>
-
-                        <Grid container sx={{ alignItems: "center" }}>
-                            <Grid item xs={11}>
+                {currentUser && (
+                    <Grid container sx={{ flexDirection: { xs: "row" }, alignItems: "center" }}>
+                        <Grid
+                            item
+                            xs={0}
+                            md={3}
+                            sx={{ display: { xs: "none", sm: "block" } }}></Grid>
+                        <Grid
+                            item
+                            xs={12}
+                            md={9}
+                            sx={{
+                                display: "flex",
+                                flexDirection: { xs: "column" },
+                                justifyContent: "center",
+                            }}>
+                            <Box sx={{ display: "flex", width: { xs: "100%" } }}>
                                 <TextField
                                     fullWidth
-                                    placeholder={useFormatMessage("writeComment")}></TextField>
-                            </Grid>
-                            <Grid item xs={1}>
+                                    //size="small"
+                                    label={<FormattedMessage id="writeComment" />}></TextField>
                                 <IconButton>
                                     <SendIcon sx={{ color: "primary.main" }} />
                                 </IconButton>
-                            </Grid>
+                            </Box>
                         </Grid>
                     </Grid>
-                </Grid>
+                )}
             </Collapse>
         </Card>
     );
