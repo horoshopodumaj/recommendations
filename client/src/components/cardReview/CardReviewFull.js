@@ -20,20 +20,12 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import { FormattedMessage } from "react-intl";
 import { grey } from "@mui/material/colors";
-import { useFormatMessage } from "../../hooks/useFormatMessage";
 import SendIcon from "@mui/icons-material/Send";
 import UserAvatar from "../avatar/UserAvatar";
 import axios from "axios";
 import { URL } from "../../App";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
-
-const comments = [
-    { name: "User1", desc: "It's cool", data: "25.10.2022" },
-    { name: "User2", desc: "Thank you", data: "25.11.2022" },
-    { name: "User3", desc: "Спасибо", data: "25.12.2022" },
-    { name: "User4", desc: "Bravo", data: "26.10.2022" },
-];
 
 export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     const currentUser = useSelector(selectCurrentUser);
@@ -329,7 +321,7 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                                     fontWeight: 500,
                                     mt: "7px",
                                 }}>
-                                {113}
+                                {post.comments.length}
                             </Typography>
                         </Box>
                     </CardActions>
@@ -340,8 +332,6 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                 timeout="auto"
                 sx={{ padding: { xs: "20px 12px 0", sm: "0 25px" }, marginBottom: "30px" }}>
                 <Divider sx={{ mb: "15px", mx: "-25px" }} />
-                {/* <Typography>Comments</Typography> */}
-
                 {currentUser && (
                     <Grid container sx={{ flexDirection: { xs: "row" }, alignItems: "center" }}>
                         <Grid
@@ -370,24 +360,35 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                         </Grid>
                     </Grid>
                 )}
-                {comments.map((comment, index) => (
-                    <Grid key={index} container sx={{ paddingTop: "20px" }}>
-                        <Grid item xs={0} md={3} sx={{ display: { xs: "none", md: "block" } }}>
-                            Avatar
+                {post.comments.length > 0 ? (
+                    post.comments.map((comment) => (
+                        <Grid key={comment.id} container sx={{ paddingTop: "20px" }}>
+                            <Grid item xs={0} md={3} sx={{ display: { xs: "none", md: "block" } }}>
+                                Avatar
+                            </Grid>
+                            <Grid item xs={12} md={9}>
+                                <Link to={`/profile/${comment.userId}`} style={{ color: "black" }}>
+                                    <Typography
+                                        variant="h6"
+                                        sx={{
+                                            fontWeight: 400,
+                                            fontSize: "18px",
+                                            paddingBottom: "5px",
+                                        }}>
+                                        {post.user.name}
+                                    </Typography>
+                                </Link>
+
+                                <Typography>{comment.description}</Typography>
+                                <Typography sx={{ fontSize: "14px", opacity: 0.5 }}>
+                                    {comment.date}
+                                </Typography>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} md={9}>
-                            <Typography
-                                variant="h6"
-                                sx={{ fontWeight: 400, fontSize: "18px", paddingBottom: "5px" }}>
-                                {comment.name}
-                            </Typography>
-                            <Typography>{comment.desc}</Typography>
-                            <Typography sx={{ fontSize: "14px", opacity: 0.5 }}>
-                                {comment.data}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                ))}
+                    ))
+                ) : (
+                    <div>No comments</div>
+                )}
             </Collapse>
         </Card>
     );

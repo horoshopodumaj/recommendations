@@ -1,7 +1,7 @@
 const ApiError = require("../error/ApiError");
 const passport = require("passport");
 const errorLoginUrl = ` ${process.env.CLIENT_URL}`;
-const { User, Review, Group, Like, Star, TagReview, Tag } = require("../models/models");
+const { User, Review, Group, Like, Star, TagReview, Tag, Comment } = require("../models/models");
 const { validationResult } = require("express-validator");
 
 class UserController {
@@ -169,6 +169,10 @@ class UserController {
                         },
                         {
                             model: Tag,
+                            required: false,
+                        },
+                        {
+                            model: Comment,
                             required: false,
                         },
                     ],

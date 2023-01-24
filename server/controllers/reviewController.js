@@ -96,23 +96,23 @@ class ReviewController {
         });
         return res.json(review);
     }
-    async getUserReviews(req, res) {
-        const { id } = req.params;
-        const reviews = await Review.findAll({
-            where: { userId: id },
-            include: [
-                {
-                    model: User,
-                    attributes: ["id", "name", "role"],
-                },
-                {
-                    model: Group,
-                    attributes: ["id", "name"],
-                },
-            ],
-        });
-        return res.json(reviews);
-    }
+    // async getUserReviews(req, res) {
+    //     const { id } = req.params;
+    //     const reviews = await Review.findAll({
+    //         where: { userId: id },
+    //         include: [
+    //             {
+    //                 model: User,
+    //                 attributes: ["id", "name", "role"],
+    //             },
+    //             {
+    //                 model: Group,
+    //                 attributes: ["id", "name"],
+    //             },
+    //         ],
+    //     });
+    //     return res.json(reviews);
+    // }
     async getCategoryReviews(req, res) {
         let { limit, page } = req.query;
         page = page || 1;
