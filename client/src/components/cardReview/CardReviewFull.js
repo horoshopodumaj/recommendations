@@ -24,18 +24,20 @@ import SendIcon from "@mui/icons-material/Send";
 import UserAvatar from "../avatar/UserAvatar";
 import axios from "axios";
 import { URL } from "../../App";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 import Comment from "../comment/Comment";
+import { addComment, setComment } from "../../store/slices/commentSlice";
 
 export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     const currentUser = useSelector(selectCurrentUser);
-
+    const description = useSelector((state) => state.comment.comment);
     const [userRating, setUserRating] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
     const [totalLike, setTotalLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
     const [totalRating, setTotalRating] = useState(0);
+    const dispatch = useDispatch();
 
     const ratingFromUser = () => {
         const userRatePosts = currentUser
@@ -109,6 +111,38 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
 
     const commentHandler = () => {
         setExpanded(!expanded);
+    };
+
+    const addCommentHandler = (comment) => {
+        dispatch(addComment(comment));
+    };
+
+    const createCommentHandler = () => {
+        if (description.trim().length) {
+            dispatch(
+                setComment({
+                    description,
+                    date: Date.now(),
+                    userId: currentUser.id,
+                    reviewId: post.id,
+                })
+            );
+            dispatch(addComment(""));
+        }
+    };
+
+    const onKeyDown = (event) => {
+        if (event.keyCode === 13 && description.trim().length) {
+            dispatch(
+                setComment({
+                    description,
+                    date: Date.now(),
+                    userId: currentUser.id,
+                    revewId: post.id,
+                })
+            );
+            dispatch(addComment(""));
+        }
     };
 
     const date = Date.parse(post.createdAt);
@@ -353,8 +387,11 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                                 <TextField
                                     fullWidth
                                     //size="small"
+                                    value={description}
+                                    onKeyDown={onKeyDown}
+                                    onChange={(event) => addCommentHandler(event.target.value)}
                                     label={<FormattedMessage id="writeComment" />}></TextField>
-                                <IconButton>
+                                <IconButton onClick={createCommentHandler}>
                                     <SendIcon sx={{ color: "primary.main" }} />
                                 </IconButton>
                             </Box>
