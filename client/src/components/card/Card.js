@@ -21,7 +21,7 @@ export default function CardReview({ boxShadow, review }) {
     const desc = review.description.slice(0, 120);
     const [countUserLikes, setCountUserLikes] = useState(0);
     const [totalRating, setTotalRating] = useState(0);
-
+    // console.log(review);
     const totalRatingPost = useCallback(() => {
         const totalRating =
             review.stars.length > 0
@@ -79,11 +79,11 @@ export default function CardReview({ boxShadow, review }) {
                         <Box ml={2}>{`${totalRating} / 5.0`}</Box>{" "}
                     </Box>
                 }
-                subheader={`Films`}
+                subheader={review.group.name.toUpperCase()}
             />
             <CardContent sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
                 <Box sx={{ marginBottom: "10px" }}>
-                    <Link>
+                    <Link to={`profile/${review.userId}`}>
                         <Typography
                             component="span"
                             sx={{ fontWeight: 500, color: "black", marginRight: "8px" }}>
