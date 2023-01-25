@@ -10,6 +10,17 @@ class CommentController {
             console.log(error);
         }
     }
+    async getAllCommentsPost(req, res) {
+        try {
+            const { id } = req.params;
+            const comments = await Comment.findAll({
+                where: { reviewId: id },
+            });
+            return res.json(comments);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 module.exports = new CommentController();

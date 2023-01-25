@@ -24,20 +24,19 @@ import SendIcon from "@mui/icons-material/Send";
 import UserAvatar from "../avatar/UserAvatar";
 import axios from "axios";
 import { URL } from "../../App";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 import Comment from "../comment/Comment";
-import { addComment, setComment } from "../../store/slices/commentSlice";
 
 export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     const currentUser = useSelector(selectCurrentUser);
-    const description = useSelector((state) => state.comment.comment);
+    const [description, setDescription] = useState("");
+    const [comments, setComments] = useState([]);
     const [userRating, setUserRating] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
     const [totalLike, setTotalLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
     const [totalRating, setTotalRating] = useState(0);
-    const dispatch = useDispatch();
 
     const ratingFromUser = () => {
         const userRatePosts = currentUser
@@ -99,53 +98,67 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
         }
     };
 
-    useEffect(() => {
-        getUserLikes(post.userId);
-        totalRatingPost();
-    }, [getUserLikes, totalRatingPost, post.userId]);
-
-    useEffect(() => {
-        isUserLikesPost();
-        ratingFromUser();
-    }, []);
+    const getAllComments = async () => {
+        try {
+            const { data } = await axios.get(`${URL}/api/comment/review/${post.id}`);
+            setComments(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const commentHandler = () => {
         setExpanded(!expanded);
     };
 
-    const addCommentHandler = (comment) => {
-        dispatch(addComment(comment));
+    const addCommentHandler = async () => {
+        try {
+            const { data } = await axios.post(`${URL}/api/comment`, {
+                description,
+                date,
+                userId: currentUser.id,
+                reviewId: post.id,
+            });
+            getAllComments();
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const createCommentHandler = () => {
         if (description.trim().length) {
-            dispatch(
-                setComment({
-                    description,
-                    date: Date.now(),
-                    userId: currentUser.id,
-                    reviewId: post.id,
-                })
-            );
-            dispatch(addComment(""));
+            addCommentHandler();
+            setDescription("");
         }
     };
 
     const onKeyDown = (event) => {
         if (event.keyCode === 13 && description.trim().length) {
-            dispatch(
-                setComment({
-                    description,
-                    date: Date.now(),
-                    userId: currentUser.id,
-                    revewId: post.id,
-                })
-            );
-            dispatch(addComment(""));
+            addCommentHandler();
+            setDescription("");
         }
     };
 
     const date = Date.parse(post.createdAt);
+
+    useEffect(() => {
+        getUserLikes(post.userId);
+        totalRatingPost();
+    }, [getUserLikes, totalRatingPost, post.userId]);
+
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         getAllComments();
+    //     }, 5000);
+    //     return () => clearTimeout(timer);
+    // }, []);
+
+    useEffect(() => {
+        isUserLikesPost();
+        ratingFromUser();
+        getAllComments();
+    }, []);
 
     return (
         <Card sx={{ mb: "30px" }}>
@@ -166,7 +179,6 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                                 horizontal: "right",
                             }}>
                             <UserAvatar width={"50px"} height={"50px"} name={post.user.name} />
-                            {/* <Avatar sx={{ width: "50px", height: "50px" }} alt={post.user.name} /> */}
                         </Badge>
                     </Box>
                     <Link to={`/profile/${post.user.id}`}>
@@ -356,7 +368,7 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                                     fontWeight: 500,
                                     mt: "7px",
                                 }}>
-                                {post.comments.length}
+                                {comments.length}
                             </Typography>
                         </Box>
                     </CardActions>
@@ -386,10 +398,9 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                             <Box sx={{ display: "flex", width: { xs: "100%" } }}>
                                 <TextField
                                     fullWidth
-                                    //size="small"
                                     value={description}
                                     onKeyDown={onKeyDown}
-                                    onChange={(event) => addCommentHandler(event.target.value)}
+                                    onChange={(event) => setDescription(event.target.value)}
                                     label={<FormattedMessage id="writeComment" />}></TextField>
                                 <IconButton onClick={createCommentHandler}>
                                     <SendIcon sx={{ color: "primary.main" }} />
@@ -398,8 +409,8 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                         </Grid>
                     </Grid>
                 )}
-                {post.comments.length > 0 ? (
-                    post.comments.map((comment) => (
+                {comments.length > 0 ? (
+                    comments.map((comment) => (
                         <Comment key={comment.id} comment={comment} name={post.user.name} />
                     ))
                 ) : (
