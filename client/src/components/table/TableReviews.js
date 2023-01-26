@@ -8,10 +8,11 @@ import {
     TableRow,
 } from "@mui/material";
 import { useState } from "react";
+import { FormattedMessage } from "react-intl";
 
 import EditReview from "../editReview/EditReview";
 
-export default function TableReviews({ posts, getUserInfoFunc }) {
+export default function TableReviews({ posts, getUserInfoFunc, editOpen }) {
     const [postId, setPostId] = useState(null);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -27,18 +28,35 @@ export default function TableReviews({ posts, getUserInfoFunc }) {
 
     return (
         <>
+            <Button variant="outlined" sx={{ float: "right" }} onClick={editOpen}>
+                <FormattedMessage id="close" />
+            </Button>
             <TableContainer>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>id</TableCell>
-                            <TableCell>work Name</TableCell>
-                            <TableCell>Category</TableCell>
-                            <TableCell>title</TableCell>
-                            <TableCell>description</TableCell>
-                            <TableCell>image</TableCell>
-                            <TableCell>rating</TableCell>
-                            <TableCell>Edit</TableCell>
+                            <TableCell align="center">id</TableCell>
+                            <TableCell align="center">
+                                <FormattedMessage id="tableWorkName" />
+                            </TableCell>
+                            <TableCell align="center">
+                                <FormattedMessage id="category" />
+                            </TableCell>
+                            <TableCell align="center">
+                                <FormattedMessage id="tableTitle" />
+                            </TableCell>
+                            <TableCell align="center">
+                                <FormattedMessage id="tableDesc" />
+                            </TableCell>
+                            <TableCell align="center">
+                                <FormattedMessage id="tableImage" />
+                            </TableCell>
+                            <TableCell align="center">
+                                <FormattedMessage id="tableRating" />
+                            </TableCell>
+                            <TableCell align="center">
+                                <FormattedMessage id="edit" />
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -46,7 +64,7 @@ export default function TableReviews({ posts, getUserInfoFunc }) {
                             <TableRow key={post.id}>
                                 <TableCell>{post.id}</TableCell>
                                 <TableCell>{post.workName}</TableCell>
-                                <TableCell>{post.group.name}</TableCell>
+                                <TableCell>{post.group.name.toUpperCase()}</TableCell>
                                 <TableCell>{post.title}</TableCell>
                                 <TableCell>{post.description}</TableCell>
                                 <TableCell>
@@ -58,7 +76,9 @@ export default function TableReviews({ posts, getUserInfoFunc }) {
                                 </TableCell>
                                 <TableCell>{post.rating}</TableCell>
                                 <TableCell>
-                                    <Button onClick={() => test(post)}>Edit</Button>
+                                    <Button onClick={() => test(post)}>
+                                        <FormattedMessage id="tableEdit" />
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         ))}
