@@ -227,6 +227,50 @@ class ReviewController {
         });
         return res.json(rows);
     }
+
+    async update(req, res, next) {
+        const { id } = req.params;
+        try {
+            let { title, workName, description, groupId, rating, tag, image } = req.body;
+            let uploadResponse;
+            if (!!image) {
+                uploadResponse = await cloudinary.uploader.upload(image, {
+                    folder: "recommend",
+                });
+            } else {
+                console.log(54);
+                uploadResponse = {
+                    secure_url: null,
+                };
+            }
+            tag = JSON.parse(tag);
+            const newTags = tag.filter((item) => item.inputValue);
+            const tagsId = tag.filter((item) => item.id);
+            newTags.forEach(async (item) => {
+                const name = item.name;
+                const newTagId = await Tag.create({ name });
+                tagsId.push(newTagId.dataValues);
+            });
+            const review = await Review.update(
+                {
+                    title,
+                    workName,
+                    description,
+                    groupId,
+                    rating,
+                    image: uploadResponse.secure_url,
+                },
+                { where: { id } }
+            );
+            tagsId.forEach(async (item) => {
+                const id = item.id;
+                const newRelation = await TagReview.create({ tagId: id, reviewId: review.id });
+            });
+            return res.json({ message: "success" });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 module.exports = new ReviewController();

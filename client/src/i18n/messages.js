@@ -98,6 +98,7 @@ export const messages = {
         beFirst: "Be the first, write the first review",
         openSettings: "Open settings",
         noComments: "No comments",
+        editReview: "Edit the review",
     },
     [LOCALES.RU]: {
         films: "фильмы",
@@ -197,5 +198,6 @@ export const messages = {
         beFirst: "Будьте первой(-ым), напишите отзыв",
         openSettings: "Настройки",
         noComments: "Нет комментариев",
+        editReview: "Редактировать отзыв",
     },
 };

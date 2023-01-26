@@ -1,15 +1,14 @@
 import { Box, Rating, TextField, Typography, Modal, Button, IconButton } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import CloseIcon from "@mui/icons-material/Close";
-import styles from "./WriteReview.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import axios from "axios";
 import { URL } from "../../App";
 import ChildModal from "../childModal/ChildModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectCategories } from "../../store/slices/groupSlice";
-import { getTags, selectTags } from "../../store/slices/tagsSlice";
+import { selectTags } from "../../store/slices/tagsSlice";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 
 const maxLength = 60;
@@ -32,30 +31,25 @@ const style = {
     overflowY: "auto",
 };
 
-export default function WriteReview({ open, onClose }) {
+export default function EditReview({ open, onClose, posts, postId, getUserInfoFunc }) {
     const categories = useSelector(selectCategories);
     const tags = useSelector(selectTags);
     const currentUser = useSelector(selectCurrentUser);
-
-    const [rating, setRating] = useState(5);
-    const [category, setCategory] = useState({});
-    const [workName, setWorkName] = useState("");
-    const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
-    const [tag, setTag] = useState([]);
+    const post = posts.filter((post) => post.id === postId);
+    const [rating, setRating] = useState(post[0].rating);
+    const [category, setCategory] = useState(post[0].group);
+    const [workName, setWorkName] = useState(post[0].workName);
+    const [title, setTitle] = useState(post[0].title);
+    const [desc, setDesc] = useState(post[0].description);
+    const [tag, setTag] = useState(post[0].tags);
     const [maxLengthName, setMaxLengthName] = useState(maxLength);
     const [maxLengthDesc, setMaxLengthDesc] = useState(maxLengthDescription);
     const [maxLengthTitleReview, setMaxLengthTitleReview] = useState(maxLength);
-    const [previewSource, setPreviewSource] = useState();
+    const [previewSource, setPreviewSource] = useState(post[0].image);
 
     const onFilesChange = (event) => {
         const file = event.target.files[0];
         previewFile(file);
-    };
-    const dispatch = useDispatch();
-
-    const getTheTags = async () => {
-        dispatch(getTags());
     };
 
     const previewFile = (file) => {
@@ -102,13 +96,12 @@ export default function WriteReview({ open, onClose }) {
         formData.append("workName", workName);
         formData.append("description", desc);
         formData.append("rating", rating);
-        formData.append("groupId", category[0].id);
-        formData.append("userId", currentUser.id);
+        formData.append("groupId", category.id);
         formData.append("tag", JSON.stringify(tag));
         formData.append("image", previewSource);
         try {
             await axios
-                .post(`${URL}/api/review`, formData)
+                .post(`${URL}/api/review/update/${post[0].id}`, formData)
                 .then((response) => console.log(response.data));
             onClose();
             setWorkName("");
@@ -117,20 +110,18 @@ export default function WriteReview({ open, onClose }) {
             setTag([]);
             setRating(0);
             setPreviewSource();
+            getUserInfoFunc();
         } catch (error) {
             console.log(error);
         }
     };
-
-    useEffect(() => {
-        getTheTags();
-    }, []);
     return (
         <Modal
             open={open}
             aria-labelledby="parent-modal-title"
             aria-describedby="parent-modal-description">
             <form onSubmit={(event) => addReview(event)}>
+                <Button>{postId}</Button>
                 <Box sx={style}>
                     <IconButton
                         onClick={onClose}
@@ -152,7 +143,7 @@ export default function WriteReview({ open, onClose }) {
                             mb: "8px",
                             textAlign: { xs: "center", sm: "left" },
                         }}>
-                        <FormattedMessage id="writeReview" />
+                        <FormattedMessage id="editReview" />
                     </Typography>
 
                     <Box sx={{ mb: "8px" }}>

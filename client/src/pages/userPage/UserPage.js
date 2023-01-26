@@ -245,7 +245,7 @@ export default function UserPage() {
                         }}>
                         {edit ? (
                             <Container>
-                                <TableReviews posts={posts} />
+                                <TableReviews posts={posts} getUserInfoFunc={getUserInfoFunc} />
                                 <Button onClick={editOpen}>Cancel</Button>
                             </Container>
                         ) : (

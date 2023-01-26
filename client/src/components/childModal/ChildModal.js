@@ -186,8 +186,12 @@ export default function ChildModal({
                                             textAlign: "right",
                                             textTransform: "capitalize",
                                         }}>
-                                        {Object.keys(category).length > 0 && (
+                                        {Array.isArray(category) ? (
                                             <FormattedMessage id={`${category[0].name}`} />
+                                        ) : (
+                                            Object.keys(category).length > 0 && (
+                                                <FormattedMessage id={`${category.name}`} />
+                                            )
                                         )}
                                     </Typography>
                                 </Box>
