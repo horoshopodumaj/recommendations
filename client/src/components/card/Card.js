@@ -76,7 +76,7 @@ export default function CardReview({ boxShadow, review }) {
                 title={
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Rating readOnly precision={0.1} name="totalRating" value={totalRating} />{" "}
-                        <Box ml={2}>{`${totalRating} / 5.0`}</Box>{" "}
+                        <Box ml={2}>{`${totalRating.toFixed(1)} / 5.0`}</Box>{" "}
                     </Box>
                 }
                 subheader={review.group.name.toUpperCase()}
