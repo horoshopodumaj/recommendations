@@ -5,7 +5,7 @@ export const messages = {
         films: "films",
         books: "books",
         games: "games",
-        "TV-show": "tv-show",
+        "TV-show": "TV-show",
         my_account: "My account",
         login: "login",
         Logout: "Logout",

@@ -67,16 +67,16 @@ export default function UserPage() {
         getUserInfoFunc();
     }, []);
 
-    const getUserLikes = useCallback(async (userId) => {
-        // try {
-        //     await axios
-        //         .get(`${URL}/api/user/likes/${userId}`)
-        //         .then((response) => setCountUserLikes(response.data.count));
-        // } catch (error) {
-        //     console.log(error);
-        // }
-        console.log(userId);
-    }, []);
+    // const getUserLikes = useCallback(async (userId) => {
+    //     // try {
+    //     //     await axios
+    //     //         .get(`${URL}/api/user/likes/${userId}`)
+    //     //         .then((response) => setCountUserLikes(response.data.count));
+    //     // } catch (error) {
+    //     //     console.log(error);
+    //     // }
+    //     console.log(userId);
+    // }, []);
 
     const editOpen = () => {
         setEdit(!edit);
@@ -258,8 +258,8 @@ export default function UserPage() {
                                         <CardReviewFull
                                             key={post.id}
                                             post={post}
-                                            countUserLikes={countUserLikes}
-                                            getUserLikes={getUserLikes}
+                                            //countUserLikes={countUserLikes}
+                                            //getUserLikes={getUserLikes}
                                         />
                                     ))
                                 ) : isUser ? (

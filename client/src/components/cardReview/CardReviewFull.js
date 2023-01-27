@@ -28,7 +28,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 import Comment from "../comment/Comment";
 
-export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
+export default function CardReviewFull({ post }) {
     const currentUser = useSelector(selectCurrentUser);
     const [description, setDescription] = useState("");
     const [comments, setComments] = useState([]);
@@ -37,7 +37,8 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     const [totalLike, setTotalLike] = useState(post.likes.length);
     const [expanded, setExpanded] = useState(false);
     const [totalRating, setTotalRating] = useState(0);
-
+    const [countUserLikes, setCountUserLikes] = useState(0);
+    //console.log(post);
     const ratingFromUser = () => {
         const userRatePosts = currentUser
             ? currentUser.stars.filter((star) => star.reviewId === post.id).length > 0
@@ -62,6 +63,16 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
         setTotalRating(totalRating);
     }, [post.stars]);
 
+    const getUserLikes = useCallback(async () => {
+        try {
+            await axios
+                .get(`${URL}/api/user/likes/${post.userId}`)
+                .then((response) => setCountUserLikes(response.data.count));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
     const likeHandler = async () => {
         try {
             await axios
@@ -74,7 +85,7 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
             await axios
                 .get(`${URL}/api/review/likes/${post.id}`)
                 .then((response) => setTotalLike(response.data));
-            getUserLikes(post.userId);
+            getUserLikes();
         } catch (error) {
             console.log(error);
         }
@@ -143,7 +154,7 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
     const date = Date.parse(post.createdAt);
 
     useEffect(() => {
-        getUserLikes(post.userId);
+        getUserLikes();
         totalRatingPost();
     }, [getUserLikes, totalRatingPost, post.userId]);
 
@@ -219,7 +230,7 @@ export default function CardReviewFull({ post, countUserLikes, getUserLikes }) {
                                     fontSize: "14px",
                                     fontWeight: "500",
                                     ml: "8px",
-                                }}>{`${totalRating} / 5.0`}</Box>
+                                }}>{`${totalRating.toFixed(1)} / 5.0`}</Box>
                         </Box>
                     </Box>
                     {post.image && (

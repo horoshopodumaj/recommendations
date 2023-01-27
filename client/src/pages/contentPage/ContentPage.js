@@ -41,7 +41,7 @@ const ContentPage = ({ category }) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [countUserLikes, setCountUserLikes] = useState(0);
+    //const [countUserLikes, setCountUserLikes] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 5;
 
@@ -66,16 +66,16 @@ const ContentPage = ({ category }) => {
         getGroupPostsTest();
     }, []);
 
-    const getUserLikes = useCallback(async (userId) => {
-        try {
-            await axios
-                .get(`${URL}/api/user/likes/${userId}`)
-                .then((response) => setCountUserLikes(response.data.count));
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
-
+    // const getUserLikes = useCallback(async (userId) => {
+    //     try {
+    //         await axios
+    //             .get(`${URL}/api/user/likes/${userId}`)
+    //             .then((response) => setCountUserLikes(response.data.count));
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }, []);
+    //console.log(countUserLikes);
     useEffect(() => {
         getGroupPostsTest();
     }, [currentPage, category.id]);
@@ -200,8 +200,8 @@ const ContentPage = ({ category }) => {
                                     <CardReviewFull
                                         key={post.id}
                                         post={post}
-                                        countUserLikes={countUserLikes}
-                                        getUserLikes={getUserLikes}
+                                        //countUserLikes={countUserLikes}
+                                        //getUserLikes={getUserLikes}
                                     />
                                 ))
                             ) : (
