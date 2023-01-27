@@ -121,7 +121,6 @@ export default function EditReview({ open, onClose, posts, postId, getUserInfoFu
             aria-labelledby="parent-modal-title"
             aria-describedby="parent-modal-description">
             <form onSubmit={(event) => addReview(event)}>
-                <Button>{postId}</Button>
                 <Box sx={style}>
                     <IconButton
                         onClick={onClose}

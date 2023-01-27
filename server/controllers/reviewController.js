@@ -263,8 +263,8 @@ class ReviewController {
                 { where: { id } }
             );
             tagsId.forEach(async (item) => {
-                const id = item.id;
-                const newRelation = await TagReview.create({ tagId: id, reviewId: review.id });
+                const idTag = item.id;
+                const newRelation = await TagReview.create({ tagId: idTag, reviewId: id });
             });
             return res.json({ message: "success" });
         } catch (error) {

@@ -40,24 +40,31 @@ const Login = () => {
     const [switcher, setSwitcher] = useState(false);
     const [type, setType] = useState(false);
     const [typeLogin, setTypeLogin] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleSwitcher = () => {
         setSwitcher(!switcher);
     };
 
     const auth = (socialMedia) => {
-        if (socialMedia === "Google") {
-            window.open(`${URL}/api/user/login/google`, "_self");
-        }
-        if (socialMedia === "GitHub") {
-            window.open(`${URL}/api/user/login/github`, "_self");
-        }
-        if (socialMedia === "Twitter") {
-            window.open(`${URL}/api/user/login/twitter`, "_self");
+        setLoading(true);
+        try {
+            if (socialMedia === "Google") {
+                window.open(`${URL}/api/user/login/google`, "_self");
+            }
+            if (socialMedia === "GitHub") {
+                window.open(`${URL}/api/user/login/github`, "_self");
+            }
+            if (socialMedia === "Twitter") {
+                window.open(`${URL}/api/user/login/twitter`, "_self");
+            }
+        } catch (error) {
+            console.log(error);
         }
     };
     return (
         <section className={style.container}>
+            {loading && <div className={style.loading}>LOading</div>}
             <Box
                 className={style.wpapper}
                 sx={{
@@ -83,6 +90,7 @@ const Login = () => {
                     {buttonsOptions.map((item) => (
                         <Button
                             fullWidth
+                            disabled={loading}
                             key={item.socialMedia}
                             endIcon={item.icon}
                             sx={{
