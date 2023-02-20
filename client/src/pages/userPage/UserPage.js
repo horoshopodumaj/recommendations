@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Header from "../../components/header";
+import React, { useEffect, useState } from "react";
 import {
     Box,
     Button,
@@ -99,7 +98,6 @@ export default function UserPage() {
 
     return (
         <>
-            <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
             {status === "error" ? (
                 <div style={{ marginTop: "16px" }}>
                     <FormattedMessage id="error" />

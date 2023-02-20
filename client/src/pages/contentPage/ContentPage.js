@@ -1,4 +1,3 @@
-import Header from "../../components/header";
 import { styled } from "@mui/material/styles";
 import { FormattedMessage } from "react-intl";
 import {
@@ -16,9 +15,7 @@ import StarIcon from "@mui/icons-material/Star";
 import CardReviewFull from "../../components/cardReview";
 import { grey } from "@mui/material/colors";
 import WriteReview from "../../components/writeReview/WriteReview";
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
-import { URL } from "../../App";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
 import {
@@ -86,7 +83,6 @@ const ContentPage = ({ category }) => {
     }, [category]);
     return (
         <>
-            <Header />
             {status === "error" ? (
                 <div style={{ marginTop: "16px" }}>
                     <FormattedMessage id="error" />

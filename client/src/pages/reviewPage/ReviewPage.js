@@ -2,7 +2,6 @@ import { Container } from "@mui/system";
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import CardReviewFull from "../../components/cardReview";
-import Header from "../../components/header";
 import axios from "axios";
 import { URL } from "../../App";
 
@@ -50,21 +49,18 @@ export default function ReviewPage() {
     }, []);
 
     return (
-        <>
-            <Header position={"fixed"} isScrolled={true} boxShadow={"none"} />
-            <section className="user_summary">
-                <div className="wrapper">
-                    <Container>
-                        {post.id && (
-                            <CardReviewFull
-                                post={post}
-                                countUserLikes={countUserLikes}
-                                getUserLikes={getUserLikes}
-                            />
-                        )}
-                    </Container>
-                </div>
-            </section>
-        </>
+        <section className="user_summary">
+            <div className="wrapper">
+                <Container>
+                    {post.id && (
+                        <CardReviewFull
+                            post={post}
+                            countUserLikes={countUserLikes}
+                            getUserLikes={getUserLikes}
+                        />
+                    )}
+                </Container>
+            </div>
+        </section>
     );
 }

@@ -198,6 +198,7 @@ export default function CardReviewFull({ post }) {
                                 mb: "10px",
                                 fontWeight: 500,
                                 textAlign: { xs: "center", sm: "left" },
+                                color: "black",
                             }}>
                             {post.user.name}
                         </Typography>

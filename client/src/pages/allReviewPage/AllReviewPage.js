@@ -1,4 +1,3 @@
-import Header from "../../components/header";
 import { styled } from "@mui/material/styles";
 import { FormattedMessage } from "react-intl";
 import {
@@ -106,7 +105,6 @@ export default function AllReviewPage() {
     }, []);
     return (
         <>
-            <Header />
             <section className="user_summary">
                 <div className="wrapper">
                     <Container>

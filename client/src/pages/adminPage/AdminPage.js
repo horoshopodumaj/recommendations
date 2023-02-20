@@ -18,7 +18,6 @@ import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { URL } from "../../App";
-import Header from "../../components/header/Header";
 import { getAllUsers, selectAllUsers, selectAllUsersCount } from "../../store/slices/usersSlice";
 import { createCategory, selectCategories } from "../../store/slices/groupSlice";
 
@@ -66,7 +65,6 @@ export default function AdminPage() {
     }, [currentPage]);
     return (
         <>
-            <Header />
             <section className="user_summary">
                 <div className="wrapper">
                     <Container sx={{ textAlign: "center", fontSize: "28px", color: "white" }}>

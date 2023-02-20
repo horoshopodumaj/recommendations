@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import style from "./MainPage.module.scss";
 import { useScrollbar } from "../../hooks/useScrollbar";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import Header from "../../components/header";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -43,7 +42,6 @@ export default function MainPage() {
 
     return (
         <>
-            <Header backgroundColor={"transparent"} color={true} />
             <section className={style.banner}>
                 <div className={style.wrapper}>
                     <Container>
