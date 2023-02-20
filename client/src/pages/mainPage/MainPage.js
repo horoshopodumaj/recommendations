@@ -237,7 +237,19 @@ export default function MainPage() {
                                 <p>Приносим свои извинения, мы скоро всё починим.</p>
                             </div>
                         ) : isLoadingRevBR ? (
-                            [...new Array(2)].map((_, index) => <Skeleton key={index} />)
+                            [...new Array(2)].map((_, index) => (
+                                <Grid
+                                    item
+                                    key={index}
+                                    xs={12}
+                                    md={6}
+                                    sm={3}
+                                    sx={{
+                                        display: { md: "inline", xs: "flex" },
+                                    }}>
+                                    <Skeleton style={{ margin: "0 auto" }} />
+                                </Grid>
+                            ))
                         ) : (
                             <Carousel reviews={biggestRateReviews} />
                         )}
