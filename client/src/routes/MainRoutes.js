@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MainPage from "../pages/mainPage";
 import AllReviewPage from "../pages/allReviewPage";
-import UserPage from "../pages/userPage";
 import ReviewPage from "../pages/reviewPage";
 import TagsPage from "../pages/tagsPage";
 import ContentPage from "../pages/contentPage";
@@ -11,10 +10,17 @@ import NotFound from "../pages/notFound/NotFound";
 import { selectCategories } from "../store/slices/groupSlice";
 import { selectCurrentUser } from "../store/slices/currentUserSlice";
 import MainLayout from "../layouts/MainLayout";
+import Loadable from "react-loadable";
+import Spinner from "../components/spiner/Spiner";
 
 function MainRoutes() {
     const categories = useSelector(selectCategories);
     const currentUser = useSelector(selectCurrentUser);
+
+    const UserPage = Loadable({
+        loader: () => import(/* webpackChunkName: "UserPage" */ "../pages/userPage"),
+        loading: () => <Spinner />,
+    });
 
     return (
         <>
