@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import style from "./Header.module.scss";
-import { AppBar, Toolbar, Typography, Box, Button, IconButton } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
-import Search from "./Search";
-import UserAuth from "./UserAuth";
-import DrawerMenu from "./DrawerMenu";
-import Chapters from "./Chapters";
+import SearchIcon from "@mui/icons-material/Search";
+import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { selectCurrentUser } from "../../store/slices/currentUserSlice";
+import Chapters from "./Chapters";
+import DrawerMenu from "./DrawerMenu";
+import style from "./Header.module.scss";
+import UserAuth from "./UserAuth";
 
 const Header = ({ backgroundColor, color }) => {
     const currentUser = useSelector(selectCurrentUser);
@@ -77,10 +76,7 @@ const Header = ({ backgroundColor, color }) => {
                         color: "inherit",
                         textDecoration: "none",
                     }}>
-                    <Link
-                        to="/"
-                        style={{ color: color ? "white" : "black" }}
-                        className={style.logo + " " + style.appbar__logo}>
+                    <Link to="/" style={{ color: color ? "white" : "black" }} className={style.logo + " " + style.appbar__logo}>
                         LOGO
                     </Link>
                 </Typography>
@@ -91,13 +87,10 @@ const Header = ({ backgroundColor, color }) => {
                     <SearchIcon />
                 </IconButton>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                    <Link
-                        style={{ color: color ? "white" : "black" }}
-                        to="/"
-                        className={style.logo + " " + style.appbar__logo}>
+                    <Link style={{ color: color ? "white" : "black" }} to="/" className={style.logo + " " + style.appbar__logo}>
                         LOGO
                     </Link>
-                    <Search color={color} />
+                    {/* <Search color={color} /> */}
                 </Box>
                 <Chapters color={color} />
                 {isAuth ? (
@@ -105,10 +98,7 @@ const Header = ({ backgroundColor, color }) => {
                 ) : (
                     <Box sx={{ display: "flex" }}>
                         <Link to="/login" className={style.chapter}>
-                            <Button
-                                sx={{ my: 2, display: "block", color: color ? "white" : "black" }}>
-                                login
-                            </Button>
+                            <Button sx={{ my: 2, display: "block", color: color ? "white" : "black" }}>login</Button>
                         </Link>
                     </Box>
                 )}
